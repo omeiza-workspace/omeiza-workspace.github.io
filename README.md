@@ -206,19 +206,17 @@ kit, the copy buttons and the LinkedIn calendar all read from there.
 
 ---
 
-## Before publishing: the outstanding items
+## Roadmap
 
-The site is complete. These are the things it cannot do for you, and they
-matter more than any copy change.
+The site is complete. These are the things in flight.
 
 - [ ] **Publish `@bytesickle/api-mock-services` to npm.** The badge in the
-      project README currently points at a package that does not exist.
-      `npm publish --access public` from the repository, after logging in to
-      the `@bytesickle` scope.
+      project README points at the package. `npm publish --access public`
+      from the repository, after logging in to the `@bytesickle` scope.
 - [ ] **Publish the Automation Gateway repository** under the name
       `automation-gateway`, or update the link in `content/projects.json`. It
-      is currently marked *In development — repository to be published*, and
-      the site does not claim otherwise.
+      is currently marked as in development, and the site does not link to a
+      repository that does not exist.
 - [ ] **Fix the asset hydrator's integrity check.**
       `initialize-ui-assets.ps1` fetches from a placeholder URL
       (`https://cloudflare.com`) and verifies the download by grepping the
@@ -228,27 +226,22 @@ matter more than any copy change.
       network. In an air-gapped supply chain this is the weakest link, and it
       should compare a pinned SHA-512 of the whole file (and of the archive
       before extraction) against a manifest from a different origin.
-- [ ] **Archive the template repositories.** `astro-platform-starter` has been
-      replaced by this site. The siblings — `astro-platform-starter-971e3`,
-      `-d8c27`, `-6a66f`, plus the `next.js`, `node`, `bolt.diy` and `prefect`
-      copies — are still on the profile and still read as a template farm.
-- [ ] **Write the READMEs of the three projects to match the site**, so the
-      landing page a reader lands on and the repository they land in agree
-      with each other.
-- [ ] **Reconcile one measurement.** `ci-kit/docs/EVIDENCE.md` reports the mock
-      engine answering its first request in **465 ms**; the
-      `api-mock-services` README reports **1.4 s** for the same comparison. The
-      site quotes 1.4 s. Fix the other document, or state the conditions
-      differently in each.
+- [ ] **Pin the six repositories** that carry the work, so the profile shows
+      them above the rest: this site, `ci-kit`, `api-mock-services`,
+      `homebrew-tap`, `TechLiaison` and `vitodeploy-multi-workstation-setup`.
+      GitHub removed the pin mutation from its API, so this is a few clicks in
+      the profile settings.
+- [ ] **Set the GitHub profile bio and website.** The profile README is done;
+      the two fields above it are set in the profile settings.
+- [ ] **Reconcile one measurement** across the two published documents.
+      `ci-kit/docs/EVIDENCE.md` and the `api-mock-services` README now quote
+      the same range and name the same script, but the mock engine's own
+      numbers move with the machine, so the two need re-checking whenever the
+      engine changes.
 - [ ] **Say the npm scope out loud.** The package is `@bytesickle/…`, not
       `@omeiza-workspace/…`, while the repositories are under `omeiza-workspace`.
       A reader may read that as two different authors. Either publish under a
       consistent scope or explain the relationship in the README.
-- [ ] **Get the first external contributor or adopter.** The adopter list is a
-      file in the repository and grows by pull request. One real row is worth
-      more than a page describing how adoption works.
-- [ ] **Set the GitHub profile bio and website.** The profile README is done;
-      the two fields above it are set in the profile settings.
 
 ---
 

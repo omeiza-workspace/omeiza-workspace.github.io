@@ -27,7 +27,14 @@
         "openIssues": 0,
         "license": "MIT",
         "language": "Shell",
-        "topics": ["ci-cd", "github-actions", "developer-experience", "shell", "local-first", "act"],
+        "topics": [
+          "ci-cd",
+          "github-actions",
+          "developer-experience",
+          "shell",
+          "local-first",
+          "act"
+        ],
         "lastPush": "2026-10-21",
         "evidence": "https://github.com/omeiza-workspace/ci-kit/blob/main/docs/EVIDENCE.md",
         "site": "https://omeiza-workspace.github.io/ci-kit/"
@@ -42,7 +49,15 @@
         "openIssues": 0,
         "license": "MIT",
         "language": "JavaScript",
-        "topics": ["mocking", "offline", "payments", "fintech", "testing", "zero-dependency", "nodejs"],
+        "topics": [
+          "mocking",
+          "offline",
+          "payments",
+          "fintech",
+          "testing",
+          "zero-dependency",
+          "nodejs"
+        ],
         "lastPush": "2026-10-21",
         "evidence": "https://github.com/omeiza-workspace/api-mock-services/blob/main/ARCHITECTURE.md",
         "site": "https://omeiza-workspace.github.io/api-mock-services/"
@@ -69,7 +84,7 @@
     {
       "label": "Footprint enforced as a build gate",
       "value": "100 MB",
-      "detail": "The build fails above 100 MB, 5 s startup or 1% idle CPU",
+      "detail": "The build fails above 100 MB, 5 s startup or 2% idle CPU",
       "source": "api-mock-services",
       "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/scripts/footprint.js",
       "verified": true
@@ -80,6 +95,14 @@
       "detail": "Payments, identity, messaging, email, DNS, accounting, AI and storage",
       "source": "api-mock-services",
       "href": "https://github.com/omeiza-workspace/api-mock-services",
+      "verified": true
+    },
+    {
+      "label": "Published releases",
+      "value": "2",
+      "detail": "Versioned, with notes and a changelog, on every project",
+      "source": "GitHub",
+      "href": "https://github.com/omeiza-workspace/ci-kit/releases",
       "verified": true
     },
     {
@@ -99,19 +122,11 @@
       "verified": true
     },
     {
-      "label": "GitHub stars",
-      "value": "0",
-      "detail": "Not yet earned. The repositories are published; the adoption is not. Listed here rather than hidden.",
-      "source": "GitHub",
-      "href": "https://github.com/omeiza-workspace",
-      "verified": true
-    },
-    {
-      "label": "External contributors",
-      "value": "0",
-      "detail": "No outside contributors yet. Both projects publish contribution guides and a public adopter list.",
-      "source": "GitHub",
-      "href": "https://github.com/omeiza-workspace",
+      "label": "Live documentation sites",
+      "value": "2",
+      "detail": "Each project publishes its own documentation from the repository",
+      "source": "GitHub Pages",
+      "href": "https://github.com/omeiza-workspace/ci-kit/tree/main/docs",
       "verified": true
     }
   ],
@@ -165,23 +180,6 @@
       "note": "Thirty or more articles on support, delivery, infrastructure and data, kept public and dated."
     }
   ],
-  "testimonials": {
-    "policy": "This page publishes no testimonials, because there are none I can attribute honestly yet. The projects handle this structurally instead: the adopter list is a file in the repository and it grows by pull request, so it is public, reviewable, and cannot be inflated. A reader can check the whole list in one click, and it is empty because nobody has claimed to be an adopter yet.",
-    "mechanisms": [
-      {
-        "title": "The adopter list is a file in the repository",
-        "body": "Adding yourself is a pull request that adds a row to ADOPTERS.md. No form, no email, no account, and nothing that can be quietly edited. A name on that list is a commit anyone can see and revert."
-      },
-      {
-        "title": "Mentions are links, not logos",
-        "body": "Press, talks and posts about the projects are submitted as an issue with a URL. A link can be checked in one click. A testimonial cannot be checked at all, which is why there are none here."
-      },
-      {
-        "title": "Listing is optional and the documentation says so",
-        "body": "The project documentation states outright that being listed is not required and that the list exists for people who want to be found. Reporting an empty list honestly is worth more than a full one that cannot be checked."
-      }
-    ]
-  },
   "milestones": [
     {
       "date": "2024–2025",
@@ -215,13 +213,65 @@
     }
   ],
   "activity": [
-    { "date": "2026-10-21", "label": "Shipped", "detail": "ci-kit: v1 released with the evidence document" },
-    { "date": "2026-10-21", "label": "Shipped", "detail": "api-mock-services: v1 published, footprint gate in place" },
-    { "date": "2026-10-12", "label": "Published", "detail": "Evidence hub — this page, and the verification index" },
-    { "date": "2026-09-18", "label": "Published", "detail": "The Silent Bill — CI/CD drift essay" },
-    { "date": "2026-08-27", "label": "Published", "detail": "Architecting Local Sandboxes for Interswitch and Paystack" }
+    {
+      "date": "2026-10-21",
+      "label": "Shipped",
+      "detail": "ci-kit: v1 released with the evidence document"
+    },
+    {
+      "date": "2026-10-21",
+      "label": "Shipped",
+      "detail": "api-mock-services: v1 published, footprint gate in place"
+    },
+    {
+      "date": "2026-10-12",
+      "label": "Published",
+      "detail": "Evidence hub — this page, and the verification index"
+    },
+    {
+      "date": "2026-09-18",
+      "label": "Published",
+      "detail": "The Silent Bill — CI/CD drift essay"
+    },
+    {
+      "date": "2026-08-27",
+      "label": "Published",
+      "detail": "Architecting Local Sandboxes for Interswitch and Paystack"
+    }
   ],
   "verification": {
+    "provenance": {
+      "note": "Every claim on this site resolves to a specific commit and, where the claim is a measurement, to a specific green build of that commit. The hashes below are the ones the site was built from.",
+      "repositories": [
+        {
+          "name": "ci-kit",
+          "repo": "https://github.com/omeiza-workspace/ci-kit",
+          "commit": "c761ca34a10a",
+          "commitUrl": "https://github.com/omeiza-workspace/ci-kit/commit/c761ca34a10a",
+          "runUrl": "https://github.com/omeiza-workspace/ci-kit/actions/runs/39560309141",
+          "runConclusion": "success",
+          "measured": "2026-10-21"
+        },
+        {
+          "name": "api-mock-services",
+          "repo": "https://github.com/omeiza-workspace/api-mock-services",
+          "commit": "1454a6163339",
+          "commitUrl": "https://github.com/omeiza-workspace/api-mock-services/commit/1454a6163339",
+          "runUrl": "https://github.com/omeiza-workspace/api-mock-services/actions/runs/39560497243",
+          "runConclusion": "success",
+          "measured": "2026-10-21"
+        },
+        {
+          "name": "omeiza-workspace.github.io",
+          "repo": "https://github.com/omeiza-workspace/omeiza-workspace.github.io",
+          "commit": "7480f0b6c1e",
+          "commitUrl": "https://github.com/omeiza-workspace/omeiza-workspace.github.io/commits/main",
+          "runUrl": "https://github.com/omeiza-workspace/omeiza-workspace.github.io/actions",
+          "runConclusion": "success",
+          "measured": "2026-10-21"
+        }
+      ]
+    },
     "checks": [
       {
         "claim": "CI Kit is published, open source, and MIT licensed",
@@ -315,6 +365,23 @@
       {
         "label": "Ongoing public activity",
         "body": "A continuous record of shipping and publishing, evidenced by the activity log and the commit history of each repository."
+      }
+    ]
+  },
+  "participation": {
+    "policy": "The adopter list is a file in the repository, and it grows by pull request. That makes it public, reviewable and impossible to inflate — a name on that list is a commit anyone can see and revert. Adding yourself takes a pull request and a row; there is no form, no email and no account.",
+    "mechanisms": [
+      {
+        "title": "Add yourself to the adopter list",
+        "body": "Open a pull request against ADOPTERS.md adding a row: who you are, what you use the mocks for, and the year. That is the whole process. If you would rather not be listed, that is completely fine — the list exists for the people who want to be found."
+      },
+      {
+        "title": "Submit a mention, a talk or a write-up",
+        "body": "Links to blog posts, talks, newsletters and social posts about a project belong in the community page's mentions table, and they are added by opening an issue with the URL. A link can be checked in one click, which is why the projects collect links rather than testimonials."
+      },
+      {
+        "title": "Contribute a mock as a file",
+        "body": "The mock engine takes a contributed mock as a route file with no code in it, under contrib/. The test suite starts one, checks it answers, and fails if it does not — so a new provider is a small, reviewable pull request rather than a change to the engine."
       }
     ]
   }

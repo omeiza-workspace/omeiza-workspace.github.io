@@ -8,7 +8,13 @@
       "order": 1,
       "readingTime": "9 min read",
       "role": "Design, implementation, evidence",
-      "stack": ["Shell", "GitHub Actions", "act", "Make", "gitleaks"],
+      "stack": [
+        "Shell",
+        "GitHub Actions",
+        "act",
+        "Make",
+        "gitleaks"
+      ],
       "hero": {
         "eyebrow": "Case study 01",
         "headline": "The pipeline was not flaky. The job never started.",
@@ -69,16 +75,40 @@
       "results": {
         "headline": "The honest measurement, including the part that is not a win",
         "before": [
-          { "metric": "Feedback on a push that breaks the build", "value": "4–12 min, billed" },
-          { "metric": "Feedback when the runner never starts", "value": "6 s, if you read the log" },
-          { "metric": "Feedback when the runner never starts and you are not reading the log", "value": "Never" },
-          { "metric": "Commits verified during a billing block", "value": "None" }
+          {
+            "metric": "Feedback on a push that breaks the build",
+            "value": "4–12 min, billed"
+          },
+          {
+            "metric": "Feedback when the runner never starts",
+            "value": "6 s, if you read the log"
+          },
+          {
+            "metric": "Feedback when the runner never starts and you are not reading the log",
+            "value": "Never"
+          },
+          {
+            "metric": "Commits verified during a billing block",
+            "value": "None"
+          }
         ],
         "after": [
-          { "metric": "Feedback on a push that breaks the build", "value": "~100 s, free" },
-          { "metric": "Feedback when the runner never starts", "value": "~100 s, and it says why" },
-          { "metric": "Feedback when the runner never starts and you are not reading the log", "value": "~100 s" },
-          { "metric": "Commits verified during a billing block", "value": "All of them" }
+          {
+            "metric": "Feedback on a push that breaks the build",
+            "value": "~100 s, free"
+          },
+          {
+            "metric": "Feedback when the runner never starts",
+            "value": "~100 s, and it says why"
+          },
+          {
+            "metric": "Feedback when the runner never starts and you are not reading the log",
+            "value": "~100 s"
+          },
+          {
+            "metric": "Commits verified during a billing block",
+            "value": "All of them"
+          }
         ],
         "notes": [
           "The local gate is not faster than a CI runner. On identical work — npm ci, two type checks, vitest, the build — it measured 99 s on a 2022 Intel laptop against 43–48 s on a GitHub runner. A modern runner has more cores and faster storage, and for work that is mostly npm ci and TypeScript, it wins. The local gate on that machine is roughly twice the wall clock.",
@@ -125,9 +155,18 @@
         }
       ],
       "links": [
-        { "label": "CI Kit repository", "href": "https://github.com/omeiza-workspace/ci-kit" },
-        { "label": "The full evidence document", "href": "https://github.com/omeiza-workspace/ci-kit/blob/main/docs/EVIDENCE.md" },
-        { "label": "Related article: The Silent Bill", "href": "/blog/the-silent-bill-remote-ci-cd-drift/" }
+        {
+          "label": "CI Kit repository",
+          "href": "https://github.com/omeiza-workspace/ci-kit"
+        },
+        {
+          "label": "The full evidence document",
+          "href": "https://github.com/omeiza-workspace/ci-kit/blob/main/docs/EVIDENCE.md"
+        },
+        {
+          "label": "Related article: The Silent Bill",
+          "href": "/blog/the-silent-bill-remote-ci-cd-drift/"
+        }
       ]
     },
     {
@@ -138,7 +177,13 @@
       "order": 2,
       "readingTime": "10 min read",
       "role": "Architecture, implementation, provider behaviour",
-      "stack": ["Node.js", "JavaScript", "OpenAPI", "Prism", "Docker"],
+      "stack": [
+        "Node.js",
+        "JavaScript",
+        "OpenAPI",
+        "Prism",
+        "Docker"
+      ],
       "hero": {
         "eyebrow": "Case study 02",
         "headline": "Four containers, 250 MB, and a proxy that never settled.",
@@ -205,24 +250,61 @@
       "results": {
         "headline": "The same work, one fifth of the memory and no idle CPU",
         "before": [
-          { "metric": "Processes", "value": "4" },
-          { "metric": "Memory", "value": "250 MB" },
-          { "metric": "Of which the OpenAPI proxy", "value": "214 MB, and it does not settle" },
-          { "metric": "Idle CPU", "value": "7.9%, almost all of it the proxy" },
-          { "metric": "Time to first request answered", "value": "20 s and rising" },
-          { "metric": "Things to start, stop and clean up", "value": "4" }
+          {
+            "metric": "Processes",
+            "value": "4"
+          },
+          {
+            "metric": "Memory",
+            "value": "250 MB"
+          },
+          {
+            "metric": "Of which the OpenAPI proxy",
+            "value": "214 MB, and it does not settle"
+          },
+          {
+            "metric": "Idle CPU",
+            "value": "7.9%, almost all of it the proxy"
+          },
+          {
+            "metric": "Time to first request answered",
+            "value": "20 s and rising"
+          },
+          {
+            "metric": "Things to start, stop and clean up",
+            "value": "4"
+          }
         ],
         "after": [
-          { "metric": "Processes", "value": "1" },
-          { "metric": "Memory", "value": "50 MB" },
-          { "metric": "Of which the OpenAPI proxy", "value": "— the specs are loaded in-process" },
-          { "metric": "Idle CPU", "value": "0.0%" },
-          { "metric": "Time to first request answered", "value": "1.4 s" },
-          { "metric": "Things to start, stop and clean up", "value": "1" }
+          {
+            "metric": "Processes",
+            "value": "1"
+          },
+          {
+            "metric": "Memory",
+            "value": "50–51 MB"
+          },
+          {
+            "metric": "Of which the OpenAPI proxy",
+            "value": "— the specs are loaded in-process"
+          },
+          {
+            "metric": "Idle CPU",
+            "value": "0–0.5%"
+          },
+          {
+            "metric": "Time to first request answered",
+            "value": "0.4–1.4 s"
+          },
+          {
+            "metric": "Things to start, stop and clean up",
+            "value": "1"
+          }
         ],
         "notes": [
-          "The measurement was taken on one machine with all mocks running, sampled with ps for resident size and two ps -o time= samples five seconds apart for CPU. The containers were sampled with docker stats --no-stream, once immediately and once after they had settled.",
-          "The footprint figures are now a build gate. The footprint test fails the build if the engine exceeds 100 MB, 5 seconds of startup, or 1% idle CPU. A promise nobody checks erodes; this one is checked on every build.",
+          "The measurement was taken with the project's own `npm run footprint` script, which starts the engine with every mock it carries, waits for the first request to be answered, samples the resident size with `ps`, and samples the CPU with two `ps -o time=` reads ten seconds apart. The container figures come from `docker compose up -d` sampled with `docker stats --no-stream`, once immediately and once after the containers had settled.",
+          "The engine's own figures are published as a range rather than a single number, and that is deliberate. The first version of this case study quoted 1.4 s for the first request while the mock engine's evidence document quoted 465 ms for the same measurement. Both were real samples of the same thing on different machines, and the measurement moves by a factor of three depending on what the machine is doing. A single sample presented as *the* figure is not a measurement — it is a number that happened to be true once. Both documents now quote the range and name the script that produces it.",
+          "The footprint figures are a build gate, and the gate was repaired rather than merely widened. Its idle budget was 1% over a three-second sampling window, which made it fail two runs in three on an idle machine. A gate that fails sometimes is worse than no gate, because it teaches people to retry it instead of reading it. The window is now ten seconds and the budget 2% — four times above what the engine uses, four times below the 7.9% it exists to catch.",
           "This is a lighter mock, not a faithful sandbox. It answers the calls a test makes. It does not model a provider's business rules, and it is not a staging environment. The documentation says so, in a section of its own.",
           "The footprint was measured when the engine carried nine mocks. It now carries eighteen, and the gate is what keeps the figure honest as that number grows."
         ]
@@ -264,9 +346,18 @@
         }
       ],
       "links": [
-        { "label": "api-mock-services repository", "href": "https://github.com/omeiza-workspace/api-mock-services" },
-        { "label": "The footprint build gate", "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/scripts/footprint.js" },
-        { "label": "Related article: Local Sandboxes for Interswitch and Paystack", "href": "/blog/architecting-local-sandboxes-offline/" }
+        {
+          "label": "api-mock-services repository",
+          "href": "https://github.com/omeiza-workspace/api-mock-services"
+        },
+        {
+          "label": "The footprint build gate",
+          "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/scripts/footprint.js"
+        },
+        {
+          "label": "Related article: Local Sandboxes for Interswitch and Paystack",
+          "href": "/blog/architecting-local-sandboxes-offline/"
+        }
       ]
     },
     {
@@ -277,7 +368,14 @@
       "order": 3,
       "readingTime": "10 min read",
       "role": "Architecture, implementation, security model",
-      "stack": ["PowerShell 7", "Windows Service", "SQLite", "Runspace Pools", "Pester", "DPAPI"],
+      "stack": [
+        "PowerShell 7",
+        "Windows Service",
+        "SQLite",
+        "Runspace Pools",
+        "Pester",
+        "DPAPI"
+      ],
       "hero": {
         "eyebrow": "Case study 03",
         "headline": "The controller was the problem, not the automation.",
@@ -344,18 +442,48 @@
       "results": {
         "headline": "What changed, structurally",
         "before": [
-          { "metric": "Where a workflow lives", "value": "In controller code" },
-          { "metric": "To change a workflow", "value": "A build and a deployment" },
-          { "metric": "To add an integration", "value": "An edit to the engine core" },
-          { "metric": "Where retry state lives", "value": "In memory" },
-          { "metric": "Intent classification", "value": "Requires a cloud endpoint" }
+          {
+            "metric": "Where a workflow lives",
+            "value": "In controller code"
+          },
+          {
+            "metric": "To change a workflow",
+            "value": "A build and a deployment"
+          },
+          {
+            "metric": "To add an integration",
+            "value": "An edit to the engine core"
+          },
+          {
+            "metric": "Where retry state lives",
+            "value": "In memory"
+          },
+          {
+            "metric": "Intent classification",
+            "value": "Requires a cloud endpoint"
+          }
         ],
         "after": [
-          { "metric": "Where a workflow lives", "value": "A JSON blueprint" },
-          { "metric": "To change a workflow", "value": "A reviewed file change" },
-          { "metric": "To add an integration", "value": "A plugin file" },
-          { "metric": "Where retry state lives", "value": "Transactional SQLite" },
-          { "metric": "Intent classification", "value": "A local model, with a deterministic fallback" }
+          {
+            "metric": "Where a workflow lives",
+            "value": "A JSON blueprint"
+          },
+          {
+            "metric": "To change a workflow",
+            "value": "A reviewed file change"
+          },
+          {
+            "metric": "To add an integration",
+            "value": "A plugin file"
+          },
+          {
+            "metric": "Where retry state lives",
+            "value": "Transactional SQLite"
+          },
+          {
+            "metric": "Intent classification",
+            "value": "A local model, with a deterministic fallback"
+          }
         ],
         "notes": [
           "No wall-clock benchmark is claimed for this platform, and none should be inferred from one. The claims here are architectural and are checkable by reading the layout: the engine core is a separate module scope, the workflows are data, and the plugins are discovered rather than registered.",
@@ -401,9 +529,18 @@
         }
       ],
       "links": [
-        { "label": "Automation Gateway repository", "href": "https://github.com/omeiza-workspace/automation-gateway" },
-        { "label": "Related article: Deterministic Toolchains Don't Need a Backend", "href": "/blog/deterministic-toolchains-dont-need-a-backend/" },
-        { "label": "Open Source Impact", "href": "/evidence/" }
+        {
+          "label": "Automation Gateway repository",
+          "href": "https://github.com/omeiza-workspace/automation-gateway"
+        },
+        {
+          "label": "Related article: Deterministic Toolchains Don't Need a Backend",
+          "href": "/blog/deterministic-toolchains-dont-need-a-backend/"
+        },
+        {
+          "label": "Open Source Impact",
+          "href": "/evidence/"
+        }
       ]
     }
   ]

@@ -30,6 +30,7 @@ import {
   renderMetrics,
   renderMediaKit,
   renderArchive,
+  renderArchivePost,
   renderRecord,
   renderNotFound,
 } from './lib/pages.mjs';
@@ -307,7 +308,7 @@ export async function build() {
     );
   }
 
-  /* ---- earlier archive ---- */
+  /* ---- earlier archive: the index, and every post at its own permalink ---- */
   await page(
     'archive/index.html',
     layout({
@@ -329,6 +330,32 @@ export async function build() {
       },
     }),
   );
+
+  for (const post of archive.posts) {
+    const era = archive.eras.find((e) => e.id === post.era);
+    await page(
+      `blog/${post.slug}/index.html`,
+      layout({
+        title: post.title,
+        description: post.dek,
+        path: `/blog/${post.slug}/`,
+        body: renderArchivePost({ post, era }),
+        site,
+        active: '/blog/',
+        ogType: 'article',
+        schema: {
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: post.title,
+          description: post.dek,
+          datePublished: post.date,
+          author: { '@type': 'Person', name: profile.name, url: site.url },
+          publisher: { '@type': 'Person', name: profile.name, url: site.url },
+          mainEntityOfPage: new URL(`/blog/${post.slug}/`, site.url).toString(),
+        },
+      }),
+    );
+  }
 
   /* ---- verification index ---- */
   await page(
@@ -432,7 +459,13 @@ export async function build() {
   }
 
   /* ---- feeds and metadata ---- */
-  await write('sitemap.xml', renderSitemap(site, posts.map((p) => ({ loc: `/blog/${p.slug}/`, priority: '0.7', changefreq: 'monthly' }))));
+  await write(
+    'sitemap.xml',
+    renderSitemap(site, [
+      ...posts.map((p) => ({ loc: `/blog/${p.slug}/`, priority: '0.7', changefreq: 'monthly' })),
+      ...archive.posts.map((p) => ({ loc: `/blog/${p.slug}/`, priority: '0.4', changefreq: 'yearly' })),
+    ]),
+  );
   await write('feed.xml', renderFeed(site, posts));
   await write('robots.txt', ROBOTS);
   // GitHub Pages serves this directory with Jekyll disabled.

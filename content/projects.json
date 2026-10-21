@@ -10,14 +10,13 @@
       "license": "MIT",
       "language": "Shell",
       "repo": "https://github.com/omeiza-workspace/ci-kit",
-      "docs": "/products/ci-kit/",
       "site": "https://omeiza-workspace.github.io/ci-kit/",
-      "tags": ["CI/CD", "GitHub Actions", "Developer Experience", "Shell", "Local-First"],
-      "docs": [
-        { "label": "Project documentation", "href": "https://github.com/omeiza-workspace/ci-kit/tree/main/docs", "note": "the published docs site" },
-        { "label": "Evidence", "href": "https://github.com/omeiza-workspace/ci-kit/blob/main/docs/EVIDENCE.md", "note": "how every number was measured" },
-        { "label": "Architecture", "href": "https://github.com/omeiza-workspace/ci-kit/blob/main/docs/ARCHITECTURE.md", "note": "the shared-setup design" },
-        { "label": "README", "href": "https://github.com/omeiza-workspace/ci-kit", "note": "install and usage" }
+      "tags": [
+        "CI/CD",
+        "GitHub Actions",
+        "Developer Experience",
+        "Shell",
+        "Local-First"
       ],
       "pillars": [
         "One copy of the setup",
@@ -25,10 +24,26 @@
         "Language-agnostic gates"
       ],
       "stats": [
-        { "label": "Local gate, same work", "value": "99 s", "detail": "on a 2022 Intel laptop, against 43–48 s on a runner" },
-        { "label": "Same gate on a runner", "value": "43–48 s", "detail": "GitHub runner, measured on identical work" },
-        { "label": "Unverified commits", "value": "28 of 30", "detail": "runs that failed without ever starting a job" },
-        { "label": "Real defects found locally", "value": "3", "detail": "in under four minutes, zero runner minutes" }
+        {
+          "label": "Local gate, same work",
+          "value": "99 s",
+          "detail": "on a 2022 Intel laptop, against 43–48 s on a runner"
+        },
+        {
+          "label": "Same gate on a runner",
+          "value": "43–48 s",
+          "detail": "GitHub runner, measured on identical work"
+        },
+        {
+          "label": "Unverified commits",
+          "value": "28 of 30",
+          "detail": "runs that failed without ever starting a job"
+        },
+        {
+          "label": "Real defects found locally",
+          "value": "3",
+          "detail": "in under four minutes, zero runner minutes"
+        }
       ],
       "keyOutcomes": [
         {
@@ -43,6 +58,28 @@
           "title": "The claim is deliberately narrower than the marketing would be",
           "body": "The evidence document has a section titled 'What is not claimed'. It states plainly that the local gate is not faster than a runner, that no runner-minute savings are claimed, and that the numbers come from one machine and one workspace. The value of the tool is a guarantee of feedback, not a speedup — and the documentation says so before anyone asks."
         }
+      ],
+      "docIndex": [
+        {
+          "label": "Project documentation",
+          "href": "https://github.com/omeiza-workspace/ci-kit/tree/main/docs",
+          "note": "the published docs site"
+        },
+        {
+          "label": "Evidence",
+          "href": "https://github.com/omeiza-workspace/ci-kit/blob/main/docs/EVIDENCE.md",
+          "note": "how every number was measured"
+        },
+        {
+          "label": "Architecture",
+          "href": "https://github.com/omeiza-workspace/ci-kit/blob/main/docs/ARCHITECTURE.md",
+          "note": "the shared-setup design"
+        },
+        {
+          "label": "README",
+          "href": "https://github.com/omeiza-workspace/ci-kit",
+          "note": "install and usage"
+        }
       ]
     },
     {
@@ -51,20 +88,20 @@
       "tagline": "Stand-ins for the outside world.",
       "shortDescription": "One process, zero dependencies, and eighteen mocks for the payment gateways, identity checks and messaging providers your product talks to — running in the test, not beside it.",
       "description": "Every project that talks to a payment gateway, an email provider, an accounting service, a DNS provider, a messaging service or an identity check needs something to talk to in a test. This is that something: one implementation, shared, instead of a copy in every repository. There are no dependencies. The mocks are built on Node's own HTTP server, so they run in a test, in a container and on a laptop without being installed first. The rules that keep it light are not preferences — a contributor who breaks one of them breaks the promise in the first line of the README — and the footprint is enforced as a build gate, so the promise is checked on every build rather than asserted in a paragraph.",
-      "status": "v1 — MIT",
+      "status": "v1 released — MIT",
       "license": "MIT",
       "language": "JavaScript",
+      "alsoKnownAs": "SaaS-LocalStack",
       "repo": "https://github.com/omeiza-workspace/api-mock-services",
-      "docs": "/products/api-mock-services/",
       "site": "https://omeiza-workspace.github.io/api-mock-services/",
-      "tags": ["Mocking", "Offline", "Payments", "FinTech", "Testing", "Node.js", "Zero-Dependency"],
-      "docs": [
-        { "label": "Overview", "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/docs/introduction/overview.html", "note": "what the engine is" },
-        { "label": "Architecture", "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/docs/introduction/architecture.html", "note": "the layers" },
-        { "label": "CI gates", "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/docs/guides/ci-gates.html", "note": "using the mocks in a pipeline" },
-        { "label": "Offline testing", "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/docs/guides/offline-testing.html", "note": "the guide" },
-        { "label": "Community", "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/docs/community/impact.html", "note": "the public record" },
-        { "label": "README", "href": "https://github.com/omeiza-workspace/api-mock-services", "note": "the rules, and the numbers" }
+      "tags": [
+        "Mocking",
+        "Offline",
+        "Payments",
+        "FinTech",
+        "Testing",
+        "Node.js",
+        "Zero-Dependency"
       ],
       "pillars": [
         "Zero dependencies",
@@ -72,14 +109,31 @@
         "In the test, not beside it"
       ],
       "stats": [
-        { "label": "Memory", "value": "50 MB", "detail": "all mocks running, one process" },
-        { "label": "Memory, four containers", "value": "250 MB", "detail": "214 MB of it the OpenAPI proxy" },
-        { "label": "Idle CPU", "value": "0.0%", "detail": "against 7.9% for the four-container stack" },
-        { "label": "Time to first request", "value": "1.4 s", "detail": "against 20 s and rising for containers" }
-      ],      "keyOutcomes": [
         {
-          "title": "A quarter of the memory and none of the idle CPU",
-          "body": "Measured on the same machine with every mock running: one process at 50 MB and 0.0% idle CPU, against four processes at 250 MB and 7.9% idle CPU — almost all of it an OpenAPI proxy that also never settles. The engine that answers the first request in 1.4 s replaces one that took 20 s and was still rising."
+          "label": "Memory",
+          "value": "50–51 MB",
+          "detail": "every mock running, one process"
+        },
+        {
+          "label": "Memory, four containers",
+          "value": "250 MB",
+          "detail": "214 MB of it the OpenAPI proxy"
+        },
+        {
+          "label": "Idle CPU",
+          "value": "0–0.5%",
+          "detail": "against 7.9% for the four-container stack"
+        },
+        {
+          "label": "Time to first request",
+          "value": "0.4–1.4 s",
+          "detail": "against 20 s and rising for containers"
+        }
+      ],
+      "keyOutcomes": [
+        {
+          "title": "A fifth of the memory and a fraction of the idle CPU",
+          "body": "Measured on the same machine with every mock running: one process at 50–51 MB and 0–0.5% idle CPU, against four processes at 250 MB and 7.9% idle CPU — almost all of it an OpenAPI proxy that also never settles. The engine that answers the first request in 0.4–1.4 s replaces one that took 20 s and was still rising. The ranges are the real figures: the script that produces them reports a different number on a busier machine, and both documents now say so rather than quoting a sample that happened to be true once."
         },
         {
           "title": "Eighteen providers, including the African payment and identity rails",
@@ -88,6 +142,38 @@
         {
           "title": "The promise is a build gate, not a paragraph",
           "body": "The footprint test fails the build if the engine exceeds 100 MB, 5 seconds of startup or 1% idle CPU. A promise nobody checks erodes. This one is checked on every build, which is why the numbers on this page can be stated without hedging."
+        }
+      ],
+      "docIndex": [
+        {
+          "label": "Overview",
+          "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/docs/introduction/overview.html",
+          "note": "what the engine is"
+        },
+        {
+          "label": "Architecture",
+          "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/docs/introduction/architecture.html",
+          "note": "the layers"
+        },
+        {
+          "label": "CI gates",
+          "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/docs/guides/ci-gates.html",
+          "note": "using the mocks in a pipeline"
+        },
+        {
+          "label": "Offline testing",
+          "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/docs/guides/offline-testing.html",
+          "note": "the guide"
+        },
+        {
+          "label": "Community",
+          "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/docs/community/impact.html",
+          "note": "the public record"
+        },
+        {
+          "label": "README",
+          "href": "https://github.com/omeiza-workspace/api-mock-services",
+          "note": "the rules, and the numbers"
         }
       ]
     },
@@ -100,13 +186,15 @@
       "status": "In development — repository to be published",
       "license": "MIT",
       "language": "PowerShell",
+      "repoPublished": false,
       "repo": "https://github.com/omeiza-workspace/automation-gateway",
-      "docs": "/products/automation-gateway/",
-      "tags": ["PowerShell", "Windows Service", "Air-Gapped", "Orchestration", "SQLite", "RBAC"],
-      "docs": [
-        { "label": "Repository", "href": "https://github.com/omeiza-workspace/automation-gateway", "note": "the project" },
-        { "label": "The engine core", "href": "https://github.com/omeiza-workspace/automation-gateway", "note": "Modules/PipelineEngine" },
-        { "label": "Test harness", "href": "https://github.com/omeiza-workspace/automation-gateway", "note": "Pester, offline" }
+      "tags": [
+        "PowerShell",
+        "Windows Service",
+        "Air-Gapped",
+        "Orchestration",
+        "SQLite",
+        "RBAC"
       ],
       "pillars": [
         "Data-driven blueprints",
@@ -114,10 +202,26 @@
         "Transactional audit trail"
       ],
       "stats": [
-        { "label": "External dependencies", "value": "0", "detail": "ships as a folder — no package manager" },
-        { "label": "Workflow definition", "value": "JSON", "detail": "declarative blueprints, not controller code" },
-        { "label": "Extension point", "value": "*.plugin.ps1", "detail": "auto-discovered — the core is never edited" },
-        { "label": "Audit granularity", "value": "Per attempt", "detail": "Retrying, Success and Failed written to SQLite" }
+        {
+          "label": "External dependencies",
+          "value": "0",
+          "detail": "ships as a folder — no package manager"
+        },
+        {
+          "label": "Workflow definition",
+          "value": "JSON",
+          "detail": "declarative blueprints, not controller code"
+        },
+        {
+          "label": "Extension point",
+          "value": "*.plugin.ps1",
+          "detail": "auto-discovered — the core is never edited"
+        },
+        {
+          "label": "Audit granularity",
+          "value": "Per attempt",
+          "detail": "Retrying, Success and Failed written to SQLite"
+        }
       ],
       "keyOutcomes": [
         {
@@ -131,6 +235,23 @@
         {
           "title": "Every attempt is recorded, including the retries",
           "body": "A step that throws is retried with exponential backoff, and each attempt writes a distinct state row. An auditor can trace the transient failure, the recovery delay, and the final outcome without reconstructing anything from logs."
+        }
+      ],
+      "docIndex": [
+        {
+          "label": "Repository",
+          "href": "https://github.com/omeiza-workspace/automation-gateway",
+          "note": "the project"
+        },
+        {
+          "label": "The engine core",
+          "href": "https://github.com/omeiza-workspace/automation-gateway",
+          "note": "Modules/PipelineEngine"
+        },
+        {
+          "label": "Test harness",
+          "href": "https://github.com/omeiza-workspace/automation-gateway",
+          "note": "Pester, offline"
         }
       ]
     }

@@ -32,6 +32,115 @@ async function walk(dir) {
 
 /* ---------------------------------------------------- content sanity --- */
 
+const contentFiles = [
+  'site.json',
+  'profile.json',
+  'projects.json',
+  'case-studies.json',
+  'posts.json',
+  'archive.json',
+  'evidence.json',
+  'social.json',
+];
+
+// A duplicate JSON key is silently discarded by every parser, so a second
+// "community" would quietly shadow the first. It has to be caught here.
+function duplicateKeys(raw) {
+  const found = [];
+  let i = 0;
+
+  const skipWs = () => {
+    while (i < raw.length && ' \n\t\r'.includes(raw[i])) i += 1;
+  };
+
+  const readString = () => {
+    let out = '';
+    i += 1; // opening quote
+    while (i < raw.length) {
+      const ch = raw[i];
+      if (ch === '\\') {
+        out += raw[i] + raw[i + 1];
+        i += 2;
+        continue;
+      }
+      if (ch === '"') {
+        i += 1;
+        return out;
+      }
+      out += ch;
+      i += 1;
+    }
+    return out;
+  };
+
+  const walk = () => {
+    skipWs();
+    const ch = raw[i];
+
+    if (ch === '{') {
+      i += 1;
+      const keys = [];
+      for (;;) {
+        skipWs();
+        if (i >= raw.length) break;
+        if (raw[i] === '}') {
+          i += 1;
+          break;
+        }
+        if (raw[i] === ',') {
+          i += 1;
+          continue;
+        }
+        if (raw[i] !== '"') {
+          i += 1;
+          continue;
+        }
+        keys.push(readString());
+        skipWs();
+        i += 1; // the colon
+        walk(); // the value
+      }
+      for (const key of keys.filter((k, idx) => keys.indexOf(k) !== idx)) found.push(key);
+      return;
+    }
+
+    if (ch === '[') {
+      i += 1;
+      for (;;) {
+        skipWs();
+        if (i >= raw.length) break;
+        if (raw[i] === ']') {
+          i += 1;
+          break;
+        }
+        if (raw[i] === ',') {
+          i += 1;
+          continue;
+        }
+        walk();
+      }
+      return;
+    }
+
+    if (ch === '"') {
+      readString();
+      return;
+    }
+
+    while (i < raw.length && !',}]: \n\t\r'.includes(raw[i])) i += 1;
+  };
+
+  walk();
+  return [...new Set(found)];
+}
+
+for (const file of contentFiles) {
+  const raw = await readFile(path.join(ROOT, 'content', file), 'utf8');
+  for (const dupe of duplicateKeys(raw)) {
+    problems.push(`content/${file} has a duplicate key "${dupe}" — the second one silently wins`);
+  }
+}
+
 const evidence = JSON.parse(await readFile(path.join(ROOT, 'content', 'evidence.json'), 'utf8'));
 const projects = JSON.parse(await readFile(path.join(ROOT, 'content', 'projects.json'), 'utf8'));
 const cases = JSON.parse(await readFile(path.join(ROOT, 'content', 'case-studies.json'), 'utf8'));

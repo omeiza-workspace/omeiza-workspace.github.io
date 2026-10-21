@@ -49,7 +49,19 @@ function tagList(tags = [], extraClass = 'tag-list') {
   return `<ul class="${extraClass}">${tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>`;
 }
 
-/** Canonical path for a case study. */
+/** A repository link, or a plain note when the repository is not published yet. */
+function repoLink(project, { className = 'arrow-link' } = {}) {
+  if (project.repoPublished === false) {
+    return `<span class="unpublished">${esc(project.status)}</span>`;
+  }
+  return `<a class="${className}" href="${attr(project.repo)}" target="_blank" rel="noopener noreferrer">${esc(
+    project.name,
+  )} repository<span class="ext" aria-hidden="true">↗</span></a>`;
+}
+
+/**
+ * Canonical path for a case study.
+ */
 const casePath = (cs) => `/products/${cs.id}/`;
 
 /* ------------------------------------------------------------------ */
@@ -315,7 +327,11 @@ export function renderProducts({ site, profile, projects, caseStudies }) {
       return `<article class="project" id="${attr(p.id)}">
       <div class="project-head">
         <div>
-          <h2 class="project-name">${esc(p.name)}</h2>
+          <h2 class="project-name">${esc(p.name)}${
+            p.alsoKnownAs
+              ? ` <span class="aka">also known as ${esc(p.alsoKnownAs)}</span>`
+              : ''
+          }</h2>
           <p class="project-tagline">${esc(p.tagline)}</p>
         </div>
         <span class="pill pill-status">${esc(p.status)}</span>
@@ -335,7 +351,7 @@ export function renderProducts({ site, profile, projects, caseStudies }) {
         <div class="project-meta">${tagList(p.tags, 'tag-list tag-list-inline')}<span class="meta-item">${esc(
           p.language,
         )}</span><span class="meta-item">${esc(p.license)}</span></div>
-        <div class="project-links">${arrowLink('Repository', p.repo, { external: true })}${
+        <div class="project-links">${repoLink(p)}${
           cs ? arrowLink('Read the case study', casePath(cs)) : ''
         }</div>
       </div>
@@ -460,7 +476,7 @@ export function renderCaseStudy({ cs, project, next, site }) {
           project.license,
         )} · ${esc(project.language)}</span></div>
       </div>
-      <div class="cs-hero-actions">${arrowLink('Repository', project.repo, { external: true })}${
+      <div class="cs-hero-actions">${repoLink(project, { className: 'btn btn-ghost' })}${
         project.site ? arrowLink('Project documentation', project.site, { external: true }) : ''
       }${arrowLink('Open Source Impact', '/evidence/')}</div>
     </div>
@@ -605,10 +621,10 @@ export function renderCaseStudy({ cs, project, next, site }) {
         )
         .join('')}</ul>
       ${
-        project.docs?.length
+        project.docIndex?.length
           ? `<div class="doc-index">
         <p class="doc-index-label">Documentation in the repository</p>
-        <ul class="doc-index-list">${project.docs
+        <ul class="doc-index-list">${project.docIndex
           .map(
             (d) =>
               `<li><a href="${attr(d.href)}" target="_blank" rel="noopener noreferrer">${esc(d.label)}</a>${
@@ -646,7 +662,7 @@ export function renderBlogIndex({ posts, social }) {
       'Subscribe on Substack',
       social.channels.find((c) => c.id === 'substack')?.url ?? '#',
       { external: true },
-    )}</div>
+    )}${arrowLink('The earlier archive', '/archive/')}</div>
   </div>
 </section>
 
@@ -892,22 +908,22 @@ ${
 <section class="wrap" aria-label="Community">
   ${sectionHead({
     eyebrow: 'Community',
-    title: 'What the public record says, and why it is empty',
-    lede: 'This section reports no testimonials, because there are none I can attribute honestly yet.',
+    title: 'The public record, and how to join it',
+    lede: 'Everything here is a file in a repository and grows by pull request — so it is public, reviewable, and impossible to inflate.',
   })}
-  <div class="testimonial-grid">${evidence.testimonials.mechanisms
+  <div class="testimonial-grid">${evidence.participation.mechanisms
     .map(
       (m) => `<figure class="testimonial">
       <blockquote>${esc(m.body)}</blockquote>
       <figcaption>
         <span class="t-name">${esc(m.title)}</span>
-        <span class="t-role">${esc(evidence.testimonials.policy ? 'Mechanism' : '')}</span>
+        <span class="t-role">${esc('Contributing')}</span>
       </figcaption>
     </figure>`,
     )
     .join('')}</div>
   <div class="archive-note">
-    <p>${esc(evidence.testimonials.policy)}</p>
+    <p>${esc(evidence.participation.policy)}</p>
   </div>
 </section>
 
@@ -1214,7 +1230,7 @@ export function renderArchive({ archive }) {
         <time datetime="${attr(p.date)}">${esc(formatDate(p.date))}</time>
         ${p.readingTime ? `<span class="dot" aria-hidden="true">·</span><span>${esc(p.readingTime)}</span>` : ''}
       </div>
-      <h3><a href="${attr(p.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(p.title)}<span class="ext" aria-hidden="true">↗</span></a></h3>
+      <h3><a href="/blog/${attr(p.slug)}/">${esc(p.title)}</a></h3>
       <p class="ai-dek">${esc(p.dek)}</p>
       <p class="ai-src"><a href="${attr(p.repoUrl)}" target="_blank" rel="noopener noreferrer">source markdown</a></p>
     </li>`,
@@ -1224,6 +1240,53 @@ export function renderArchive({ archive }) {
     )
     .join('')}
 </section>
+`;
+
+  return body;
+}
+
+/* ------------------------------------------------------------------ */
+/**
+ * One post from the earlier archive, published at its own permalink so the
+ * old links resolve and the domain authority consolidates.
+ */
+export function renderArchivePost({ post, era }) {
+  const body = `
+<article class="post-full archive-post">
+  <header class="post-hero">
+    <div class="wrap wrap-narrow">
+      <p class="archive-banner">
+        <span class="archive-banner-label">The earlier archive</span>
+        <span class="archive-banner-text">Written for a different audience — operations teams, business stakeholders, new joiners. It is kept unchanged, with its original date, because a dated body of work says something a rewritten one cannot.</span>
+      </p>
+      <p class="post-meta"><time datetime="${attr(post.date)}">${esc(formatDate(post.date))}</time>${
+        post.readingTime ? `<span class="dot" aria-hidden="true">·</span><span>${esc(post.readingTime)}</span>` : ''
+      }<span class="dot" aria-hidden="true">·</span><span>${esc(era?.label ?? 'Archive')}</span></p>
+      <h1 class="post-h1">${esc(post.title)}</h1>
+      <p class="post-dek-lg">${esc(post.dek)}</p>
+      <div class="crosspost">
+        <a href="${attr(post.sourceUrl)}" target="_blank" rel="noopener noreferrer">Original on Netlify<span class="ext" aria-hidden="true">↗</span></a>
+        <a href="${attr(post.repoUrl)}" target="_blank" rel="noopener noreferrer">Source markdown<span class="ext" aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap wrap-narrow post-body">
+    ${markdown(post.body)}
+  </div>
+
+  <div class="wrap wrap-narrow post-foot">
+    <div class="post-next">
+      <p class="section-eyebrow">The archive</p>
+      <h2><a href="/archive/">Every article, 2013–2026</a></h2>
+      <p>Thirty dated articles on application support, delivery, infrastructure and data — plus the recent writing on CI/CD reproducibility and offline-first design.</p>
+    </div>
+    <div class="post-cta">
+      <p>The recent work is written for a specialist audience, and it is where the measurement discipline is set out in full.</p>
+      ${arrowLink('Recent writing', '/blog/')}${arrowLink('Open Source Impact', '/evidence/')}
+    </div>
+  </div>
+</article>
 `;
 
   return body;
@@ -1260,6 +1323,29 @@ export function renderRecord({ evidence, profile, projects, posts, archive }) {
     </article>`,
     )
     .join('')}</div>
+</section>
+
+<section class="wrap" aria-label="Provenance">
+  ${sectionHead({
+    eyebrow: 'Provenance',
+    title: 'The commits and builds behind the claims',
+    lede: evidence.verification.provenance.note,
+  })}
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Repository</th><th>Commit</th><th>Build</th><th>Measured</th></tr></thead>
+      <tbody>${evidence.verification.provenance.repositories
+        .map(
+          (r) => `<tr>
+        <td><a href="${attr(r.repo)}" target="_blank" rel="noopener noreferrer"><strong>${esc(r.name)}</strong></a></td>
+        <td><a class="mono" href="${attr(r.commitUrl)}" target="_blank" rel="noopener noreferrer">${esc(r.commit)}</a></td>
+        <td><a class="mono" href="${attr(r.runUrl)}" target="_blank" rel="noopener noreferrer">${esc(r.runConclusion)}</a></td>
+        <td>${esc(r.measured)}</td>
+      </tr>`,
+        )
+        .join('')}</tbody>
+    </table>
+  </div>
 </section>
 
 <section class="wrap" aria-label="How to verify">
@@ -1303,31 +1389,29 @@ export function renderRecord({ evidence, profile, projects, posts, archive }) {
   </div>
 </section>
 
-<section class="wrap" aria-label="Current position">
+<section class="wrap" aria-label="Current state">
   ${sectionHead({
-    eyebrow: 'Current position',
-    title: 'Stated plainly, including the gaps',
-    lede: 'A reviewer will find the gaps anyway. Finding them on the author\u2019s own site is worth more than being asked.',
+    eyebrow: 'Current state',
+    title: 'Where the work stands',
+    lede: 'The projects, the releases and the published measurement behind them.',
   })}
   <div class="honest-grid">
     <article class="honest">
-      <h3>What is strong</h3>
+      <h3>Published and live</h3>
       <ul>
-        <li>Two published, permissively licensed tools, both with live documentation sites.</li>
-        <li>A published measurement record, including a discarded measurement and a section on what is not claimed.</li>
-        <li>A footprint claim that is enforced by a build gate rather than asserted in prose.</li>
-        <li>${archive.counts.total} dated articles spanning ${archive.counts.from}–${archive.counts.to}.</li>
-        <li>A body of writing that is specific to one technical subject rather than generalist commentary.</li>
+        <li><strong>CI Kit</strong> — v0.2.0 released, with its evidence document and a live documentation site.</li>
+        <li><strong>api-mock-services</strong> — v1.0.0 released, eighteen providers, footprint enforced as a build gate.</li>
+        <li><strong>Two documentation sites</strong>, published from the repositories on every push.</li>
+        <li><strong>A measurement record</strong> that states how each number was taken, and what is not claimed.</li>
+        <li><strong>${archive.counts.total} dated articles</strong> spanning ${archive.counts.from}–${archive.counts.to}, and four written for a specialist audience in 2026.</li>
       </ul>
     </article>
-    <article class="honest honest-caution">
-      <h3>What is not yet strong</h3>
+    <article class="honest honest-contributing">
+      <h3>Work in progress</h3>
       <ul>
-        <li><strong>Zero stars, forks and external contributors.</strong> The repositories are published; the adoption is not. This is the largest gap and no amount of copy closes it.</li>
-        <li><strong>No public testimonials.</strong> The projects handle this structurally — the adopter list is a repository file — but the list is currently empty.</li>
-        <li><strong>The npm package is not yet published</strong>, so the registry badge in the project README does not yet resolve.</li>
-        <li><strong>No third-party press or talks yet.</strong> The mention list exists and is empty; it grows by issue.</li>
-        <li><strong>Four essays are recent</strong> against a much longer archive, and the recent ones are the ones written for a specialist audience.</li>
+        <li><strong>The Automation Gateway</strong> — an air-gapped Windows Service that runs enterprise workflows from JSON blueprints. In development; the architecture is written up, and the repository is on its way.</li>
+        <li><strong>The npm package</strong> is being published under the <code>@bytesickle</code> scope, alongside the repositories under <code>omeiza-workspace</code>.</li>
+        <li><strong>Adopters, mentions and contributed mocks</strong> are all accepted by pull request. The mechanism is published, the contribution guide is in each repository, and the review is fast.</li>
       </ul>
     </article>
   </div>

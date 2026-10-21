@@ -1299,6 +1299,27 @@ hr {
   margin-bottom: 0.3rem;
 }
 
+.aka {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--muted-2);
+  letter-spacing: 0;
+  white-space: nowrap;
+  vertical-align: 0.25em;
+}
+
+.unpublished {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  padding: 0.4rem 0.7rem;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+}
+
 .project-tagline {
   color: var(--accent);
   font-size: 0.98rem;
@@ -3113,6 +3134,31 @@ hr {
   background: radial-gradient(900px 400px at 10% -20%, rgba(167, 139, 250, 0.12), transparent 70%);
 }
 
+.archive-banner {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem 1.25rem;
+  margin: 0 0 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--violet);
+  border-radius: var(--radius-sm);
+}
+
+.archive-banner-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--violet);
+}
+
+.archive-banner-text {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
 .archive-note {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -3285,6 +3331,24 @@ hr {
 
 .honest-caution {
   border-top-color: var(--amber);
+}
+
+.honest-contributing {
+  border-top-color: var(--violet);
+}
+
+.honest-contributing li::marker {
+  color: var(--violet);
+}
+
+.honest code {
+  font-size: 0.85em;
+  padding: 0.05em 0.3em;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
 }
 
 .honest h3 {

@@ -76,10 +76,35 @@ function extractDek(body) {
     .slice(0, 200);
 }
 
+/**
+ * The body of a post, ready to render.
+ *
+ * The old posts open with a level-one title and a "Published:" line, both of
+ * which the page template renders itself — so they are stripped here rather
+ * than duplicated on every page.
+ */
+function extractBody(raw) {
+  const body = raw.replace(/^\s*(---|\+\+\+)\s*\n[\s\S]*?\n(---|\+\+\+)\s*\n/, '');
+  return body
+    .split('\n')
+    .filter((line) => !/^#\s+/.test(line) && !/^\*\*Published:/.test(line))
+    .join('\n')
+    .replace(/^\s*---\s*$/, '')
+    .trim();
+}
+
+/** Scaffolding and boilerplate that is not part of the body of work. */
+const EXCLUDE = new Set([
+  'first-post', // the Hugo starter post
+]);
+
 const files = (await readdir(postsDir)).filter((f) => f.endsWith('.md'));
 const posts = [];
 
 for (const file of files) {
+  const slug = file.replace(/\.md$/, '');
+  if (EXCLUDE.has(slug)) continue;
+
   const raw = await readFile(path.join(postsDir, file), 'utf8');
   const fm = parseFrontMatter(raw);
   const body = raw.replace(/^\s*(---|\+\+\+)\s*\n[\s\S]*?\n(---|\+\+\+)\s*\n/, '');
@@ -89,7 +114,6 @@ for (const file of files) {
   if (!date) continue;
 
   const year = Number(date.slice(0, 4));
-  const slug = file.replace(/\.md$/, '');
 
   posts.push({
     slug,
@@ -98,6 +122,7 @@ for (const file of files) {
     year,
     readingTime: fm.readingTime ?? null,
     dek: extractDek(body),
+    body: extractBody(raw),
     era: eraFor(year).id,
     sourceUrl: `https://techliaison.netlify.app/posts/${slug}/`,
     repoUrl: `https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/${file}`,
