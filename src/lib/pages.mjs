@@ -437,7 +437,7 @@ export function renderProjectFilter(projects, tag) {
         .slice(0, 2)
         .map((s) => `<li><span>${esc(s.value)}</span><em>${esc(s.detail)}</em></li>`)
         .join('')}</ul>
-      ${arrowLink('Repository', p.repo, { external: true })}
+      ${p.repoPublished === false ? '' : arrowLink('Repository', p.repo, { external: true })}
     </article>`,
     )
     .join('')}</div>`;
@@ -788,7 +788,7 @@ export function renderPost({ post, related, project, nextPost }) {
       project
         ? `<div class="post-related"><p class="section-eyebrow">Related project</p><h2>${esc(project.name)}</h2><p>${esc(
             project.tagline,
-          )}</p>${arrowLink('Repository', project.repo, { external: true })}</div>`
+          )}</p>${repoLink(project)}</div>`
         : ''
     }
     <div class="post-next">
@@ -1265,7 +1265,6 @@ export function renderArchivePost({ post, era }) {
       <h1 class="post-h1">${esc(post.title)}</h1>
       <p class="post-dek-lg">${esc(post.dek)}</p>
       <div class="crosspost">
-        <a href="${attr(post.sourceUrl)}" target="_blank" rel="noopener noreferrer">Original on Netlify<span class="ext" aria-hidden="true">↗</span></a>
         <a href="${attr(post.repoUrl)}" target="_blank" rel="noopener noreferrer">Source markdown<span class="ext" aria-hidden="true">↗</span></a>
       </div>
     </div>

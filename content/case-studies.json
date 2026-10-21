@@ -530,10 +530,6 @@
       ],
       "links": [
         {
-          "label": "Automation Gateway repository",
-          "href": "https://github.com/omeiza-workspace/automation-gateway"
-        },
-        {
           "label": "Related article: Deterministic Toolchains Don't Need a Backend",
           "href": "/blog/deterministic-toolchains-dont-need-a-backend/"
         },

@@ -13,6 +13,7 @@
     "archive": "node scripts/build-archive.mjs",
     "social-image": "node scripts/render-social-image.mjs --all",
     "check": "node scripts/check.mjs",
+    "check-links": "node scripts/check-links.mjs",
     "predeploy": "npm run check && npm run build"
   },
   "engines": {

@@ -312,11 +312,6 @@
         "claim": "The adopter list cannot be inflated",
         "verify": "https://github.com/omeiza-workspace/api-mock-services/blob/main/ADOPTERS.md",
         "how": "The list is a file in the repository and grows by pull request."
-      },
-      {
-        "claim": "The automation platform has no external dependencies",
-        "verify": "https://github.com/omeiza-workspace/automation-gateway",
-        "how": "It ships as a folder: no package manager, no build step, no internet in the request path."
       }
     ],
     "documents": [

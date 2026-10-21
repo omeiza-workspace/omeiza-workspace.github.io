@@ -7,10 +7,22 @@
   "lang": "en",
   "themeColor": "#0b0f14",
   "nav": [
-    { "label": "Home", "href": "/" },
-    { "label": "Products", "href": "/products/" },
-    { "label": "Build in Public", "href": "/blog/" },
-    { "label": "Open Source Impact", "href": "/evidence/" }
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "Products",
+      "href": "/products/"
+    },
+    {
+      "label": "Build in Public",
+      "href": "/blog/"
+    },
+    {
+      "label": "Open Source Impact",
+      "href": "/evidence/"
+    }
   ],
   "footer": {
     "blurb": "Open Source Architect building light, sustainable developer infrastructure and local-first CI/CD automation.",
@@ -18,31 +30,78 @@
       {
         "title": "Site",
         "links": [
-          { "label": "Products", "href": "/products/" },
-          { "label": "Build in Public", "href": "/blog/" },
-          { "label": "Earlier archive", "href": "/archive/" },
-          { "label": "Open Source Impact", "href": "/evidence/" },
-          { "label": "Verification index", "href": "/record/" },
-          { "label": "Media Kit", "href": "/media-kit/" }
+          {
+            "label": "Products",
+            "href": "/products/"
+          },
+          {
+            "label": "Build in Public",
+            "href": "/blog/"
+          },
+          {
+            "label": "Earlier archive",
+            "href": "/archive/"
+          },
+          {
+            "label": "Open Source Impact",
+            "href": "/evidence/"
+          },
+          {
+            "label": "Verification index",
+            "href": "/record/"
+          },
+          {
+            "label": "Media Kit",
+            "href": "/media-kit/"
+          }
         ]
       },
       {
         "title": "Code",
         "links": [
-          { "label": "GitHub", "href": "https://github.com/omeiza-workspace", "external": true },
-          { "label": "CI Kit", "href": "https://github.com/omeiza-workspace/ci-kit", "external": true },
-          { "label": "api-mock-services", "href": "https://github.com/omeiza-workspace/api-mock-services", "external": true },
-          { "label": "Automation Gateway", "href": "https://github.com/omeiza-workspace/automation-gateway", "external": true }
+          {
+            "label": "GitHub",
+            "href": "https://github.com/omeiza-workspace",
+            "external": true
+          },
+          {
+            "label": "CI Kit",
+            "href": "https://github.com/omeiza-workspace/ci-kit",
+            "external": true
+          },
+          {
+            "label": "api-mock-services",
+            "href": "https://github.com/omeiza-workspace/api-mock-services",
+            "external": true
+          }
         ]
       },
       {
         "title": "Writing",
         "links": [
-          { "label": "All Articles", "href": "/blog/" },
-          { "label": "Earlier archive", "href": "/archive/" },
-          { "label": "RSS Feed", "href": "/feed.xml", "external": false },
-          { "label": "LinkedIn", "href": "https://www.linkedin.com/in/omeiza-okuta", "external": true },
-          { "label": "X", "href": "https://x.com/omeiza", "external": true }
+          {
+            "label": "All Articles",
+            "href": "/blog/"
+          },
+          {
+            "label": "Earlier archive",
+            "href": "/archive/"
+          },
+          {
+            "label": "RSS Feed",
+            "href": "/feed.xml",
+            "external": false
+          },
+          {
+            "label": "LinkedIn",
+            "href": "https://www.linkedin.com/in/omeiza-okuta",
+            "external": true
+          },
+          {
+            "label": "X",
+            "href": "https://x.com/omeiza",
+            "external": true
+          }
         ]
       }
     ],

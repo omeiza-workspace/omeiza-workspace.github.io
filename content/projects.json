@@ -237,23 +237,7 @@
           "body": "A step that throws is retried with exponential backoff, and each attempt writes a distinct state row. An auditor can trace the transient failure, the recovery delay, and the final outcome without reconstructing anything from logs."
         }
       ],
-      "docIndex": [
-        {
-          "label": "Repository",
-          "href": "https://github.com/omeiza-workspace/automation-gateway",
-          "note": "the project"
-        },
-        {
-          "label": "The engine core",
-          "href": "https://github.com/omeiza-workspace/automation-gateway",
-          "note": "Modules/PipelineEngine"
-        },
-        {
-          "label": "Test harness",
-          "href": "https://github.com/omeiza-workspace/automation-gateway",
-          "note": "Pester, offline"
-        }
-      ]
+      "docIndex": []
     }
   ],
   "naming": {

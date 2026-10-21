@@ -34,6 +34,9 @@ jobs:
       - name: Check the built site
         run: node scripts/check.mjs
 
+      - name: Check the external links
+        run: node scripts/check-links.mjs
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
