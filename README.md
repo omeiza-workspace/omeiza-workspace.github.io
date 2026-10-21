@@ -240,6 +240,24 @@ The site is complete. These are the things in flight.
       `homebrew-tap`, `TechLiaison` and `vitodeploy-multi-workstation-setup`.
       GitHub removed the pin mutation from its API, so this is a few clicks in
       the profile settings.
+- [ ] **Restore the social channels, and check the handles first.** Three are
+      hidden from the site, each for a different reason:
+
+      | Channel | Why it is hidden |
+      | --- | --- |
+      | X — `x.com/omeiza` | The account is suspended. The handle also resolves to a different person's profile, so the link was pointing at a stranger. |
+      | Substack — `omeiza.substack.com` | The publication exists but holds no posts, so the cross-post links in the essays pointed at empty pages. |
+      | Dev.to — `dev.to/omeiza` | The handle belongs to a different person, and none of the essays are published there. |
+
+      Each is a `visible: false` flag on the channel in `content/social.json`,
+      with the reason recorded beside it. Set it back to `true` once the
+      channel is genuinely live — and check that the handle resolves to your
+      own profile first, because a link to someone else's account is worse
+      than no link. The build fails if a hidden channel's URL reaches a
+      page, so the flag cannot be undone by accident.
+
+      The Substack and Dev.to handles are probably taken, so the essays will
+      need to go out under a different publication or a different handle.
 - [ ] **Set the GitHub profile bio and website.** The profile README is done;
       the two fields above it are set in the profile settings.
 - [ ] **Reconcile one measurement** across the two published documents.

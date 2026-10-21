@@ -186,7 +186,9 @@ export async function build() {
         jobTitle: profile.role,
         email: `mailto:${profile.contact.email}`,
         url: site.url,
-        sameAs: social.channels.map((c) => c.url),
+        sameAs: (social.channels ?? [])
+          .filter((c) => c.visible !== false)
+          .map((c) => c.url),
         knowsAbout: profile.specialisms.map((s) => s.title),
         worksFor: { '@type': 'Organization', name: 'Independent' },
         description: profile.hero.headline,

@@ -142,6 +142,17 @@ for (const file of contentFiles) {
 }
 
 const evidence = JSON.parse(await readFile(path.join(ROOT, 'content', 'evidence.json'), 'utf8'));
+const social = JSON.parse(await readFile(path.join(ROOT, 'content', 'social.json'), 'utf8'));
+
+// A hidden channel must stay hidden. Hiding one is a decision with a
+// reason — a suspended account, an empty publication, a handle that
+// belongs to somebody else — and it is easy to undo by accident.
+const hiddenChannels = (social.channels ?? []).filter((c) => c.visible === false);
+for (const channel of hiddenChannels) {
+  if (!channel.hiddenReason) {
+    problems.push(`social channel "${channel.id}" is hidden but has no hiddenReason`);
+  }
+}
 const projects = JSON.parse(await readFile(path.join(ROOT, 'content', 'projects.json'), 'utf8'));
 const cases = JSON.parse(await readFile(path.join(ROOT, 'content', 'case-studies.json'), 'utf8'));
 
@@ -264,6 +275,13 @@ for (const file of htmlFiles) {
     if (!html.includes('name="description"')) problems.push(`${rel} has no meta description`);
     if (!html.includes('rel="canonical"')) problems.push(`${rel} has no canonical link`);
     if (!html.includes('application/ld+json')) warnings.push(`${rel} has no JSON-LD structured data`);
+  }
+
+  // A hidden channel's URL must not reach the page.
+  for (const channel of hiddenChannels) {
+    if (html.includes(channel.url)) {
+      problems.push(`${rel} publishes the hidden "${channel.id}" channel (${channel.url})`);
+    }
   }
 }
 

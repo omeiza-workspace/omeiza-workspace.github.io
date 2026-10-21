@@ -11,12 +11,12 @@
       "n": 1,
       "title": "Waiting is the most expensive thing in software, and nobody puts it on a budget.",
       "short": "Waiting is the most expensive thing in software.",
-      "claim": "A four-minute wait per change, twenty changes a day, twenty developers, is more than 1,600 hours a year. It is a salary-sized cost that nobody writes down, because it appears as a progress bar rather than an invoice.",
-      "why": "The cloud bill gets a dashboard, so it gets managed. The waiting gets nothing, so it does not. And the two are not the same thing — in the case that made me build a local gate, the runners never started at all, so nothing was billed and roughly a week of commits went unverified while the pipeline looked merely red.",
+      "claim": "A four-minute wait per change, twenty changes a day, twenty developers, is over 1,600 hours a year. It is a salary-sized cost that nobody writes down, because it appears as a progress bar rather than an invoice — and sometimes, as an email about a bill.",
+      "why": "The cloud bill gets a dashboard, so it gets managed. The waiting gets nothing, so it does not. The two are not the same thing, and the difference is not academic. On 21 October 2026 the account this work runs on used the last of its 2,000 included Actions minutes with eleven days left in the cycle. Twenty-eight runs in a row failed, none of them on code, and the pipeline looked broken rather than exhausted. For those eleven days there was no way to run the checks on a shared machine at all, unless someone paid per minute for it.",
       "evidence": "CI Kit",
       "evidenceHref": "/products/ci-kit/",
-      "evidenceBody": "The local gate answers the same question in about 100 seconds, and it says why it failed. It also found three real defects that the missed builds had been hiding.",
-      "differently": "I would measure the waiting before the spend. Almost every team I have worked with has a view on its cloud bill and no view at all on how long its developers spend watching it."
+      "evidenceBody": "The local gate answers the same question in about 100 seconds, and it says why it failed. It also found three real defects that the missed builds had been hiding. The checks that moved local stopped consuming metered minutes entirely — not as a general saving on the pipeline, but as a specific set of jobs going to zero.",
+      "differently": "I would measure the waiting before the spend. Almost every team I have worked with has a view on its cloud bill and no view at all on how long its developers spend watching it — and the two numbers are rarely the same number."
     },
     {
       "n": 2,

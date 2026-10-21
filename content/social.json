@@ -6,7 +6,8 @@
       "handle": "@omeiza-workspace",
       "url": "https://github.com/omeiza-workspace",
       "role": "Primary — source code, releases, evidence documents and issue threads",
-      "cadence": "Weekly releases and continuous commits"
+      "cadence": "Weekly releases and continuous commits",
+      "visible": true
     },
     {
       "id": "linkedin",
@@ -14,7 +15,8 @@
       "handle": "Omeiza Okuta",
       "url": "https://www.linkedin.com/in/omeiza-okuta",
       "role": "Professional reach — engineering managers, recruiters and collaborators",
-      "cadence": "One post per week"
+      "cadence": "One post per week",
+      "visible": true
     },
     {
       "id": "x",
@@ -22,7 +24,9 @@
       "handle": "@omeiza",
       "url": "https://x.com/omeiza",
       "role": "Build in public — release notes, benchmarks, milestones",
-      "cadence": "2–3 posts per week"
+      "cadence": "2–3 posts per week",
+      "visible": false,
+      "hiddenReason": "The account is suspended, and the handle @omeiza resolves to a different person's profile. Neither the link nor the bio can be published until the account is restored and the handle is verified."
     },
     {
       "id": "substack",
@@ -30,7 +34,9 @@
       "handle": "omeiza",
       "url": "https://omeiza.substack.com",
       "role": "Long-form essays — the primary thought-leadership channel",
-      "cadence": "Fortnightly"
+      "cadence": "Fortnightly",
+      "visible": false,
+      "hiddenReason": "The publication exists but holds no posts, so the cross-post links in the essays point at empty pages. The essays are published here instead."
     },
     {
       "id": "devto",
@@ -38,7 +44,9 @@
       "handle": "@omeiza",
       "url": "https://dev.to/omeiza",
       "role": "Cross-posted essays for practitioner discovery",
-      "cadence": "Fortnightly, mirroring Substack"
+      "cadence": "Fortnightly, mirroring Substack",
+      "visible": false,
+      "hiddenReason": "The handle @omeiza on Dev.to belongs to a different person, and none of the essays are published there."
     }
   ],
   "headline": "Creator of CI Kit, api-mock-services & the Automation Gateway | Specializing in Developer Experience (DX), Local-First Infrastructure, and Air-Gapped Platform Engineering.",
@@ -74,44 +82,66 @@
     {
       "week": 1,
       "channel": "LinkedIn",
+      "format": "The origin story, with the evidence",
+      "topic": "The pipeline went red because the bill was due",
+      "hook": "Twenty-eight builds in a row failed. Not one of them failed on code.",
+      "body": "On 21 October we used the last of our 2,000 included GitHub Actions minutes, with eleven days left in the cycle. Every job from that point either cost money per minute or did not start at all. The largest repository in the workspace had 28 failing runs out of the last 30, all of them in about six seconds, all of them with the same annotation: the job was not started because the spending limit needed increasing. It looked exactly like a broken build. It was an empty account. CI Kit is the answer: the checks that do not need a shared machine now run on the developer's own laptop, in about a hundred seconds, for nothing.",
+      "cta": "The full write-up, with the annotation and the numbers, is on my site. Link in the comments.",
+      "links": [
+        "/products/ci-kit/",
+        "https://github.com/omeiza-workspace/ci-kit"
+      ]
+    },
+    {
+      "week": 2,
+      "channel": "LinkedIn",
       "format": "Problem → evidence → CTA",
       "topic": "A red build is not always a red build",
       "hook": "Our pipeline was red for a week. Not one of those 28 failures was a code failure — the jobs never started.",
       "body": "GitHub had refused to start the jobs because of a spending limit. Every run failed in about six seconds. At the pull request level a red build is a red build, so the week looked like ordinary breakage. What I built to find out what was actually happening is now open source, and I wrote up the incident — including the measurement I threw away.",
       "cta": "The full write-up, with the numbers and the harness, is on my site. Link in the comments.",
-      "links": ["/blog/the-silent-bill-remote-ci-cd-drift/", "https://github.com/omeiza-workspace/ci-kit"],
+      "links": [
+        "/blog/the-silent-bill-remote-ci-cd-drift/",
+        "https://github.com/omeiza-workspace/ci-kit"
+      ],
       "image": "/assets/img/social/automation-gateway-tree.png"
     },
     {
-      "week": 2,
+      "week": 3,
       "channel": "X",
       "format": "Terminal screenshot + one number",
       "topic": "Benchmark release",
       "hook": "Idle CPU, four mock containers vs one dependency-free process:",
       "body": "7.9% → 0.0%. Memory 250 MB → 50 MB. First request 20 s and rising → 1.4 s. Same mocks, one process, no dependencies. The footprint is a build gate now — the build fails above 100 MB, so the number cannot quietly stop being true.",
       "cta": "Open source: github.com/omeiza-workspace/api-mock-services",
-      "links": ["https://github.com/omeiza-workspace/api-mock-services"]
+      "links": [
+        "https://github.com/omeiza-workspace/api-mock-services"
+      ]
     },
     {
-      "week": 3,
+      "week": 4,
       "channel": "LinkedIn",
       "format": "Architecture breakdown + directory-tree image",
       "topic": "Business logic as data, on a host with no internet",
       "hook": "Here is the layout of an air-gapped automation engine that runs enterprise workflows from JSON instead of controller code.",
       "body": "The engine core is immutable and lives in its own module scope. Workflows are pure JSON, so a business rule changes by editing a file rather than by shipping a deploy. New integrations are *.plugin.ps1 files that get auto-discovered — the core is never edited to add one. Every step attempt, including retries, is written to SQLite so an auditor can trace a self-healed run. Zero external dependencies, no build step, no internet in the request path.",
       "cta": "The full architecture write-up, with the layout and the design decisions, is on my site.",
-      "links": ["/products/automation-gateway/"],
+      "links": [
+        "/products/automation-gateway/"
+      ],
       "image": "/assets/img/social/automation-gateway-tree.png"
     },
     {
-      "week": 4,
+      "week": 5,
       "channel": "X",
       "format": "Milestone + thanks",
       "topic": "Repository milestone",
       "hook": "CI Kit just crossed [N] stars.",
       "body": "Started this because I watched a team fail 28 builds in a row without anyone noticing the jobs had never run. Thank you to everyone who has filed an issue — particularly the ones that told me the toolchain check was hiding a class of real failures. Open to issues and PRs.",
       "cta": "github.com/omeiza-workspace/ci-kit",
-      "links": ["https://github.com/omeiza-workspace/ci-kit"]
+      "links": [
+        "https://github.com/omeiza-workspace/ci-kit"
+      ]
     }
   ],
   "crossPollination": {
@@ -125,5 +155,39 @@
       "The verification index links every claim to the artefact that supports it, so a reader never has to ask.",
       "The repository READMEs link to the articles that explain the design, and to the evidence documents."
     ]
-  }
+  },
+  "visibleChannelsOnly": true,
+  "channelNote": "Only channels with visible: true are published. A hidden channel is left out of every list, every bio block and every footer, so nothing links to a page that does not exist or to a profile that belongs to somebody else.",
+  "identityChecks": [
+    {
+      "url": "https://github.com/omeiza-workspace",
+      "mustContain": "omeiza-workspace",
+      "channel": "GitHub"
+    },
+    {
+      "url": "https://www.linkedin.com/in/omeiza-okuta",
+      "mustContain": "omeiza-okuta",
+      "channel": "LinkedIn",
+      "optional": true,
+      "note": "LinkedIn answers automated requests with a challenge, so this one is checked by hand."
+    },
+    {
+      "url": "https://omeiza.substack.com",
+      "mustContain": "Omeiza",
+      "channel": "Substack",
+      "visible": false
+    },
+    {
+      "url": "https://dev.to/omeiza",
+      "mustContain": "Omeiza",
+      "channel": "Dev.to",
+      "visible": false
+    },
+    {
+      "url": "https://x.com/omeiza",
+      "mustContain": "Omeiza",
+      "channel": "X",
+      "visible": false
+    }
+  ]
 }

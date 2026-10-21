@@ -120,11 +120,6 @@
             "label": "LinkedIn",
             "href": "https://www.linkedin.com/in/omeiza-okuta",
             "external": true
-          },
-          {
-            "label": "X",
-            "href": "https://x.com/omeiza",
-            "external": true
           }
         ]
       }
@@ -144,7 +139,6 @@
       "Go",
       "FinTech infrastructure"
     ],
-    "ogImage": "/assets/img/og-default.svg",
-    "twitter": "@omeiza"
+    "ogImage": "/assets/img/og-default.svg"
   }
 }

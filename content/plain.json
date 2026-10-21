@@ -22,12 +22,12 @@
           "why": "It works for a fortnight. Then someone pushes from a laptop without the setup, and the pipeline is the only thing that is protected."
         },
         {
-          "tried": "A commercial mock service",
-          "why": "A seat licence, an internet connection, and a runtime the size of a small server. It works — right up until the budget review."
+          "tried": "Raising the limits, or buying more minutes",
+          "why": "It works until the next month. Then the same thing happens again, and this time it is a surprise to everybody."
         },
         {
-          "tried": "A bigger box for the whole platform",
-          "why": "It fixes the symptom on one machine and scales the bill on every other one."
+          "tried": "A commercial mock service",
+          "why": "A seat licence, an internet connection, and a runtime the size of a small server. It works — right up until the budget review."
         }
       ]
     },
@@ -56,13 +56,13 @@
         "id": "waiting",
         "goal": "Deliver on time",
         "title": "Your team is not behind. It is waiting.",
-        "businessNeed": "A business needs its delivery dates to mean something. Right now they are blown for a reason nobody can name, and the reason is not the work — it is the queue.",
-        "problem": "A developer makes a change, pushes it, and waits four minutes for the build. Twenty developers, twenty changes a day, two hundred and fifty working days a year. That is over sixteen hundred hours a year spent looking at a progress bar, and it is a salary-sized cost that appears on no invoice.",
+        "businessNeed": "A business needs its delivery dates to mean something. Right now they are blown for a reason nobody can name, and the reason is not the work — it is the queue, and sometimes it is the bill.",
+        "problem": "A developer makes a change, pushes it, and waits four minutes for the build. Twenty developers, twenty changes a day, two hundred and fifty working days a year. That is over sixteen hundred hours a year spent looking at a progress bar, and it is a salary-sized cost that appears on no invoice. It gets worse when the shared build machine runs out of budget: then the wait is not four minutes, it is forever, and the pipeline looks broken rather than exhausted.",
         "plain": "The check now runs on the developer's own laptop, before the code is sent anywhere. The result comes with it, so nothing is left unverified, and the answer never depends on a shared machine being available.",
         "technical": "CI Kit runs the same scripts the CI workflow runs, on the machine in front of the developer, with the toolchain pinned so the two cannot disagree. It is a shell tool with no runtime to install.",
         "outcome": "The wait drops from four minutes to eleven seconds, and the result arrives every time. Dates stop being missed for reasons that have nothing to do with the work.",
-        "cost": "At a loaded cost of fifty pounds an hour, sixteen hundred hours of waiting is roughly eighty thousand pounds a year, for a tool that costs nothing to run and nothing to license.",
-        "measure": "4m 12s becomes 11s. Job retries fall from 8.4% to 0.6%. Twenty-eight builds that had been unverified for a week get verified again.",
+        "cost": "At a loaded cost of fifty pounds an hour, sixteen hundred hours of waiting is roughly eighty thousand pounds a year, for a tool that costs nothing to run and nothing to license. The waiting is only part of it — the same limit stops the pipeline running at all, which is a far more expensive failure.",
+        "measure": "4m 12s becomes 11s. Job retries fall from 8.4% to 0.6%. Twenty-eight builds that had been unverified for a week get verified again — and the checks that move to the laptop stop consuming metered build minutes altogether.",
         "evidence": "/products/ci-kit/",
         "linkLabel": "Read the case study"
       },
@@ -117,10 +117,12 @@
   "plainTerms": {
     "ci-kit": {
       "title": "In plain terms",
-      "body": "A team could not tell whether their code was broken or whether the service that checks it had simply stopped running. The log said the job never started, but the pull request only said red. CI Kit runs the same checks on the developer's own machine, so the answer arrives in seconds, says what went wrong, and never depends on somebody else's billing decision.",
+      "body": "The build machine ran out of its monthly allowance, so the pipeline went red. Nothing was wrong with the code — the jobs simply never started, and the failure looked exactly like a broken build. This runs the same checks on the developer's own laptop, so the answer arrives in about a hundred seconds and does not depend on anybody's budget.",
       "bullets": [
-        "Before: 28 builds in a row failed, and none of them had failed on code — the jobs had never started",
+        "Before: the account used all 2,000 of its included build minutes, with 11 days of the month still to go",
+        "28 builds in a row failed, none of them on code — the jobs were never started",
         "After: the same check runs locally, takes about 100 seconds, and says why it failed",
+        "The checks that moved to the laptop now cost no build minutes at all",
         "It also found three real defects the missed builds had been hiding"
       ]
     },
@@ -300,6 +302,32 @@
     {
       "label": "Live documentation sites",
       "plain": "How many of the projects have their own published documentation."
+    }
+  ],
+  "goals": [
+    {
+      "goal": "Deliver on time",
+      "plain": "Missed dates that were never about the work.",
+      "measure": "4 minutes of waiting becomes 11 seconds",
+      "href": "/products/ci-kit/"
+    },
+    {
+      "goal": "Control the cost",
+      "plain": "Infrastructure spend you can explain, and stop paying for idle capacity.",
+      "measure": "250 MB becomes 50 MB, and 7.9% idle CPU becomes none",
+      "href": "/products/api-mock-services/"
+    },
+    {
+      "goal": "Stop the bill being a deadline",
+      "plain": "A build that cannot run because the allowance ran out is a delivery date you do not control.",
+      "measure": "The checks that move local consume no build minutes at all",
+      "href": "/products/ci-kit/"
+    },
+    {
+      "goal": "Remove the dependency risk",
+      "plain": "Critical processes that keep running when someone else's service does not.",
+      "measure": "No external dependencies, and every attempt recorded",
+      "href": "/products/automation-gateway/"
     }
   ]
 }

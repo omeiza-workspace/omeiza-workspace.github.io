@@ -15,8 +15,16 @@
     "headline": "Open Source Architect building light, sustainable developer infrastructure and local-first CI/CD automation.",
     "sub": "I maintain three open-source tools: a local gate that runs your CI before you push, a dependency-free process that stands in for third-party payment and identity APIs, and an air-gapped automation engine that runs enterprise workflows without a network. All three publish their measurements, and all three publish the claims they do not make.",
     "cta": [
-      { "label": "Read the case studies", "href": "/products/", "primary": true },
-      { "label": "The public record", "href": "/record/", "primary": false }
+      {
+        "label": "Read the case studies",
+        "href": "/products/",
+        "primary": true
+      },
+      {
+        "label": "The public record",
+        "href": "/record/",
+        "primary": false
+      }
     ],
     "scrollHint": "Case studies, writing and public evidence"
   },
@@ -37,9 +45,18 @@
       "description": "CI Kit for a local CI gate that runs the same scripts your workflow runs. api-mock-services for zero-dependency, one-process stand-ins for third-party APIs. An air-gapped automation engine for enterprise workflow execution.",
       "proof": "Deep case studies with measured outcomes",
       "links": [
-        { "label": "CI Kit", "href": "/products/ci-kit/" },
-        { "label": "api-mock-services", "href": "/products/api-mock-services/" },
-        { "label": "Automation Gateway", "href": "/products/automation-gateway/" }
+        {
+          "label": "CI Kit",
+          "href": "/products/ci-kit/"
+        },
+        {
+          "label": "api-mock-services",
+          "href": "/products/api-mock-services/"
+        },
+        {
+          "label": "Automation Gateway",
+          "href": "/products/automation-gateway/"
+        }
       ]
     },
     {
@@ -50,9 +67,18 @@
       "description": "Architectural essays and post-mortems on CI/CD drift, local sandbox design, and the cost of always-on integration infrastructure. Published on Substack, Dev.to and here.",
       "proof": "RSS, cross-posted and permanently linked",
       "links": [
-        { "label": "All articles", "href": "/blog/" },
-        { "label": "Earlier archive, 2013–2025", "href": "/archive/" },
-        { "label": "RSS feed", "href": "/feed.xml" }
+        {
+          "label": "All articles",
+          "href": "/blog/"
+        },
+        {
+          "label": "Earlier archive, 2013–2025",
+          "href": "/archive/"
+        },
+        {
+          "label": "RSS feed",
+          "href": "/feed.xml"
+        }
       ]
     },
     {
@@ -63,9 +89,18 @@
       "description": "A single consolidated view of GitHub metrics, community growth, external recognition and public writing — every claim linked to the artefact that supports it.",
       "proof": "Live metrics snapshot, refreshed by CI",
       "links": [
-        { "label": "Impact dashboard", "href": "/evidence/" },
-        { "label": "Verification index", "href": "/record/" },
-        { "label": "Printable media kit", "href": "/media-kit/" }
+        {
+          "label": "Impact dashboard",
+          "href": "/evidence/"
+        },
+        {
+          "label": "Verification index",
+          "href": "/record/"
+        },
+        {
+          "label": "Printable media kit",
+          "href": "/media-kit/"
+        }
       ]
     }
   ],
@@ -106,11 +141,58 @@
     }
   ],
   "stack": [
-    { "group": "Languages", "items": ["Shell", "PowerShell", "JavaScript / Node.js", "TypeScript", "Python", "Go"] },
-    { "group": "CI / CD", "items": ["GitHub Actions", "act", "Docker", "gitleaks", "Renovate"] },
-    { "group": "Platform", "items": ["Windows Service", "PowerShell 7", "SQLite", "Pester", "DPAPI", "Runspace Pools"] },
-    { "group": "Developer tooling", "items": ["Make", "Git hooks", "OpenAPI", "Prism", "Tilt"] },
-    { "group": "Domains", "items": ["Payments", "Identity / KYC", "Enterprise automation", "Air-gapped infrastructure", "Observability"] }
+    {
+      "group": "Languages",
+      "items": [
+        "Shell",
+        "PowerShell",
+        "JavaScript / Node.js",
+        "TypeScript",
+        "Python",
+        "Go"
+      ]
+    },
+    {
+      "group": "CI / CD",
+      "items": [
+        "GitHub Actions",
+        "act",
+        "Docker",
+        "gitleaks",
+        "Renovate"
+      ]
+    },
+    {
+      "group": "Platform",
+      "items": [
+        "Windows Service",
+        "PowerShell 7",
+        "SQLite",
+        "Pester",
+        "DPAPI",
+        "Runspace Pools"
+      ]
+    },
+    {
+      "group": "Developer tooling",
+      "items": [
+        "Make",
+        "Git hooks",
+        "OpenAPI",
+        "Prism",
+        "Tilt"
+      ]
+    },
+    {
+      "group": "Domains",
+      "items": [
+        "Payments",
+        "Identity / KYC",
+        "Enterprise automation",
+        "Air-gapped infrastructure",
+        "Observability"
+      ]
+    }
   ],
   "timeline": [
     {
@@ -118,38 +200,66 @@
       "title": "Open Source Architect",
       "org": "Independent",
       "body": "Maintaining CI Kit, api-mock-services and the air-gapped automation engine; writing about CI/CD drift, local-first infrastructure and reproducible measurement.",
-      "tags": ["CI Kit", "api-mock-services", "Automation", "Writing"]
+      "tags": [
+        "CI Kit",
+        "api-mock-services",
+        "Automation",
+        "Writing"
+      ]
     },
     {
       "period": "2024 — 2026",
       "title": "Platform / DevEx Engineering",
       "org": "FinTech & SaaS product engineering",
       "body": "Owned the internal CI platform and developer onboarding for payment-product teams. The workspace these tools came from had 28 red runs in a row and nobody could tell that the jobs had never started — which is what turned a local gate from a convenience into the answer to 'did I break something?'",
-      "tags": ["Platform", "DevEx", "Payments"]
+      "tags": [
+        "Platform",
+        "DevEx",
+        "Payments"
+      ]
     },
     {
       "period": "2022 — 2024",
       "title": "Backend / Infrastructure Engineer",
       "org": "Product engineering",
       "body": "Service and infrastructure work across Go, Python and Node services, with a gradual drift toward build tooling, container images and everything that sits between the laptop and the cluster. The Docker and infrastructure-as-code writing from this period is in the earlier archive.",
-      "tags": ["Go", "Docker", "CI"]
+      "tags": [
+        "Go",
+        "Docker",
+        "CI"
+      ]
     },
     {
       "period": "2013 — 2022",
       "title": "Application Support & Software Engineering",
       "org": "Equipping People (London), Exclusive IT Solutions, Canaries Solutions",
       "body": "Application support, service desk and delivery work before and alongside engineering — the period in which I learned to read logs, reproduce faults and write the documentation that made a system survivable by the next person. The 2013–2025 archive is an honest record of that arc.",
-      "tags": ["Support", "Delivery", "Documentation"]
+      "tags": [
+        "Support",
+        "Delivery",
+        "Documentation"
+      ]
     }
   ],
   "contact": {
     "email": "okuta.omeiza@gmail.com",
     "formNote": "Email is the fastest route. I respond to technical and collaboration enquiries within two working days.",
     "channels": [
-      { "label": "Email", "value": "okuta.omeiza@gmail.com", "href": "mailto:okuta.omeiza@gmail.com" },
-      { "label": "GitHub", "value": "github.com/omeiza-workspace", "href": "https://github.com/omeiza-workspace" },
-      { "label": "LinkedIn", "value": "linkedin.com/in/omeiza-okuta", "href": "https://www.linkedin.com/in/omeiza-okuta" },
-      { "label": "X", "value": "x.com/omeiza", "href": "https://x.com/omeiza" }
+      {
+        "label": "Email",
+        "value": "okuta.omeiza@gmail.com",
+        "href": "mailto:okuta.omeiza@gmail.com"
+      },
+      {
+        "label": "GitHub",
+        "value": "github.com/omeiza-workspace",
+        "href": "https://github.com/omeiza-workspace"
+      },
+      {
+        "label": "LinkedIn",
+        "value": "linkedin.com/in/omeiza-okuta",
+        "href": "https://www.linkedin.com/in/omeiza-okuta"
+      }
     ]
   }
 }

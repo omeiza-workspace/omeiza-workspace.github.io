@@ -9,6 +9,16 @@
 import { esc, attr, join, formatDate, formatMonth, num } from './html.mjs';
 import { markdown, inlineMarkdown } from './markdown.mjs';
 
+
+/**
+ * The channels that may be published. A hidden channel is left out of every
+ * list, every bio block and every footer, so nothing links to a page that
+ * does not exist or to a profile that belongs to somebody else.
+ */
+export function visibleChannels(social) {
+  return (social.channels ?? []).filter((c) => c.visible !== false);
+}
+
 /* ------------------------------------------------------------------ */
 /* shared pieces                                                       */
 /* ------------------------------------------------------------------ */
@@ -709,10 +719,9 @@ export function renderBlogIndex({ posts, social }) {
     <h1 class="page-title">Deep technical write-ups.</h1>
     <p class="page-lede">Essays and post-mortems on CI/CD reproducibility, offline-first integration testing, and the cost of slow feedback loops. Cross-posted to Substack and Dev.to, and permanently archived here with RSS.</p>
     <div class="page-hero-actions">${arrowLink('RSS feed', '/feed.xml', { external: true })}${arrowLink(
-      'Subscribe on Substack',
-      social.channels.find((c) => c.id === 'substack')?.url ?? '#',
-      { external: true },
-    )}${arrowLink('The earlier archive', '/archive/')}</div>
+      'The earlier archive',
+      '/archive/',
+    )}</div>
   </div>
 </section>
 
@@ -735,7 +744,7 @@ export function renderBlogIndex({ posts, social }) {
     <aside class="post-side">
       <div class="side-card">
         <p class="side-label">Writing cadence</p>
-        <ul class="side-list">${social.channels
+        <ul class="side-list">${visibleChannels(social)
           .filter((c) => ['substack', 'devto', 'x'].includes(c.id))
           .map(
             (c) =>
@@ -757,13 +766,12 @@ export function renderBlogIndex({ posts, social }) {
   <div class="newsletter-inner">
     <div>
       <h2>Follow the work as it happens.</h2>
-      <p>New releases, benchmarks and essays. No newsletter platform required — Substack and RSS cover it.</p>
+      <p>New releases, benchmarks and essays. The RSS feed carries every one of them, and the archive keeps the old ones readable.</p>
     </div>
-    <div class="newsletter-actions">${arrowLink(
-      'Substack',
-      social.channels.find((c) => c.id === 'substack')?.url ?? '#',
-      { external: true },
-    )}${arrowLink('RSS', '/feed.xml', { external: true })}</div>
+    <div class="newsletter-actions">${arrowLink('RSS feed', '/feed.xml', { external: true })}${arrowLink(
+      'The earlier archive',
+      '/archive/',
+    )}</div>
   </div>
 </section>
 `;
@@ -1024,7 +1032,7 @@ ${
 
 <section class="wrap" aria-label="Channels">
   ${sectionHead({ eyebrow: 'Cross-pollination', title: 'Where to find the work' })}
-  <div class="channel-grid">${social.channels
+  <div class="channel-grid">${visibleChannels(social)
     .map(
       (c) => `<a class="channel" href="${attr(c.url)}" target="_blank" rel="noopener noreferrer">
       <span class="ch-label">${esc(c.label)}</span>
@@ -1151,7 +1159,7 @@ export function renderMediaKit({ profile, social, projects, posts, evidence, sit
           .join('')}</ul>
 
         <h3>Links</h3>
-        <ul class="op-list">${social.channels
+        <ul class="op-list">${visibleChannels(social)
           .map((c) => `<li><strong>${esc(c.label)}</strong> — ${esc(c.url)}</li>`)
           .join('')}</ul>
       </div>

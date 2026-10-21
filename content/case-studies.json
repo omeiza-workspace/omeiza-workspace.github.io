@@ -17,24 +17,24 @@
       ],
       "hero": {
         "eyebrow": "Case study 01",
-        "headline": "The pipeline was not flaky. The job never started.",
-        "body": "For a week, the largest repository in the workspace had been red. Twenty-eight of the last thirty runs had failed. Not one of them had failed on code."
+        "headline": "The pipeline went red because the bill was due.",
+        "body": "On 21 October 2026 the account this project lives on used the last of its 2,000 included Actions minutes, with eleven days of the month still to go. Twenty-eight runs out of the last thirty failed, and not one of them failed on code."
       },
       "problem": {
         "headline": "A red build is not always a red build",
-        "body": "On 21 October 2026, `bytesickle-web` had 28 failing runs out of the last 30. Every one of them failed in about six seconds.\n\nSix seconds is the tell. A test failure takes as long as the test takes. A compile error takes as long as the compile takes. Six seconds is the time it takes for a runner to allocate, start a job, decide it will not start it, and give up.\n\nThe annotation said exactly what had happened:\n\n> The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings\n\nGitHub had refused to start the jobs. The same annotation was on the failures in `bytesickle-core`.\n\nBut taken at face value a red build is a red build. The developer assumes their change broke something, and either fixes a problem that does not exist or pushes again and waits. What actually happened was that nothing was verified at all, and the reason was one line of text in a log nobody reads.\n\nSo the repository was not failing. It was unverified. And for a week, nobody could tell the difference.",
-        "pullQuote": "A red build is not always a red build. Sometimes it is a build that never ran, and the difference is six seconds and one line of a log nobody reads.",
+        "body": "On 21 October 2026, the account running this workspace ran out of its included GitHub Actions minutes. The notification said it plainly:\n\n> You have used 100% of the Actions minutes included for the omeiza-workspace account\n>\n> **2,000 min used / 2,000 min included**\n>\n> You'll be billed for usage beyond the included amount — unless a $0 budget is set for Actions, which blocks further usage until it resets. Your usage will reset in 11 days on November 01, 2026.\n\nEleven days of pipeline left to run, and no minutes to run it on. Every job from that point either cost money per minute or did not start at all.\n\nThe largest repository in the workspace, `bytesickle-web`, had **28 failing runs out of the last 30**. Every one failed in about six seconds, with the same annotation:\n\n> The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings\n\nThe cause was the bill, not the code. The included minutes were gone, the spending limit that would have allowed paid overage had been reached, and the jobs were never allocated a runner at all.\n\nTaken at face value a red build is a red build. The developer assumes their change broke something, and either fixes a problem that does not exist or pushes again and waits. What actually happened was that **nothing was verified at all**, and the reason was one line of text in a log nobody reads.\n\nThe failure was not a flake and it was not a regression. It was an infrastructure ceiling, and it looked exactly like a broken build — which is the part that makes it worth writing down.",
+        "pullQuote": "The pipeline went red because the bill was due. Twenty-eight runs in a row, and not one of them failed on code.",
         "symptoms": [
           "28 of the last 30 runs failed, none of them on code",
-          "Every failure arrived in about six seconds, far too fast for a test or a compile",
-          "Every commit since had gone unverified while the branch protection still read as satisfied by a red build",
-          "The CI had been red for the same reason the jobs were not starting — and nobody could tell the two apart",
+          "Every failure arrived in about six seconds — far too fast for a test or a compile",
+          "The account's 2,000 included minutes were exhausted with 11 days left in the cycle",
+          "Until the reset on 1 November, every job either cost money per minute or did not start",
           "A stale secret-scan allowlist entry and 93 dependency advisories, 8 of them critical, were waiting behind the same wall"
         ]
       },
       "approach": {
-        "headline": "Make the answer independent of the runner",
-        "body": "The fix is not to make the pipeline faster. It is to make the question 'did I break something?' answerable without a runner at all.\n\nCI Kit gives a repository a local gate that mirrors what the GitHub Actions workflow does: the same installs, the same linters, the same type checks, the same tests. The design principle is a single copy of the setup. The gate scripts live in the repository under `scripts/ci/`, and both the Makefile and the workflow call them. There is one copy of the setup, so it cannot disagree with itself.\n\nThat matters more than it sounds. The usual reason a local gate and a CI run disagree is that they are two implementations of the same intent that drift. Here they are the same files, so drift is not possible — only hardware differences remain.\n\nThe gates are driven by what the repository actually contains, so the tool works with any language rather than being one language's plugin. It also runs the workflow files themselves locally through `act`, so the YAML is checked before the push rather than after it."
+        "headline": "Stop renting a runner to find out whether your code is broken",
+        "body": "The fix is not to buy more minutes. It is to notice that most of what the pipeline does every single commit does not need a shared machine at all: the lint, the type check, the unit tests, and the workflow files themselves. Those can run on the laptop in front of the developer, in about a hundred seconds, for nothing.\n\nCI Kit gives a repository a local gate that mirrors what the GitHub Actions workflow does: the same installs, the same linters, the same type checks, the same tests. The design principle is a single copy of the setup. The gate scripts live in the repository under `scripts/ci/`, and both the Makefile and the workflow call them. One copy of the setup, so it cannot disagree with itself.\n\nThat matters more than it sounds. The usual reason a local gate and a CI run disagree is that they are two implementations of the same intent that drift. Here they are the same files, so the only thing that can differ is the hardware.\n\nThe gates are driven by what the repository actually contains, so the tool works with any language rather than being one language's plugin. It also runs the workflow files themselves locally through `act`, so the YAML is checked before the push rather than after it.\n\nFor the eleven days until the reset, this was the difference between shipping and not shipping. The checks that no longer need a runner no longer need minutes, and the account's allowance stopped being the constraint on whether the work could move."
       },
       "architecture": {
         "headline": "Four parts",
@@ -170,12 +170,12 @@
       ],
       "highlight": {
         "before": {
-          "value": "4–12 min",
-          "label": "waited for a failing build, on a metered runner"
+          "value": "2,000 / 2,000 min",
+          "label": "included Actions minutes, exhausted with 11 days of the month left"
         },
         "after": {
-          "value": "~100 s",
-          "label": "on the developer's own machine, and it always runs"
+          "value": "0 min",
+          "label": "spent on the checks that now run on the developer's own machine"
         }
       }
     },
