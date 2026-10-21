@@ -101,19 +101,58 @@ dist/                     build output — published to GitHub Pages
 
 ---
 
-## Deploying to GitHub Pages
+## Where it lives
 
-1. Create the repository and push this directory to `main`.
-2. **Settings → Pages → Source → GitHub Actions.**
-3. Add the custom domain (`omeiza.dev`) under **Pages → Custom domain** and
-   point the `CNAME`/DNS records at GitHub. Enable *Enforce HTTPS*.
+**Live now:** <https://omeiza-workspace.github.io/>
 
-The workflow builds, runs the checks, and publishes `dist/`.
+| | |
+| --- | --- |
+| Repository | `omeiza-workspace/omeiza-workspace.github.io` |
+| Published from | `main`, via `.github/workflows/pages.yml` |
+| Build | `npm run build` → `dist/`, uploaded as a Pages artifact |
+| Preview build type | `workflow` (GitHub Actions) — **not** the legacy branch/`/` source |
 
-> The site uses trailing slashes (`/products/`) because GitHub Pages serves
-> directory indexes. `content/site.json` holds the canonical origin — change
-> `url` there if the domain differs, and the canonical links, sitemap, feed and
-> JSON-LD all follow.
+The repository is the **user site**, which is why the site is served at the
+root of `omeiza-workspace.github.io` rather than under a project path. That
+matters for a portfolio: the URL a panel writes down is the shortest one
+available.
+
+### Moving to `omeiza.dev`
+
+The domain is registered but has no DNS records yet, so the canonical origin
+is currently the `github.io` address. To move, in this order:
+
+1. Point the domain at GitHub. For an apex domain:
+
+   ```
+   omeiza.dev.            300  IN  A     192.30.252.153
+   omeiza.dev.            300  IN  A     192.30.252.154
+   www.omeiza.dev.        300  IN  CNAME omeiza-workspace.github.io.
+   ```
+
+2. Add a `CNAME` file containing `omeiza.dev` to the repository root and push.
+   GitHub provisions the certificate and serves the apex from this same repo.
+3. Change `url` in `content/site.json` to `https://omeiza.dev` and the
+   `Sitemap:` line in `src/build.mjs` to match. The canonical links, Open
+   Graph URLs, the sitemap and the RSS feed all follow from those two lines.
+4. Set **Enforce HTTPS** on under **Settings → Pages**.
+
+> Do not add the `CNAME` before step 1. GitHub will try to provision a
+> certificate for a domain that does not point at it, and the site stops
+> serving — including on the `github.io` address.
+
+### Setting the profile fields
+
+The GitHub profile **bio** and **website** are set in the profile settings, not
+in the repository. The website field should point at the live site; the bio is
+one line, for example:
+
+```
+Open Source Architect — CI Kit & api-mock-services. Deterministic CI gates,
+zero-dependency mocks for payment APIs, and every number published with how
+it was measured.
+```
+
 
 ### Domain note
 
@@ -182,6 +221,12 @@ matter more than any copy change.
 - [ ] **Get the first external contributor or adopter.** The adopter list is a
       file in the repository and grows by pull request. One real row is worth
       more than a page describing how adoption works.
+- [ ] **Archive the remaining template repositories.** `astro-platform-starter`
+      has been replaced by this site. The siblings — `astro-platform-starter-971e3`,
+      `-d8c27`, `-6a66f`, plus the `next.js`, `node`, `bolt.diy` and `prefect`
+      copies — are still on the profile and still read as a template farm.
+- [ ] **Set the GitHub profile bio and website.** The profile README is done;
+      the two fields above it are set in the profile settings.
 
 ---
 
