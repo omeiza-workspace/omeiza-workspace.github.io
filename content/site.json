@@ -12,15 +12,23 @@
       "href": "/"
     },
     {
+      "label": "How I can help",
+      "href": "/how-i-help/"
+    },
+    {
       "label": "Products",
       "href": "/products/"
     },
     {
-      "label": "Build in Public",
+      "label": "The ideas",
+      "href": "/why/"
+    },
+    {
+      "label": "Writing",
       "href": "/blog/"
     },
     {
-      "label": "Open Source Impact",
+      "label": "Impact",
       "href": "/evidence/"
     }
   ],
@@ -30,6 +38,14 @@
       {
         "title": "Site",
         "links": [
+          {
+            "label": "How I can help",
+            "href": "/how-i-help/"
+          },
+          {
+            "label": "The ideas behind the work",
+            "href": "/why/"
+          },
           {
             "label": "Products",
             "href": "/products/"
@@ -49,6 +65,10 @@
           {
             "label": "Verification index",
             "href": "/record/"
+          },
+          {
+            "label": "Glossary",
+            "href": "/glossary/"
           },
           {
             "label": "Media Kit",
@@ -82,6 +102,10 @@
           {
             "label": "All Articles",
             "href": "/blog/"
+          },
+          {
+            "label": "Glossary",
+            "href": "/glossary/"
           },
           {
             "label": "Earlier archive",

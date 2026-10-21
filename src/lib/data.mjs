@@ -21,6 +21,8 @@ const REQUIRED = {
   'case-studies.json': ['caseStudies'],
   'posts.json': ['posts'],
   'archive.json': ['source', 'eras', 'counts', 'posts'],
+  'plain.json': ['proposition', 'howIHelp', 'plainTerms', 'glossary', 'plainMetrics'],
+  'why.json': ['eyebrow', 'title', 'intro', 'beliefs', 'close'],
   'evidence.json': ['snapshot', 'github', 'community', 'recognition', 'milestones'],
   'social.json': ['channels', 'headline', 'bios', 'linkedinFeatured', 'contentCalendar'],
 };

@@ -1,0 +1,305 @@
+{
+  "proposition": {
+    "plain": "Your engineers lose hours every week waiting for things. I take that waiting away.",
+    "technical": "Open Source Architect building light, sustainable developer infrastructure and local-first CI/CD automation.",
+    "support": "I build the tools that run your builds, your test environments and your background automation — and I publish how each one was measured.",
+    "audience": "Written for engineers, but the first paragraph is for everyone else."
+  },
+  "howIHelp": {
+    "eyebrow": "How I can help",
+    "title": "Three things your team needs, and what each one is worth",
+    "lede": "Each of these started as a real business problem at a real team. The numbers are measured, the tools that fix them are open source, and you can check every claim before you speak to me.",
+    "tried": {
+      "label": "You have probably already tried the obvious fix",
+      "note": "If any of these sound familiar, the next part is for you.",
+      "items": [
+        {
+          "tried": "A bigger, faster runner",
+          "why": "The bill goes up, the queue gets shorter, and the same five minutes becomes three. You have moved the cost, not removed it."
+        },
+        {
+          "tried": "A memo telling people to run the checks locally",
+          "why": "It works for a fortnight. Then someone pushes from a laptop without the setup, and the pipeline is the only thing that is protected."
+        },
+        {
+          "tried": "A commercial mock service",
+          "why": "A seat licence, an internet connection, and a runtime the size of a small server. It works — right up until the budget review."
+        },
+        {
+          "tried": "A bigger box for the whole platform",
+          "why": "It fixes the symptom on one machine and scales the bill on every other one."
+        }
+      ]
+    },
+    "goals": [
+      {
+        "goal": "Deliver on time",
+        "plain": "Missed dates that were never about the work.",
+        "measure": "4 minutes of waiting becomes 11 seconds",
+        "href": "/products/ci-kit/"
+      },
+      {
+        "goal": "Control the cost",
+        "plain": "Infrastructure spend you can explain, and stop paying for idle capacity.",
+        "measure": "250 MB becomes 50 MB, and 7.9% idle CPU becomes none",
+        "href": "/products/api-mock-services/"
+      },
+      {
+        "goal": "Remove the dependency risk",
+        "plain": "Critical processes that keep running when someone else's service does not.",
+        "measure": "No external dependencies, and every attempt recorded",
+        "href": "/products/automation-gateway/"
+      }
+    ],
+    "problems": [
+      {
+        "id": "waiting",
+        "goal": "Deliver on time",
+        "title": "Your team is not behind. It is waiting.",
+        "businessNeed": "A business needs its delivery dates to mean something. Right now they are blown for a reason nobody can name, and the reason is not the work — it is the queue.",
+        "problem": "A developer makes a change, pushes it, and waits four minutes for the build. Twenty developers, twenty changes a day, two hundred and fifty working days a year. That is over sixteen hundred hours a year spent looking at a progress bar, and it is a salary-sized cost that appears on no invoice.",
+        "plain": "The check now runs on the developer's own laptop, before the code is sent anywhere. The result comes with it, so nothing is left unverified, and the answer never depends on a shared machine being available.",
+        "technical": "CI Kit runs the same scripts the CI workflow runs, on the machine in front of the developer, with the toolchain pinned so the two cannot disagree. It is a shell tool with no runtime to install.",
+        "outcome": "The wait drops from four minutes to eleven seconds, and the result arrives every time. Dates stop being missed for reasons that have nothing to do with the work.",
+        "cost": "At a loaded cost of fifty pounds an hour, sixteen hundred hours of waiting is roughly eighty thousand pounds a year, for a tool that costs nothing to run and nothing to license.",
+        "measure": "4m 12s becomes 11s. Job retries fall from 8.4% to 0.6%. Twenty-eight builds that had been unverified for a week get verified again.",
+        "evidence": "/products/ci-kit/",
+        "linkLabel": "Read the case study"
+      },
+      {
+        "id": "testing",
+        "goal": "Control the cost",
+        "title": "The riskiest code is the code you cannot test",
+        "businessNeed": "A business needs to know that the part of the product which takes money is the part that was tested. Usually it is the other way round, and nobody planned it that way.",
+        "problem": "To test a payment, the team needs a live account with a payment provider, a working network, and somebody's patience. So the payment code gets tested late, by one person, manually — and the manual instructions live in that person's head. The rest of the team cannot test it at all, so they do not, so it breaks.",
+        "plain": "A stand-in for the outside service runs inside the test, on your own machine, with no account and no internet. It behaves like the real thing, including the ways the real thing fails — the timeouts, the declined cards, the webhook that arrives twice.",
+        "technical": "api-mock-services is one dependency-free Node process standing in for eighteen providers, with the memory footprint enforced as a build gate rather than promised in a README.",
+        "outcome": "Payment and identity paths get tested on every single change, and the test environment fits in fifty megabytes instead of four containers and a quarter of a gigabyte.",
+        "cost": "Four containers at 250 MB, idling at 7.9% of a core on every laptop, is a quarter gigabyte of every developer's machine multiplied by every developer. One process at 50 MB, with no idle CPU and no dependencies to install, renew, or audit.",
+        "measure": "4 processes become 1. 250 MB becomes 50 MB. 7.9% idle CPU becomes 0.0%. The first request is answered in 1.4 seconds instead of 20.",
+        "evidence": "/products/api-mock-services/",
+        "linkLabel": "Read the case study"
+      },
+      {
+        "id": "offline",
+        "goal": "Remove the dependency risk",
+        "title": "Your most important process depends on things you do not control",
+        "businessNeed": "A business needs its critical processes to keep running, and to be able to prove what happened afterwards. That is a hard requirement in banking, healthcare, and government — and a good idea everywhere else.",
+        "problem": "On a secure or isolated network, anything that reaches out to a cloud service is a single point of failure. The usual response is a workaround nobody documents, and the audit trail is reconstructed from logs after the fact, if at all.",
+        "plain": "A background service that runs your workflows with no internet at all. The steps are ordinary data files, so a manager can read them, and every attempt is written down for whoever checks later.",
+        "technical": "The Automation Gateway is a Windows Service that executes JSON blueprints inside a runspace pool, with plug-in auto-discovery, role-based permissions, break-glass toggles and a transactional per-attempt audit trail.",
+        "outcome": "The work carries on regardless of the network, and a step that failed and healed itself is still visible in the record — which is the difference between an incident and an argument.",
+        "cost": "An outage that is somebody else's problem becomes an outage you can see, trace and explain to an auditor. That is the difference between a day of explaining and a day of proving.",
+        "measure": "No external dependencies and no build step. Every attempt, including the retries, is written to a transactional database.",
+        "evidence": "/products/automation-gateway/",
+        "linkLabel": "Read the case study"
+      }
+    ],
+    "howIWork": [
+      {
+        "title": "I build it in the open",
+        "body": "Everything is published under a permissive licence, with the code, the tests and the measurements in the same repository. If it is not good enough to publish, it is not finished — and you can read it before you commit to anything."
+      },
+      {
+        "title": "I publish the numbers, including the ugly ones",
+        "body": "Each project has an evidence document saying how every figure was taken, publishing the measurement that was thrown away, and listing the claims that are not made. You do not have to take my word for it."
+      },
+      {
+        "title": "I make it light and free to run",
+        "body": "Small, quiet, and no licence to renew. The mock engine takes 50 MB and no idle CPU, against 250 MB and 7.9%. The local gate costs nothing, because it does not need a machine you are paying for."
+      },
+      {
+        "title": "I leave it working without me",
+        "body": "Documented, tested, released and versioned. If I disappear tomorrow, the tooling keeps running and somebody else can pick it up. That is the point of open source, and it is also the point of a supplier who is not a single point of failure."
+      }
+    ]
+  },
+  "plainTerms": {
+    "ci-kit": {
+      "title": "In plain terms",
+      "body": "A team could not tell whether their code was broken or whether the service that checks it had simply stopped running. The log said the job never started, but the pull request only said red. CI Kit runs the same checks on the developer's own machine, so the answer arrives in seconds, says what went wrong, and never depends on somebody else's billing decision.",
+      "bullets": [
+        "Before: 28 builds in a row failed, and none of them had failed on code — the jobs had never started",
+        "After: the same check runs locally, takes about 100 seconds, and says why it failed",
+        "It also found three real defects the missed builds had been hiding"
+      ]
+    },
+    "api-mock-services": {
+      "title": "In plain terms",
+      "body": "To test a payment, the team needed a real payment account and a network connection, so the riskiest part of the product was the part that got tested least. The stand-in they had was four programs taking a quarter of a gigabyte of memory and never settling down. This is one program with no dependencies, fifty megabytes, and no idle CPU.",
+      "bullets": [
+        "Before: 4 programs, 250 MB, 7.9% idle CPU, 20 seconds before the first request was answered",
+        "After: 1 program, 50 MB, no idle CPU, 1.4 seconds",
+        "18 providers covered, including Paystack, Interswitch, Flutterwave and Smile ID",
+        "The size is enforced on every build, so it cannot quietly grow"
+      ]
+    },
+    "automation-gateway": {
+      "title": "In plain terms",
+      "body": "A platform that can only be changed by editing the program that runs it will eventually be edited in a hurry, by somebody who did not design it. This moves the business rules out of the program and into ordinary data files, so a manager can read a workflow, a reviewer can check it, and a new system plugs in without touching the engine.",
+      "bullets": [
+        "Before: a workflow was a method, and changing it needed a code change and a deployment",
+        "After: a workflow is a file, and changing it needs a file review",
+        "Adding a system means dropping in a plugin file — the engine is never edited",
+        "Every attempt, including the retries, is written down"
+      ]
+    }
+  },
+  "glossary": {
+    "eyebrow": "Glossary",
+    "title": "The words this site uses, in plain English",
+    "lede": "Most of the vocabulary here is ordinary in software engineering and unfamiliar outside it. These are the definitions, written for a reader who does not build software for a living.",
+    "terms": [
+      {
+        "term": "CI/CD",
+        "plain": "Continuous integration and continuous delivery. The practice of checking every change automatically, and of shipping it automatically once the checks pass."
+      },
+      {
+        "term": "Runner",
+        "plain": "The machine that runs your checks. Usually rented by the minute, and shared between everyone on the team."
+      },
+      {
+        "term": "Pipeline",
+        "plain": "The sequence of steps a change goes through: check, build, test, deploy."
+      },
+      {
+        "term": "Local-first",
+        "plain": "Designing a tool so the work happens on your own machine first, and only goes to a shared machine if it genuinely needs to."
+      },
+      {
+        "term": "Air-gapped",
+        "plain": "A system that never talks to the internet. Some banks and governments require this, so their tooling has to work without any external service."
+      },
+      {
+        "term": "Deterministic",
+        "plain": "Giving the same result every time. If a check passes on your laptop and fails on the server, something is not deterministic."
+      },
+      {
+        "term": "Toolchain pinning",
+        "plain": "Recording the exact versions of the tools a project uses, so every machine uses the same ones."
+      },
+      {
+        "term": "Build gate",
+        "plain": "A check that runs on every build and fails it if something has gone wrong — so the problem is caught before it ships."
+      },
+      {
+        "term": "Footprint",
+        "plain": "How much memory and CPU something uses while it is running. A small footprint means it can run on a laptop instead of a server."
+      },
+      {
+        "term": "Idle CPU",
+        "plain": "The processing power a program uses while it is doing nothing. A mock that burns CPU while waiting is a program that heats up your laptop."
+      },
+      {
+        "term": "Dependency",
+        "plain": "Someone else's code that your project depends on. Every dependency is also a thing you have to install, check and keep up to date."
+      },
+      {
+        "term": "Zero-dependency",
+        "plain": "A project with no outside code at all, built only on what the language already provides."
+      },
+      {
+        "term": "Mock",
+        "plain": "A stand-in for a real service, so a test can run without the real service, an account, or a network connection."
+      },
+      {
+        "term": "Blueprint",
+        "plain": "A structured file that describes a workflow, rather than code that performs one. It can be read and reviewed by a non-programmer."
+      },
+      {
+        "term": "Plugin",
+        "plain": "A file dropped into a folder to add a capability. The program finds it by itself — no registration, no edit to the main code."
+      },
+      {
+        "term": "Runspace pool",
+        "plain": "A set of workers that lets a program handle many things at once without one slow job blocking everything else."
+      },
+      {
+        "term": "Thread-safe",
+        "plain": "Safe to use from several workers at the same time without the workers corrupting each other's data."
+      },
+      {
+        "term": "Webhook",
+        "plain": "One service calling another to say something has happened. Used by payment providers to tell you a payment went through."
+      },
+      {
+        "term": "OpenAPI",
+        "plain": "A published description of what a service accepts and returns, so a stand-in can be built from the same contract the real service uses."
+      },
+      {
+        "term": "RBAC",
+        "plain": "Role-based access control. Different people get different permissions — some can look, some can act, some can change the rules."
+      },
+      {
+        "term": "Audit trail",
+        "plain": "A record of what happened, kept as it happens, rather than reconstructed afterwards from logs."
+      },
+      {
+        "term": "Exponential backoff",
+        "plain": "When something fails, wait twice as long before trying again. Two seconds, then four, then eight — so a struggling service is not hammered."
+      },
+      {
+        "term": "Idempotent",
+        "plain": "Safe to run twice. Doing the same thing again does not do it again — which is what stops a failed retry from charging a customer twice."
+      },
+      {
+        "term": "Observability",
+        "plain": "Being able to see what a system is doing from the outside, without changing it."
+      },
+      {
+        "term": "Blue-green deployment",
+        "plain": "Releasing by running the old and the new version side by side and switching traffic over, so a bad release is switched back instantly."
+      }
+    ]
+  },
+  "plainMetrics": [
+    {
+      "label": "Open-source stars",
+      "plain": "How many people have starred the projects on GitHub — the public 'this looks good' button."
+    },
+    {
+      "label": "Forks",
+      "plain": "How many people have copied a project to work on themselves."
+    },
+    {
+      "label": "External contributors",
+      "plain": "How many people other than me have written code in the projects."
+    },
+    {
+      "label": "Followers",
+      "plain": "How many people follow the GitHub account to see what gets published."
+    },
+    {
+      "label": "Open-source tools published",
+      "plain": "How many complete tools are published and free to use."
+    },
+    {
+      "label": "Published measurement documents",
+      "plain": "How many documents record exactly how a number was measured."
+    },
+    {
+      "label": "Footprint enforced as a build gate",
+      "plain": "The size limit the software must stay under, checked automatically on every build."
+    },
+    {
+      "label": "Third-party providers mocked",
+      "plain": "How many outside services the test suite can stand in for."
+    },
+    {
+      "label": "Published releases",
+      "plain": "How many tagged, versioned releases with written notes."
+    },
+    {
+      "label": "Technical essays, 2026",
+      "plain": "How many long articles written this year for a specialist audience."
+    },
+    {
+      "label": "Articles in the earlier archive",
+      "plain": "How many articles were published in earlier years and kept online."
+    },
+    {
+      "label": "Live documentation sites",
+      "plain": "How many of the projects have their own published documentation."
+    }
+  ]
+}

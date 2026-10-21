@@ -22,6 +22,7 @@ thin, the site says so rather than filling the gap.
 | **htmx for the few interactive bits** | Topic filters and the metrics snapshot. 14 KB, progressive enhancement, zero JS on the critical path. |
 | **Plain CSS, design tokens** | One file, no build step, dark and light from the same variables. |
 | **The commit history is the audit trail** | Every claim, edit and retraction is a dated commit in this repository. A reader can read the site's own history. |
+| **A plain-English layer, not a simpler one** | The technical depth stays. It gains a front door: a business-language summary, a glossary, and a "in plain terms" note on every case study. The prose is checked on every build — the site must stay under Flesch-Kincaid grade 10, and the instrument that measures it is itself tested. |
 
 > **On the original brief.** The first draft of this site carried figures such as
 > *"feedback latency from 4m 12s to 11s"* and a *"1.8 GB → 22 MB"* mock footprint.
@@ -49,6 +50,8 @@ thin, the site says so rather than filling the gap.
 npm run build         # content/*.json + src/ -> dist/
 npm run dev           # build, watch and serve on http://localhost:4321
 npm run check         # validate the built site before publishing
+npm run check-links   # check every external link
+npm run check-readability   # check the prose is readable
 npm run metrics       # refresh the GitHub section of the evidence snapshot
 npm run archive       # regenerate content/archive.json from the TechLiaison repo
 npm run social-image  # regenerate the social hero images from the case studies
@@ -70,6 +73,9 @@ content/                  the source of truth — all of it is JSON
   archive.json            the 2013–2025 archive (generated)
   evidence.json           metrics, recognition, milestones, document pack
   social.json             bios per channel, LinkedIn pins, posting calendar
+  plain.json              the plain-English layer: proposition, business framing,
+                          glossary, and the "in plain terms" summaries
+  why.json                the convictions behind the work
 
 src/
   build.mjs               the builder
@@ -97,7 +103,10 @@ dist/                     build output — published to GitHub Pages
 
 | URL | Source | What it is |
 | --- | --- | --- |
-| `/` | `profile.json`, `projects.json` | The landing view and the three pillars |
+| `/` | `profile.json`, `projects.json` | The landing view: the proposition, the convictions, the three pillars |
+| `/how-i-help/` | `plain.json` | The business front door — what each tool is worth, in business terms |
+| `/why/` | `why.json` | The convictions behind the work, with the evidence for each |
+| `/glossary/` | `plain.json` | The engineering vocabulary, in plain English |
 | `/products/` | `projects.json` | All three tools, with the technology filter |
 | `/products/ci-kit/` | `case-studies.json` | Case study 01 — the build that never ran |
 | `/products/api-mock-services/` | `case-studies.json` | Case study 02 — 250 MB and four containers |

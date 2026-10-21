@@ -31,6 +31,9 @@ import {
   renderMediaKit,
   renderArchive,
   renderArchivePost,
+  renderHowIHelp,
+  renderGlossary,
+  renderWhy,
   renderRecord,
   renderNotFound,
 } from './lib/pages.mjs';
@@ -72,6 +75,9 @@ function sitemapUrls() {
     { loc: '/blog/', priority: '0.9', changefreq: 'weekly' },
     { loc: '/archive/', priority: '0.6', changefreq: 'monthly' },
     { loc: '/evidence/', priority: '0.8', changefreq: 'weekly' },
+    { loc: '/why/', priority: '0.8', changefreq: 'monthly' },
+    { loc: '/how-i-help/', priority: '0.8', changefreq: 'monthly' },
+    { loc: '/glossary/', priority: '0.5', changefreq: 'monthly' },
     { loc: '/record/', priority: '0.7', changefreq: 'monthly' },
     { loc: '/media-kit/', priority: '0.6', changefreq: 'monthly' },
     { loc: '/products/automation-gateway/', priority: '0.8', changefreq: 'monthly' },
@@ -147,6 +153,8 @@ export async function build() {
   const evidence = content.evidence;
   const social = content.social;
   const archive = content.archive;
+  const plain = content.plain;
+  const why = content.why;
   const caseStudies = content['case-studies'].caseStudies;
 
   await rm(DIST, { recursive: true, force: true });
@@ -168,7 +176,7 @@ export async function build() {
       title: site.name,
       description: site.seo.defaultDescription,
       path: '/',
-      body: renderLanding({ site, profile, projects, caseStudies, posts, evidence, social }),
+      body: renderLanding({ site, profile, projects, caseStudies, posts, evidence, social, plain, why }),
       site,
       active: '/',
       schema: {
@@ -230,7 +238,7 @@ export async function build() {
         title: cs.hero.headline,
         description: cs.subtitle,
         path: casePath(cs),
-        body: renderCaseStudy({ cs, project, next, site }),
+        body: renderCaseStudy({ cs, project, next, site, plain: plain.plainTerms[cs.id] }),
         site,
         active: '/products/',
         ogType: 'article',
@@ -357,6 +365,74 @@ export async function build() {
     );
   }
 
+  /* ---- why ---- */
+  await page(
+    'why/index.html',
+    layout({
+      title: 'The ideas behind the work',
+      description:
+        'Five convictions the tools were built from — with the evidence that I act on each one, and what I would do differently.',
+      path: '/why/',
+      body: renderWhy({ why, profile, social }),
+      site,
+      active: '/',
+      schema: {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: 'The ideas behind the work',
+        description:
+          'Five convictions the tools were built from, with the evidence for each.',
+        url: new URL('/why/', site.url).toString(),
+        author: { '@type': 'Person', name: profile.name, url: site.url },
+      },
+    }),
+  );
+
+  /* ---- how I can help ---- */
+  await page(
+    'how-i-help/index.html',
+    layout({
+      title: 'How I can help',
+      description:
+        'Three problems I fix, in plain English: engineers waiting for builds, code that cannot be tested without a third-party account, and automation that stops when the network does.',
+      path: '/how-i-help/',
+      body: renderHowIHelp({ plain, profile, social }),
+      site,
+      active: '/',
+      schema: {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: 'How I can help',
+        description:
+          'Three problems I fix, in plain English, with the measured outcome of each.',
+        url: new URL('/how-i-help/', site.url).toString(),
+        author: { '@type': 'Person', name: profile.name, url: site.url },
+      },
+    }),
+  );
+
+  /* ---- glossary ---- */
+  await page(
+    'glossary/index.html',
+    layout({
+      title: 'Glossary',
+      description:
+        'The engineering terms this site uses, defined in plain English for a reader who does not build software for a living.',
+      path: '/glossary/',
+      body: renderGlossary({ plain }),
+      site,
+      active: '/',
+      schema: {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: 'Glossary',
+        description:
+          'The engineering terms this site uses, defined in plain English.',
+        url: new URL('/glossary/', site.url).toString(),
+      },
+    }),
+  );
+
   /* ---- verification index ---- */
   await page(
     'record/index.html',
@@ -388,7 +464,7 @@ export async function build() {
       description:
         'A consolidated, printable evidence base: GitHub metrics, community growth, published writing, external recognition and a continuous activity log.',
       path: '/evidence/',
-      body: renderEvidence({ evidence, projects, social }),
+      body: renderEvidence({ evidence, projects, social, plain }),
       site,
       active: '/evidence/',
       scripts: ['/assets/vendor/htmx.min.js', '/assets/gh-metrics.js'],

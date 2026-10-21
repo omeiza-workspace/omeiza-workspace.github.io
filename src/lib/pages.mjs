@@ -68,7 +68,7 @@ const casePath = (cs) => `/products/${cs.id}/`;
 /* landing                                                             */
 /* ------------------------------------------------------------------ */
 
-export function renderLanding({ site, profile, projects, caseStudies, posts, evidence, social }) {
+export function renderLanding({ site, profile, projects, caseStudies, posts, evidence, social, plain, why }) {
   const featuredPosts = posts.filter((p) => p.featured).slice(0, 2);
   const recentPosts = posts.slice(0, 3);
   const primary = projects.projects[0];
@@ -100,6 +100,7 @@ export function renderLanding({ site, profile, projects, caseStudies, posts, evi
   <div class="hero-inner">
     <div class="hero-copy">
       <p class="hero-eyebrow"><span class="pulse" aria-hidden="true"></span>${esc(profile.hero.eyebrow)}</p>
+      <p class="hero-plain">${esc(plain.proposition.plain)}</p>
       <h1 class="hero-headline">${esc(profile.hero.headline)}</h1>
       <p class="hero-sub">${esc(profile.hero.sub)}</p>
       <div class="hero-cta">${profile.hero.cta
@@ -107,7 +108,7 @@ export function renderLanding({ site, profile, projects, caseStudies, posts, evi
           (c) =>
             `<a class="btn ${c.primary ? 'btn-primary' : 'btn-ghost'}" href="${attr(c.href)}">${esc(c.label)}</a>`,
         )
-        .join('')}</div>
+        .join('')}${arrowLink('How I can help', '/how-i-help/')}</div>
       <p class="hero-scroll">${esc(profile.hero.scrollHint)}</p>
     </div>
     <aside class="hero-panel" aria-label="Key figures">
@@ -127,6 +128,28 @@ export function renderLanding({ site, profile, projects, caseStudies, posts, evi
         .join('')}</ul>
       <p class="panel-foot">Every figure on this site is traceable to a published measurement, and each one links to the artefact that produced it.</p>
     </aside>
+  </div>
+</section>
+
+<section class="why-band" aria-label="Why">
+  <div class="wrap">
+    <div class="why-band-head">
+      <div>
+        <p class="section-eyebrow">${esc(why.eyebrow)}</p>
+        <h2 class="section-title">${esc(why.title)}</h2>
+        <p class="section-lede">${esc(why.intro.plain)}</p>
+      </div>
+      ${arrowLink('All five', '/why/')}
+    </div>
+    <ul class="why-band-list">${why.beliefs
+      .map(
+        (b) => `<li class="why-band-item">
+      <span class="why-band-n" aria-hidden="true">${esc(String(b.n).padStart(2, '0'))}</span>
+      <h3><a href="/why/">${esc(b.short)}</a></h3>
+      <p>${esc(b.claim)}</p>
+    </li>`,
+      )
+      .join('')}</ul>
   </div>
 </section>
 
@@ -447,7 +470,7 @@ export function renderProjectFilter(projects, tag) {
 /* case study                                                          */
 /* ------------------------------------------------------------------ */
 
-export function renderCaseStudy({ cs, project, next, site }) {
+export function renderCaseStudy({ cs, project, next, site, plain }) {
   // Section numbers are derived so that optional sections do not leave gaps.
   const steps = [
     { id: 'problem', label: 'The problem', node: cs.problem },
@@ -468,6 +491,15 @@ export function renderCaseStudy({ cs, project, next, site }) {
       <p class="section-eyebrow">${esc(cs.hero.eyebrow)}</p>
       <h1 class="cs-headline">${esc(cs.hero.headline)}</h1>
       <p class="cs-subtitle">${esc(cs.subtitle)}</p>
+      ${
+        plain
+          ? `<div class="plain-terms">
+        <p class="plain-terms-label">${esc(plain.title)}</p>
+        <p class="plain-terms-body">${esc(plain.body)}</p>
+        <ul class="plain-terms-list">${plain.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul>
+      </div>`
+          : ''
+      }
       <p class="cs-lede">${esc(cs.hero.body)}</p>
       <div class="cs-meta">
         <div class="cs-meta-item"><span class="cs-meta-label">Role</span><span class="cs-meta-value">${esc(cs.role)}</span></div>
@@ -814,7 +846,7 @@ export function renderPost({ post, related, project, nextPost }) {
 /* evidence hub                                                        */
 /* ------------------------------------------------------------------ */
 
-export function renderEvidence({ evidence, projects, social }) {
+export function renderEvidence({ evidence, projects, social, plain }) {
   const g = evidence.github;
   const unverified = evidence.community.filter((c) => !c.verified).length;
 
@@ -855,7 +887,7 @@ ${
     </div>
   </div>
   <div id="metrics-loading" class="htmx-indicator">Loading…</div>
-  <div id="metrics-grid">${renderMetrics(evidence)}</div>
+  <div id="metrics-grid">${renderMetrics(evidence, plain)}</div>
 </section>
 
 <section class="wrap" aria-label="Repositories">
@@ -991,35 +1023,36 @@ ${
 }
 
 /** htmx fragment: the metrics grid, re-renderable from the snapshot. */
-export function renderMetrics(evidence) {
+export function renderMetrics(evidence, plain) {
   const g = evidence.github;
+  const gloss = Object.fromEntries((plain?.plainMetrics ?? []).map((m) => [m.label, m.plain]));
   return `<div class="metrics-grid">
     <div class="metric metric-primary" data-live="stars">
       <p class="metric-label">Open-source stars</p>
       <p class="metric-value" data-live-value>${esc(num(g.totals.stars))}</p>
-      <p class="metric-detail">Across ${g.repos.length} published repositories</p>
+      <p class="metric-detail">${esc(gloss["Open-source stars"] ?? `Across ${g.repos.length} published repositories`)}</p>
     </div>
     <div class="metric metric-primary" data-live="forks">
       <p class="metric-label">Forks</p>
       <p class="metric-value" data-live-value>${esc(num(g.totals.forks))}</p>
-      <p class="metric-detail">Independent reuse of the tools</p>
+      <p class="metric-detail">${esc(gloss["Forks"] ?? "Independent reuse of the tools")}</p>
     </div>
     <div class="metric" data-live="contributors">
       <p class="metric-label">External contributors</p>
       <p class="metric-value" data-live-value>${esc(num(g.totals.contributors))}</p>
-      <p class="metric-detail">Distinct contributors other than the maintainer</p>
+      <p class="metric-detail">${esc(gloss["External contributors"] ?? "Distinct contributors other than the maintainer")}</p>
     </div>
     <div class="metric" data-live="followers">
       <p class="metric-label">Followers</p>
       <p class="metric-value" data-live-value>${esc(num(g.followers))}</p>
-      <p class="metric-detail">On the public GitHub profile</p>
+      <p class="metric-detail">${esc(gloss["Followers"] ?? "On the public GitHub profile")}</p>
     </div>
     ${evidence.community
       .map(
         (c) => `<div class="metric${c.verified ? '' : ' metric-unverified'}">
       <p class="metric-label">${esc(c.label)}</p>
       <p class="metric-value">${esc(c.value)}</p>
-      <p class="metric-detail">${inlineMarkdown(c.detail)}</p>
+      <p class="metric-detail">${esc(gloss[c.label] ?? c.detail)}</p>
       <p class="metric-source">${esc(c.source)}${c.verified ? '' : ' · unconfirmed'}</p>
     </div>`,
       )
@@ -1288,6 +1321,227 @@ export function renderArchivePost({ post, era }) {
     </div>
   </div>
 </article>
+`;
+
+  return body;
+}
+
+/* ------------------------------------------------------------------ */
+/* ------------------------------------------------------------------ */
+/* how I help — the business-language front door                        */
+/* ------------------------------------------------------------------ */
+
+export function renderHowIHelp({ plain, profile, social }) {
+  const body = `
+<section class="page-hero page-hero-plain">
+  <div class="wrap page-hero-inner">
+    <p class="section-eyebrow">${esc(plain.howIHelp.eyebrow)}</p>
+    <h1 class="page-title">${esc(plain.howIHelp.title)}</h1>
+    <p class="page-lede">${esc(plain.howIHelp.lede)}</p>
+    <div class="page-hero-actions">
+      <a class="btn btn-primary" href="mailto:${attr(profile.contact.email)}">Start a conversation</a>
+      ${arrowLink('The technical detail', '/products/')}
+    </div>
+  </div>
+</section>
+
+<section class="wrap" aria-label="What these achieve">
+  <div class="goals-grid">${plain.howIHelp.goals
+    .map(
+      (g) => `<article class="goal">
+    <h2>${esc(g.goal)}</h2>
+    <p>${esc(g.plain)}</p>
+    <p class="goal-measure">${esc(g.measure)}</p>
+    ${arrowLink('See the evidence', g.href)}
+  </article>`,
+    )
+    .join('')}</div>
+</section>
+
+<section class="wrap tried" aria-label="What you have probably already tried">
+  <div class="tried-head">
+    <p class="section-eyebrow">${esc(plain.howIHelp.tried.label)}</p>
+    <p class="tried-note">${esc(plain.howIHelp.tried.note)}</p>
+  </div>
+  <ul class="tried-list">${plain.howIHelp.tried.items
+    .map(
+      (t) => `<li class="tried-item">
+      <p class="tried-what">${esc(t.tried)}</p>
+      <p class="tried-why">${esc(t.why)}</p>
+    </li>`,
+    )
+    .join('')}</ul>
+</section>
+
+<section class="wrap" aria-label="The three problems">
+  <div class="help-list">${plain.howIHelp.problems
+    .map(
+      (p) => `<article class="help-item">
+    <p class="help-goal">${esc(p.goal)}</p>
+    <h2>${esc(p.title)}</h2>
+
+    <p class="help-need">${esc(p.businessNeed)}</p>
+
+    <div class="help-grid">
+      <div class="help-block">
+        <p class="help-label">What is happening</p>
+        <p>${esc(p.problem)}</p>
+      </div>
+      <div class="help-block help-plain">
+        <p class="help-label">What I do</p>
+        <p>${esc(p.plain)}</p>
+      </div>
+    </div>
+
+    <p class="help-technical">${esc(p.technical)}</p>
+
+    <ul class="help-outcome">
+      <li><span>What changes for the business</span><p>${esc(p.outcome)}</p></li>
+      <li><span>What it was costing</span><p>${esc(p.cost)}</p></li>
+      <li><span>How it is measured</span><p>${esc(p.measure)}</p></li>
+    </ul>
+
+    <div class="help-actions">${arrowLink(p.linkLabel, p.evidence)}${arrowLink(
+      'The open-source project',
+      p.evidence,
+    )}</div>
+  </article>`,
+    )
+    .join('')}</div>
+</section>
+
+<section class="wrap how-work" aria-label="How I work">
+  ${sectionHead({
+    eyebrow: 'How I work',
+    title: 'Why the work is worth trusting',
+    lede: 'Four habits, applied to every project.',
+  })}
+  <div class="how-grid">${plain.howIHelp.howIWork
+    .map(
+      (h) => `<article class="how-item">
+    <h3>${esc(h.title)}</h3>
+    <p>${esc(h.body)}</p>
+  </article>`,
+    )
+    .join('')}</div>
+</section>
+
+<section class="wrap how-cta" aria-label="Get in touch">
+  <div class="how-cta-inner">
+    <div>
+      <h2>${esc(plain.proposition.support)}</h2>
+      <p>${esc(plain.proposition.audience)} Every tool mentioned here is open source, so you can read the code, run the tests and check the numbers before you decide anything.</p>
+    </div>
+    <div class="how-cta-actions">
+      <a class="btn btn-primary" href="mailto:${attr(profile.contact.email)}">${esc(profile.contact.email)}</a>
+      ${arrowLink('The public record', '/record/')}
+    </div>
+  </div>
+</section>
+`;
+
+  return body;
+}
+
+/* ------------------------------------------------------------------ */
+/* glossary                                                            */
+/* ------------------------------------------------------------------ */
+
+export function renderGlossary({ plain }) {
+  const body = `
+<section class="page-hero page-hero-plain">
+  <div class="wrap page-hero-inner">
+    <p class="section-eyebrow">${esc(plain.glossary.eyebrow)}</p>
+    <h1 class="page-title">${esc(plain.glossary.title)}</h1>
+    <p class="page-lede">${esc(plain.glossary.lede)}</p>
+    <div class="page-hero-actions">${arrowLink('How I can help', '/how-i-help/')}${arrowLink(
+      'The technical detail',
+      '/products/',
+    )}</div>
+  </div>
+</section>
+
+<section class="wrap" aria-label="Glossary">
+  <dl class="glossary">${plain.glossary.terms
+    .map(
+      (t) => `<div class="glossary-item">
+    <dt>${esc(t.term)}</dt>
+    <dd>${esc(t.plain)}</dd>
+  </div>`,
+    )
+    .join('')}</dl>
+</section>
+`;
+
+  return body;
+}
+
+/* ------------------------------------------------------------------ */
+/* ------------------------------------------------------------------ */
+/* why — the convictions behind the work                                */
+/* ------------------------------------------------------------------ */
+
+export function renderWhy({ why, profile, social }) {
+  const body = `
+<section class="page-hero page-hero-why">
+  <div class="wrap page-hero-inner">
+    <p class="section-eyebrow">${esc(why.eyebrow)}</p>
+    <h1 class="page-title">${esc(why.title)}</h1>
+    <p class="page-lede">${esc(why.lede)}</p>
+    <div class="page-hero-actions">${arrowLink('How I can help', '/how-i-help/')}${arrowLink(
+      'The projects',
+      '/products/',
+    )}</div>
+  </div>
+</section>
+
+<section class="wrap" aria-label="Why">
+  <div class="why-intro">
+    <p class="why-intro-plain">${esc(why.intro.plain)}</p>
+    <p>${esc(why.intro.body)}</p>
+  </div>
+
+  <ol class="why-list">${why.beliefs
+    .map(
+      (b) => `<li class="why-item">
+    <div class="why-head">
+      <span class="why-n" aria-hidden="true">${esc(String(b.n).padStart(2, '0'))}</span>
+      <h2>${esc(b.title)}</h2>
+    </div>
+
+    <p class="why-claim">${esc(b.claim)}</p>
+
+    <div class="why-body">
+      <div class="why-block">
+        <p class="why-label">Why I think it</p>
+        <p>${esc(b.why)}</p>
+      </div>
+      <div class="why-block why-evidence">
+        <p class="why-label">The evidence — ${esc(b.evidence)}</p>
+        <p>${esc(b.evidenceBody)}</p>
+        ${arrowLink('Read the case study', b.evidenceHref)}
+      </div>
+    </div>
+
+    <p class="why-differently"><span>What I would do differently</span>${esc(b.differently)}</p>
+  </li>`,
+    )
+    .join('')}</ol>
+</section>
+
+<section class="wrap why-close" aria-label="Closing">
+  <div class="why-close-inner">
+    <div>
+      <h2>${esc(why.close.title)}</h2>
+      <p>${esc(why.close.body)}</p>
+      <p class="why-close-plain">${esc(why.close.plain)}</p>
+    </div>
+    <div class="why-close-actions">
+      <a class="btn btn-primary" href="mailto:${attr(profile.contact.email)}">Start a conversation</a>
+      ${arrowLink('The public record', '/record/')}
+    </div>
+  </div>
+</section>
 `;
 
   return body;

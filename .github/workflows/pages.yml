@@ -37,6 +37,9 @@ jobs:
       - name: Check the external links
         run: node scripts/check-links.mjs
 
+      - name: Check the prose is readable
+        run: node scripts/check-readability.mjs
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

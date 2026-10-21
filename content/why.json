@@ -1,0 +1,71 @@
+{
+  "eyebrow": "Why",
+  "title": "The ideas behind the work",
+  "lede": "Three tools is not a position. These are the convictions the tools were built from — each one with the evidence that I acted on it, and what I would do differently.",
+  "intro": {
+    "body": "I could list what I have built. This page is the more useful list: the things I think the industry gets wrong, the reason each belief costs me something, and the project that proves I act on it rather than just agreeing with it.",
+    "plain": "Anyone can show you a list of tools. This is the reasoning behind them, and the evidence that I act on it rather than just agreeing with it."
+  },
+  "beliefs": [
+    {
+      "n": 1,
+      "title": "Waiting is the most expensive thing in software, and nobody puts it on a budget.",
+      "short": "Waiting is the most expensive thing in software.",
+      "claim": "A four-minute wait per change, twenty changes a day, twenty developers, is more than 1,600 hours a year. It is a salary-sized cost that nobody writes down, because it appears as a progress bar rather than an invoice.",
+      "why": "The cloud bill gets a dashboard, so it gets managed. The waiting gets nothing, so it does not. And the two are not the same thing — in the case that made me build a local gate, the runners never started at all, so nothing was billed and roughly a week of commits went unverified while the pipeline looked merely red.",
+      "evidence": "CI Kit",
+      "evidenceHref": "/products/ci-kit/",
+      "evidenceBody": "The local gate answers the same question in about 100 seconds, and it says why it failed. It also found three real defects that the missed builds had been hiding.",
+      "differently": "I would measure the waiting before the spend. Almost every team I have worked with has a view on its cloud bill and no view at all on how long its developers spend watching it."
+    },
+    {
+      "n": 2,
+      "title": "If it cannot be tested without somebody else's permission, it is not finished.",
+      "short": "Untestable code is unowned code.",
+      "claim": "The riskiest code in a payments or identity product is usually the code with the least testing, because it needs a live account with a third party to run at all. That is not a discipline problem. It is a dependency problem.",
+      "why": "Testing that needs a live key, a network, and somebody else's uptime is testing that gets scheduled late, run by one person, and skipped when the sprint gets tight. The workaround is manual, and the manual version is undocumented, and it lives with whoever happened to be there that week.",
+      "evidence": "api-mock-services",
+      "evidenceHref": "/products/api-mock-services/",
+      "evidenceBody": "Eighteen providers, one dependency-free process, running inside the test with no account and no network. The payment path gets tested on every change, and the whole thing fits in 50 MB.",
+      "differently": "Nothing. This is the one I would defend hardest, and the one I would argue for in a design review even if it cost me a week."
+    },
+    {
+      "n": 3,
+      "title": "A number without a method is a rumour.",
+      "short": "A number without a method is a rumour.",
+      "claim": "Half the tooling industry publishes a benchmark with no way to reproduce it. A benchmark nobody can re-run is a claim with formatting — and it is the only kind of claim that gets checked.",
+      "why": "I publish the method with every figure: the machine, the conditions, and the measurement I threw away. The first version of my mock engine's evidence document quoted 465 ms and its README quoted 1.4 s for the same measurement, and both were real samples of a number that moves by a factor of three with machine load. Two documents, one artefact, two true numbers. The honest fix was a range and a script, not picking one.",
+      "evidence": "The evidence document",
+      "evidenceHref": "/products/ci-kit/",
+      "evidenceBody": "Every figure names the command that produced it. There is a section listing what is not claimed, and the mock engine's footprint is enforced by a build gate, so the promise is checked rather than asserted.",
+      "differently": "I would publish the measurement I discarded first, not second. It is the most useful line in the document and the one most likely to be left out."
+    },
+    {
+      "n": 4,
+      "title": "The heaviest thing should not be the thing that runs the most.",
+      "short": "The heaviest thing should not run the most.",
+      "claim": "A mock engine that idles at eight percent of a core, on every laptop, is a quarter of a gigabyte and twenty seconds of somebody's day — multiplied by everybody. Weight is a cost that only shows up at scale, which is exactly when it is too late to fix.",
+      "why": "The first version of the mock engine was four containers, 250 MB, and an OpenAPI proxy that held 214 MB of the total and never settled. It was not broken. It was just heavy, in a way that only becomes obvious when you ask how many people could realistically run it at once.",
+      "evidence": "api-mock-services",
+      "evidenceHref": "/products/api-mock-services/",
+      "evidenceBody": "One process, 50 MB, no dependencies, and no idle CPU at all. The size is a build gate: the build fails above 100 MB, so it cannot quietly grow back.",
+      "differently": "I would measure the idle cost rather than the peak. Peak memory is the number people quote, and it is the one that matters least."
+    },
+    {
+      "n": 5,
+      "title": "A tool that cannot explain why it failed is not finished either.",
+      "short": "A failure should explain itself.",
+      "claim": "A failure that says \"test 14 failed\" costs twenty minutes and sends you to the wrong place. A failure that says \"the runner never started, and here is why\" costs ten seconds and points at the right one. The difference is design, not luck.",
+      "why": "The single most valuable thing I changed in the local gate was classifying the failure. The runs that were not test failures at all now say so, in the first line. That one change is the difference between a tool people read and a tool people retry.",
+      "evidence": "CI Kit",
+      "evidenceHref": "/products/ci-kit/",
+      "evidenceBody": "The gate tells you the toolchain differs from the one the workflow pins, and prints both. Six seconds is the tell that a job never started rather than a test that failed — a detail that cost a week before anyone noticed it.",
+      "differently": "I would spend the extra day on the error message. It is the part of a tool that people actually read, and it is the part that is almost never designed."
+    }
+  ],
+  "close": {
+    "title": "Why this is on a website",
+    "body": "Because the work should be checkable by someone who has never met me. Every claim on this site links to the artefact behind it — a repository, a measurement, a dated article — so a reader can disagree with it without taking my word for anything.",
+    "plain": "So you can check the work without taking my word for it. Every claim links to the thing behind it."
+  }
+}
