@@ -167,7 +167,17 @@
           "label": "Related article: The Silent Bill",
           "href": "/blog/the-silent-bill-remote-ci-cd-drift/"
         }
-      ]
+      ],
+      "highlight": {
+        "before": {
+          "value": "4–12 min",
+          "label": "waited for a failing build, on a metered runner"
+        },
+        "after": {
+          "value": "~100 s",
+          "label": "on the developer's own machine, and it always runs"
+        }
+      }
     },
     {
       "id": "api-mock-services",
@@ -358,7 +368,17 @@
           "label": "Related article: Local Sandboxes for Interswitch and Paystack",
           "href": "/blog/architecting-local-sandboxes-offline/"
         }
-      ]
+      ],
+      "highlight": {
+        "before": {
+          "value": "250 MB",
+          "label": "across four containers, idling at 7.9% of a core"
+        },
+        "after": {
+          "value": "50 MB",
+          "label": "in one dependency-free process, with no idle CPU"
+        }
+      }
     },
     {
       "id": "automation-gateway",
@@ -537,7 +557,17 @@
           "label": "Open Source Impact",
           "href": "/evidence/"
         }
-      ]
+      ],
+      "highlight": {
+        "before": {
+          "value": "In controller code",
+          "label": "changing a workflow needed a code change and a deployment"
+        },
+        "after": {
+          "value": "A JSON blueprint",
+          "label": "changing it needs a file review"
+        }
+      }
     }
   ]
 }

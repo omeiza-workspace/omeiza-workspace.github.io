@@ -181,27 +181,45 @@ export function renderLanding({ site, profile, projects, caseStudies, posts, evi
   <div class="wrap">
     ${sectionHead({
       eyebrow: 'Case studies',
-      title: 'Two problems, measured end to end',
+      title: 'Three problems, measured end to end',
       lede: 'Not a feature list. The failure mode, the intervention, the before-and-after numbers, and what I would do differently.',
       action: arrowLink('All products', '/products/'),
     })}
     <div class="case-grid">${caseStudies
-      .map((cs) => {
+      .map((cs, index) => {
         const proj = projects.projects.find((p) => p.id === cs.projectId);
-        return `<article class="case-card">
-        <p class="case-eyebrow">${esc(cs.hero.eyebrow)}</p>
-        <h3 class="case-title"><a href="${attr(casePath(cs))}">${esc(cs.hero.headline)}</a></h3>
-        <p class="case-sub">${esc(cs.subtitle)}</p>
-        <p class="case-body">${esc(cs.hero.body)}</p>
-        <ul class="case-facts">${(cs.results.before ?? [])
-          .slice(0, 2)
-          .map((r) => `<li><span>${esc(r.value)}</span><em>${esc(r.metric)}</em></li>`)
-          .join('')}<li class="is-after"><span>${esc(
-            (cs.results.after ?? []).slice(0, 2)[0]?.value ?? '—',
-          )}</span><em>${esc((cs.results.after ?? []).slice(0, 2)[0]?.metric ?? 'after')}</em></li></ul>
-        <div class="case-foot">${arrowLink(`Read the ${proj?.name ?? cs.id} case study`, casePath(cs))}${
-          tagList(cs.stack.slice(0, 3), 'tag-list tag-list-inline')
-        }</div>
+        const h = cs.highlight;
+        return `<article class="case-card${index === 0 ? ' case-card-featured' : ''}">
+        <div class="case-main">
+          <p class="case-eyebrow">${esc(cs.hero.eyebrow)}<span class="case-project">${esc(
+            proj?.name ?? cs.id,
+          )}</span></p>
+          <h3 class="case-title"><a href="${attr(casePath(cs))}">${esc(cs.hero.headline)}</a></h3>
+          <p class="case-sub">${esc(cs.subtitle)}</p>
+          <p class="case-body">${esc(cs.hero.body)}</p>
+        </div>
+        <div class="case-side">
+          ${
+            h
+              ? `<div class="case-shift">
+            <div class="case-shift-side">
+              <span class="case-shift-label">Before</span>
+              <span class="case-shift-value">${esc(h.before.value)}</span>
+              <span class="case-shift-note">${esc(h.before.label)}</span>
+            </div>
+            <span class="case-shift-arrow" aria-hidden="true">→</span>
+            <div class="case-shift-side is-after">
+              <span class="case-shift-label">After</span>
+              <span class="case-shift-value">${esc(h.after.value)}</span>
+              <span class="case-shift-note">${esc(h.after.label)}</span>
+            </div>
+          </div>`
+              : ''
+          }
+          <div class="case-foot">${arrowLink(`Read the ${proj?.name ?? cs.id} case study`, casePath(cs))}${
+            tagList(cs.stack.slice(0, 3), 'tag-list tag-list-inline')
+          }</div>
+        </div>
       </article>`;
       })
       .join('')}</div>

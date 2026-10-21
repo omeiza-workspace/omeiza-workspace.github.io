@@ -392,11 +392,39 @@ hr {
 }
 
 @media (max-width: 900px) {
-  .nav-links {
-    display: none;
-  }
   .brand-text {
     display: none;
+  }
+
+  /* The links do not disappear on a small screen — they become a
+     scrolling row under the brand. Hiding the navigation on a phone
+     would lose the reader the two things they came for. */
+  .nav-inner {
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 0.15rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-links a {
+    white-space: nowrap;
+    padding: 0.35rem 0.6rem;
+  }
+
+  .nav-actions {
+    margin-left: auto;
   }
 }
 
@@ -755,7 +783,7 @@ hr {
 
 .case-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
   margin-top: 2rem;
 }
@@ -767,6 +795,7 @@ hr {
   padding: 1.75rem;
   display: flex;
   flex-direction: column;
+  gap: 1.25rem;
   transition: border-color 0.18s ease, transform 0.18s ease;
 }
 
@@ -775,7 +804,48 @@ hr {
   transform: translateY(-2px);
 }
 
+/* The first case study is the strongest one, so it gets the room — and
+   the room is used for a readable measure rather than a wide one. */
+.case-card-featured {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(290px, 0.6fr);
+  column-gap: clamp(1.75rem, 3.5vw, 3rem);
+  align-items: start;
+}
+
+.case-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.case-main .case-eyebrow,
+.case-main .case-title,
+.case-main .case-sub,
+.case-main .case-body {
+  margin-bottom: 0;
+}
+
+.case-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+@media (max-width: 980px) {
+  .case-card-featured {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .case-eyebrow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-wrap: wrap;
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.14em;
@@ -784,10 +854,21 @@ hr {
   margin: 0 0 0.8rem;
 }
 
+.case-project {
+  color: var(--muted-2);
+  letter-spacing: 0.08em;
+}
+
 .case-title {
   font-size: 1.3rem;
   line-height: 1.25;
   margin-bottom: 0.6rem;
+  max-width: 24ch;
+}
+
+.case-card-featured .case-title {
+  font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+  max-width: 26ch;
 }
 
 .case-title a {
@@ -802,54 +883,66 @@ hr {
 .case-sub {
   color: var(--muted);
   font-size: 0.92rem;
-  margin-bottom: 0.9rem;
+  margin-bottom: 0;
+  max-width: 62ch;
 }
 
 .case-body {
   color: var(--muted);
   font-size: 0.95rem;
-  flex: 1;
+  margin: 0;
+  max-width: 68ch;
 }
 
-.case-facts {
-  list-style: none;
-  margin: 1.25rem 0;
-  padding: 0;
+/* The before/after pair, given room to breathe. */
+.case-shift {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.6rem;
-}
-
-.case-facts li {
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1.1rem 1.25rem;
   background: var(--bg);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-sm);
-  padding: 0.7rem 0.8rem;
+}
+
+.case-shift-side {
   display: grid;
-  gap: 0.15rem;
+  gap: 0.2rem;
+  min-width: 0;
 }
 
-.case-facts li.is-after {
-  border-color: var(--accent-line);
-  background: var(--accent-soft);
-}
-
-.case-facts span {
+.case-shift-label {
   font-family: var(--font-mono);
-  font-size: 1.02rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+}
+
+.case-shift-value {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
   font-weight: 600;
   color: var(--text-strong);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
 }
 
-.case-facts li.is-after span {
+.case-shift-side.is-after .case-shift-value {
   color: var(--accent);
 }
 
-.case-facts em {
-  font-style: normal;
-  font-size: 0.7rem;
-  line-height: 1.3;
+.case-shift-note {
+  font-size: 0.78rem;
   color: var(--muted-2);
+  line-height: 1.4;
+}
+
+.case-shift-arrow {
+  color: var(--muted-2);
+  font-size: 1.1rem;
+  flex: none;
 }
 
 .case-foot {
@@ -858,8 +951,47 @@ hr {
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
+  margin-top: 1.35rem;
   padding-top: 1rem;
   border-top: 1px solid var(--border-soft);
+}
+
+/* The featured card's side column is narrow, so the before/after pair
+   stacks there instead of sitting side by side. */
+.case-card-featured .case-shift {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.85rem;
+  padding: 1.25rem 1.35rem;
+}
+
+.case-card-featured .case-shift-arrow {
+  transform: rotate(90deg);
+  justify-self: start;
+  line-height: 1;
+}
+
+.case-card-featured .case-shift-value {
+  font-size: 1.25rem;
+}
+
+.case-card-featured .case-foot {
+  border-top: 0;
+  padding-top: 0;
+  margin-top: auto;
+}
+
+@media (max-width: 860px) {
+  .case-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .case-shift {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+  .case-shift-arrow {
+    transform: rotate(90deg);
+    justify-self: start;
+  }
 }
 
 /* --------------------------------------------------------------- tags -- */
