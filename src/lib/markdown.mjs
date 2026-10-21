@@ -76,6 +76,19 @@ function renderTable(rows) {
 }
 
 /**
+ * Renders inline Markdown only — bold, italic, inline code and links — with
+ * no block-level wrapping. Use this for short fields that carry inline
+ * markup, so a backtick or a `**bold**` never reaches the page literally.
+ *
+ * @param {string} text
+ * @returns {string} HTML fragment
+ */
+export function inlineMarkdown(text) {
+  if (!text) return '';
+  return inline(String(text));
+}
+
+/**
  * @param {string} source
  * @returns {string} rendered HTML
  */

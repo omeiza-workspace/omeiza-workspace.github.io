@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e13"/>
+      <stop offset="100%" stop-color="#0d1620"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="10%" cy="6%" r="62%">
+      <stop offset="0%" stop-color="#5eead4" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#5eead4" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect x="0" y="0" width="1200" height="4" fill="#5eead4"/>
+
+  <text x="80" y="88" font-family="ui-monospace, Menlo, monospace" font-size="15" letter-spacing="2.4" fill="#5eead4">CASE STUDY 02</text>
+  <text x="80" y="140" font-family="ui-sans-serif, -apple-system, Helvetica, Arial, sans-serif" font-size="36" font-weight="700" fill="#f4f8fb" letter-spacing="-0.8">api-mock-services</text>
+  <text x="80" y="172" font-family="ui-sans-serif, -apple-system, Helvetica, Arial, sans-serif" font-size="18" fill="#8b9cad">How one dependency-free Node process replaced four mock containers — and turned the foot…</text>
+
+  <g>
+    <text x="80" y="232" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">  test process                      one process, 50 MB<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="254" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve"> ┌──────────────┐                 ┌──────────────────────┐<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="276" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve"> │ startMock()  │                 │  Node http server    │<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="298" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve"> │              │────────────────▶│  no dependencies     │<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="320" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve"> │  no ports    │                 │                      │<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="342" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve"> │  no cleanup  │                 │  /stripe  /paystack  │<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="364" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve"> └──────────────┘                 │  /interswitch        │<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="386" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">     │                          │  /flutterwave        │<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="408" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">     │ nothing to stop          │  /monnify            │<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="430" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">     ▼                          │  /smileid  /twilio   │<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="452" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">  test ends                       │  /resend  /xero  ... │<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="474" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">                    └──────────┬───────────┘<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="496" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">                          │<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="518" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">                    OpenAPI spec contracts<tspan fill="#4d5b6b"></tspan></text>
+  </g>
+
+  <text x="80" y="596" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#4d5b6b">omeiza-workspace.github.io</text>
+</svg>

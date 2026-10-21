@@ -1,12 +1,13 @@
 # Portfolio — Omeiza Okuta
 
-A JSON-driven, static portfolio for a **Global Talent Visa** endorsement and for
-engineering leaders evaluating open-source work.
+A JSON-driven, static portfolio: **an authoritative public record of open-source
+work**, built to be read by an engineering manager, a potential contributor, a
+journalist, and anyone else deciding whether the work is real.
 
-The site is built around one idea: **for a visa panel, an unverifiable claim is
-worth less than no claim at all.** Every figure published here traces to a
-measured artefact — a repository, an evidence document, or a dated article — and
-where the record is thin, the site says so rather than filling the gap.
+The site is built around one idea: **an unverifiable claim is worth less than no
+claim at all.** Every figure published here traces to a measured artefact — a
+repository, an evidence document, or a dated article — and where the record is
+thin, the site says so rather than filling the gap.
 
 ---
 
@@ -14,33 +15,43 @@ where the record is thin, the site says so rather than filling the gap.
 
 | Decision | Reason |
 | --- | --- |
-| **Static MPA, not an SPA** | A panel clicks *Evidence Hub* and needs a distinct, shareable, printable URL. A SPA gives `#/evidence`, which cannot be bookmarked, archived or printed. |
+| **Static MPA, not an SPA** | A reader clicking *Open Source Impact* needs a distinct, shareable, printable URL. A SPA gives `#/evidence`, which cannot be bookmarked, archived or printed. |
 | **No framework** | Zero runtime dependencies. The build script uses the Node standard library only. Nothing to supply-chain, nothing to rot. |
-| **JSON as the single source of truth** | One post, one case study, one metric — edited in one place and rendered into the site, the RSS feed, the media kit and the LinkedIn calendar at once. |
+| **JSON as the single source of truth** | One post, one case study, one metric — edited in one place and rendered into the site, the RSS feed, the media kit, the LinkedIn calendar and the social images at once. |
+| **Narrative on the site, facts in the repo** | The site explains *why* a thing was built and links to the artefact that proves it. It never mirrors a README, because a second copy is a second thing to drift. |
 | **htmx for the few interactive bits** | Topic filters and the metrics snapshot. 14 KB, progressive enhancement, zero JS on the critical path. |
 | **Plain CSS, design tokens** | One file, no build step, dark and light from the same variables. |
-| **The commit history is the audit trail** | Every claim, edit and retraction is a dated commit in this repository. A reviewer can read the site's own history. |
+| **The commit history is the audit trail** | Every claim, edit and retraction is a dated commit in this repository. A reader can read the site's own history. |
 
 > **On the original brief.** The first draft of this site carried figures such as
 > *"feedback latency from 4m 12s to 11s"* and a *"1.8 GB → 22 MB"* mock footprint.
 > Those numbers were not in the repositories. The published evidence says the
 > local gate takes **99 s against 43–48 s on a runner** — it is *not* faster —
 > and the mock engine went from **250 MB across four containers to 50 MB in one
-> process**. The site now states the real figures, because a panel that opens
+> process**. The site now states the real figures, because a reader who opens
 > `ci-kit/docs/EVIDENCE.md` and finds a contradiction has been given a reason to
 > doubt everything else. The honest numbers are also, conveniently, the more
 > interesting ones.
+>
+> **On the site's framing.** The site makes no mention of immigration,
+> endorsement bodies or visa categories. That framing was removed deliberately:
+> a site that advertises its own purpose invites every reader to weigh the work
+> against that purpose, and a site that is *only* credible to one audience is
+> not a public record. The work is presented on its own merits, because that is
+> what makes it useful to everyone else — employers, contributors, peers, and
+> any panel that happens to be looking.
 
 ---
 
 ## Commands
 
 ```sh
-npm run build     # content/*.json + src/ -> dist/
-npm run dev       # build, watch and serve on http://localhost:4321
-npm run check     # validate the built site before publishing
-npm run metrics   # refresh the GitHub section of the evidence snapshot
-npm run archive   # regenerate content/archive.json from the TechLiaison repo
+npm run build         # content/*.json + src/ -> dist/
+npm run dev           # build, watch and serve on http://localhost:4321
+npm run check         # validate the built site before publishing
+npm run metrics       # refresh the GitHub section of the evidence snapshot
+npm run archive       # regenerate content/archive.json from the TechLiaison repo
+npm run social-image  # regenerate the social hero images from the case studies
 ```
 
 No `npm install` is needed. There are no dependencies.
@@ -87,17 +98,19 @@ dist/                     build output — published to GitHub Pages
 | URL | Source | What it is |
 | --- | --- | --- |
 | `/` | `profile.json`, `projects.json` | The landing view and the three pillars |
-| `/products/` | `projects.json` | Both tools, with the technology filter |
+| `/products/` | `projects.json` | All three tools, with the technology filter |
 | `/products/ci-kit/` | `case-studies.json` | Case study 01 — the build that never ran |
 | `/products/api-mock-services/` | `case-studies.json` | Case study 02 — 250 MB and four containers |
+| `/products/automation-gateway/` | `case-studies.json` | Case study 03 — business logic as data, air-gapped |
 | `/blog/` | `posts.json` | The 2026 essays, with the topic filter |
 | `/blog/<slug>/` | `posts.json` | One essay |
 | `/archive/` | `archive.json` | The 2013–2025 archive, dated and unchanged |
 | `/evidence/` | `evidence.json` | The Open Source Impact dashboard |
-| `/endorsement/` | `evidence.json` | Every claim mapped to what supports it |
+| `/record/` | `evidence.json` | Every claim mapped to what supports it |
 | `/media-kit/` | `social.json` | Printable one-pager and copy-ready bios |
 | `/feed.xml`, `/sitemap.xml`, `/robots.txt` | generated | Feeds and metadata |
 | `/partials/*` | generated | htmx fragments for the filters |
+| `/assets/img/social/*` | generated | Social hero images, rendered from the case studies |
 
 ---
 
@@ -202,13 +215,26 @@ matter more than any copy change.
       project README currently points at a package that does not exist.
       `npm publish --access public` from the repository, after logging in to
       the `@bytesickle` scope.
-- [ ] **Archive the template and fork repositories.** The GitHub profile lists
-      `astro-platform-starter` four times, plus `next.js`, `node`, `bolt.diy`,
-      `prefect` and a tailwind of starters. A panel scanning that sees a
-      template farm, not a maintainer. Keep `ci-kit`, `api-mock-services`,
-      `homebrew-tap`, `TechLiaison` and this repository.
-- [ ] **Write the README of this repository** to match the site, so the two
-      landing pages a panel might read agree with each other.
+- [ ] **Publish the Automation Gateway repository** under the name
+      `automation-gateway`, or update the link in `content/projects.json`. It
+      is currently marked *In development — repository to be published*, and
+      the site does not claim otherwise.
+- [ ] **Fix the asset hydrator's integrity check.**
+      `initialize-ui-assets.ps1` fetches from a placeholder URL
+      (`https://cloudflare.com`) and verifies the download by grepping the
+      first line of the file for `const`, `function` or `Vue`. That is not a
+      verification — it proves a string appears somewhere, not that the bytes
+      are the expected bytes, and the error it raises on failure blames the
+      network. In an air-gapped supply chain this is the weakest link, and it
+      should compare a pinned SHA-512 of the whole file (and of the archive
+      before extraction) against a manifest from a different origin.
+- [ ] **Archive the template repositories.** `astro-platform-starter` has been
+      replaced by this site. The siblings — `astro-platform-starter-971e3`,
+      `-d8c27`, `-6a66f`, plus the `next.js`, `node`, `bolt.diy` and `prefect`
+      copies — are still on the profile and still read as a template farm.
+- [ ] **Write the READMEs of the three projects to match the site**, so the
+      landing page a reader lands on and the repository they land in agree
+      with each other.
 - [ ] **Reconcile one measurement.** `ci-kit/docs/EVIDENCE.md` reports the mock
       engine answering its first request in **465 ms**; the
       `api-mock-services` README reports **1.4 s** for the same comparison. The
@@ -216,15 +242,11 @@ matter more than any copy change.
       differently in each.
 - [ ] **Say the npm scope out loud.** The package is `@bytesickle/…`, not
       `@omeiza-workspace/…`, while the repositories are under `omeiza-workspace`.
-      A panel may read that as two different authors. Either publish under a
+      A reader may read that as two different authors. Either publish under a
       consistent scope or explain the relationship in the README.
 - [ ] **Get the first external contributor or adopter.** The adopter list is a
       file in the repository and grows by pull request. One real row is worth
       more than a page describing how adoption works.
-- [ ] **Archive the remaining template repositories.** `astro-platform-starter`
-      has been replaced by this site. The siblings — `astro-platform-starter-971e3`,
-      `-d8c27`, `-6a66f`, plus the `next.js`, `node`, `bolt.diy` and `prefect`
-      copies — are still on the profile and still read as a template farm.
 - [ ] **Set the GitHub profile bio and website.** The profile README is done;
       the two fields above it are set in the profile settings.
 

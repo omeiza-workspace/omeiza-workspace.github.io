@@ -217,7 +217,7 @@
   "activity": [
     { "date": "2026-10-21", "label": "Shipped", "detail": "ci-kit: v1 released with the evidence document" },
     { "date": "2026-10-21", "label": "Shipped", "detail": "api-mock-services: v1 published, footprint gate in place" },
-    { "date": "2026-10-12", "label": "Published", "detail": "Evidence hub — this page, and the endorsement evidence map" },
+    { "date": "2026-10-12", "label": "Published", "detail": "Evidence hub — this page, and the verification index" },
     { "date": "2026-09-18", "label": "Published", "detail": "The Silent Bill — CI/CD drift essay" },
     { "date": "2026-08-27", "label": "Published", "detail": "Architecting Local Sandboxes for Interswitch and Paystack" }
   ],
@@ -262,24 +262,14 @@
         "claim": "The adopter list cannot be inflated",
         "verify": "https://github.com/omeiza-workspace/api-mock-services/blob/main/ADOPTERS.md",
         "how": "The list is a file in the repository and grows by pull request."
+      },
+      {
+        "claim": "The automation platform has no external dependencies",
+        "verify": "https://github.com/omeiza-workspace/automation-gateway",
+        "how": "It ships as a folder: no package manager, no build step, no internet in the request path."
       }
     ],
     "documents": [
-      {
-        "item": "Global Talent visa endorsement application",
-        "state": "In progress",
-        "availability": "Available to the endorsing body on request"
-      },
-      {
-        "item": "English proficiency certificate (IELTS / TOEFL)",
-        "state": "Held",
-        "availability": "Available to the endorsing body on request"
-      },
-      {
-        "item": "CV and employment history",
-        "state": "Held",
-        "availability": "Available to the endorsing body on request"
-      },
       {
         "item": "Published repositories and their commit history",
         "state": "Public",
@@ -298,28 +288,33 @@
       {
         "item": "Project documentation sites",
         "state": "Public",
-        "availability": "github.io pages for both projects"
+        "availability": "github.io pages for each project"
+      },
+      {
+        "item": "CV and employment history",
+        "state": "Held",
+        "availability": "Available on request"
       }
     ]
   },
-  "visa": {
-    "statement": "This page exists to be handed to an immigration evaluator. It collects, in one place, the public record of my work: published software with measured outcomes, a published account of how those measurements were taken, and long-form writing on a specific technical subject.",
+  "record": {
+    "statement": "This page collects, in one place, the public record of my work: published software with measured outcomes, a published account of how those measurements were taken, and long-form writing on specific technical subjects. Every entry links to the artefact that supports it, so nothing here has to be taken on trust.",
     "criteria": [
       {
         "label": "Original published work",
-        "body": "Two open-source tools released under MIT, each published with the harness that produced its measurements so the performance claims can be independently reproduced."
+        "body": "Three open-source tools under permissive licences: a local CI gate, a dependency-free mock engine for third-party APIs, and an air-gapped automation platform. The first two ship with the harness that produced their measurements, so the performance claims can be independently reproduced."
       },
       {
         "label": "Evidence of professional and technical competence",
-        "body": "A published evidence document that shows how each number was taken, discloses the measurement that was discarded, and has a dedicated section listing the claims that are not made."
+        "body": "A published evidence document that shows how each number was taken, discloses the measurement that was discarded, and has a dedicated section listing the claims that are not made. A platform whose architecture is checkable by reading its layout rather than by trusting a benchmark."
       },
       {
-        "label": "Recognition beyond the employer",
-        "body": "A dated body of published writing spanning 2013 to 2026, addressed to working engineers rather than to an employer, plus two live documentation sites and two public repositories."
+        "label": "Recognition beyond a single employer",
+        "body": "A dated body of published writing spanning 2013 to 2026, addressed to working engineers rather than to an employer, plus live documentation sites and public repositories for each project."
       },
       {
         "label": "Ongoing public activity",
-        "body": "A continuous record of shipping and publishing, evidenced by the activity log and the repository commit history."
+        "body": "A continuous record of shipping and publishing, evidenced by the activity log and the commit history of each repository."
       }
     ]
   }

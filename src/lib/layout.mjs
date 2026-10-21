@@ -96,7 +96,7 @@ export function layout({
 
   const footer = `<footer class="site-footer"><div class="footer-inner"><div class="footer-top"><div class="footer-brand"><p class="footer-blurb">${esc(
     site.footer.blurb,
-  )}</p><p class="footer-note">${esc(site.footer.note)}</p></div><div class="footer-columns">${site.footer.columns
+  )}</p>${site.footer.note ? `<p class="footer-note">${esc(site.footer.note)}</p>` : ''}</div><div class="footer-columns">${site.footer.columns
     .map(
       (col) => `<div class="footer-col"><h2>${esc(col.title)}</h2><ul>${col.links
         .map(

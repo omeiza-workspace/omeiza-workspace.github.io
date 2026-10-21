@@ -13,7 +13,7 @@
       "label": "LinkedIn",
       "handle": "Omeiza Okuta",
       "url": "https://www.linkedin.com/in/omeiza-okuta",
-      "role": "Professional endorsement — managers, recruiters, endorsement panels",
+      "role": "Professional reach — engineering managers, recruiters and collaborators",
       "cadence": "One post per week"
     },
     {
@@ -41,19 +41,19 @@
       "cadence": "Fortnightly, mirroring Substack"
     }
   ],
-  "headline": "Creator of CI Kit & api-mock-services | Specializing in Developer Experience (DX), Local-First DevOps, and Green Container Tooling.",
+  "headline": "Creator of CI Kit, api-mock-services & the Automation Gateway | Specializing in Developer Experience (DX), Local-First Infrastructure, and Air-Gapped Platform Engineering.",
   "bios": {
     "oneLine": "Open Source Architect building light, sustainable developer infrastructure and local-first CI/CD automation.",
-    "short": "Open Source Architect. Creator of CI Kit and api-mock-services — a local CI gate and a zero-dependency mock engine for payment, identity and messaging APIs. I publish how every number was measured, including the ones I threw away.",
-    "long": "I am an Open Source Architect and developer tooling engineer working between Lagos and European time zones.\n\nMy work is in the unglamorous layer of developer infrastructure: the tools that decide whether a team waits forty seconds or forty minutes for a green build. I maintain two open-source projects.\n\nCI Kit gives a repository a local gate that runs the same scripts its GitHub Actions workflow runs. It came out of an incident worth being honest about: 28 of the last 30 runs in a workspace had failed, and not one of them had failed on code — GitHub had been refusing to start the jobs over a spending limit, every run failing in about six seconds. Nobody could tell the difference between a red build and a build that never ran. The local gate answers the same question in about a hundred seconds, and it says why. I measured the honest version too: on identical work it takes 99 seconds on a laptop against 43–48 seconds on a GitHub runner. It is not faster. It is a guarantee of feedback, and the evidence document has a section on what is not claimed.\n\napi-mock-services is one dependency-free Node process that stands in for eighteen third-party providers — Stripe, Paystack, Interswitch, Flutterwave, Monnify, YouVerify, Smile ID, Twilio, Resend, Xero and the rest. It replaced four containers: 50 MB against 250 MB, 0.0% idle CPU against 7.9%, and 1.4 seconds to the first request against 20 and rising. The footprint is a build gate, not a README claim — the build fails above 100 MB.\n\nBoth are MIT licensed, both publish their evidence, and both ship the harness that produced the numbers. I write long-form essays on CI/CD drift, offline-first integration testing and reproducible measurement, cross-posted to Substack and Dev.to, and I keep a public archive of everything I have written since 2013.\n\nI am pursuing a Global Talent visa endorsement on the exceptional-promise stream, and this site — portfolio, writing, evidence and an endorsement evidence map in one place — is the artefact I would want assessed.",
-    "x": "Open Source Architect. CI Kit + api-mock-services. Deterministic CI gates, zero-dependency mocks for payment APIs, and every number published with how it was measured.",
-    "linkedin": "Open Source Architect building light, sustainable developer infrastructure and local-first CI/CD automation. Creator of CI Kit and api-mock-services. I write about DX, CI/CD drift, and reproducible measurement — and publish what I do not claim.",
-    "github": "Deterministic CI gates and zero-dependency mocks for payment APIs. Shell and Node. Every number published with how it was measured."
+    "short": "Open Source Architect. Creator of CI Kit, api-mock-services and an air-gapped automation engine — a local CI gate, a dependency-free mock engine for payment APIs, and declarative workflow execution with an audit trail. I publish how every number was measured, including the ones I threw away.",
+    "long": "I am an Open Source Architect and platform engineer working between the UK and West Africa.\n\nMy work is in the unglamorous layer of infrastructure: the tools that decide whether a team waits forty seconds or forty minutes for a green build, and the services that keep an enterprise running when the network does not. I build three open-source projects.\n\nCI Kit gives a repository a local gate that runs the same scripts its GitHub Actions workflow runs. It came out of an incident worth being honest about: 28 of the last 30 runs in a workspace had failed, and not one of them had failed on code — GitHub had been refusing to start the jobs over a spending limit, every run failing in about six seconds. Nobody could tell the difference between a red build and a build that never ran. The local gate answers the same question in about a hundred seconds, and it says why. I measured the honest version too: on identical work it takes 99 seconds on a laptop against 43–48 seconds on a GitHub runner. It is not faster. It is a guarantee of feedback, and the evidence document has a section on what is not claimed.\n\napi-mock-services is one dependency-free Node process that stands in for eighteen third-party providers — Stripe, Paystack, Interswitch, Flutterwave, Monnify, YouVerify, Smile ID, Twilio, Resend, Xero and the rest. It replaced four containers: 50 MB against 250 MB, 0.0% idle CPU against 7.9%, and 1.4 seconds to the first request against 20 and rising. The footprint is a build gate, not a README claim — the build fails above 100 MB.\n\nThe Automation Gateway is an air-gapped Windows Service that runs enterprise workflows from JSON blueprints instead of controller code, with plug-in auto-discovery, RBAC, feature toggles for break-glass recovery, and every step attempt written to a transactional SQLite audit trail. Zero external dependencies, no build step, and a defined fallback when a component is unreachable.\n\nAll three are permissively licensed, all publish their evidence, and all ship the harness that produced the numbers. I write long-form essays on CI/CD drift, offline-first integration testing and reproducible measurement, cross-posted to Substack and Dev.to, and I keep a public archive of everything I have written since 2013.",
+    "x": "Open Source Architect. CI Kit, api-mock-services and an air-gapped automation engine. Deterministic CI gates, dependency-free mocks for payment APIs, declarative workflow execution — and every number published with how it was measured.",
+    "linkedin": "Open Source Architect building light, sustainable developer infrastructure and local-first CI/CD automation. Creator of CI Kit, api-mock-services and an air-gapped automation engine. I write about DX, CI/CD drift, air-gapped systems and reproducible measurement — and publish what I do not claim.",
+    "github": "Deterministic CI gates, dependency-free mocks for payment APIs, and air-gapped workflow execution. Shell, Node and PowerShell. Every number published with how it was measured."
   },
   "linkedinFeatured": [
     {
       "title": "The master portfolio",
-      "detail": "Products, deep case studies, writing, public evidence and an endorsement evidence map in one place.",
+      "detail": "Products, deep case studies, writing, public evidence and a verification index in one place.",
       "href": "/",
       "type": "Portfolio site"
     },
@@ -79,7 +79,8 @@
       "hook": "Our pipeline was red for a week. Not one of those 28 failures was a code failure — the jobs never started.",
       "body": "GitHub had refused to start the jobs because of a spending limit. Every run failed in about six seconds. At the pull request level a red build is a red build, so the week looked like ordinary breakage. What I built to find out what was actually happening is now open source, and I wrote up the incident — including the measurement I threw away.",
       "cta": "The full write-up, with the numbers and the harness, is on my site. Link in the comments.",
-      "links": ["/blog/the-silent-bill-remote-ci-cd-drift/", "https://github.com/omeiza-workspace/ci-kit"]
+      "links": ["/blog/the-silent-bill-remote-ci-cd-drift/", "https://github.com/omeiza-workspace/ci-kit"],
+      "image": "/assets/img/social/automation-gateway-tree.png"
     },
     {
       "week": 2,
@@ -94,12 +95,13 @@
     {
       "week": 3,
       "channel": "LinkedIn",
-      "format": "Post-mortem",
-      "topic": "Why the first mock arrangement was actively misleading",
-      "hook": "Our mock environment had 214 MB of memory dedicated to a proxy that never finished translating.",
-      "body": "Four containers, 250 MB, 7.9% idle CPU, and 20 seconds before the first request was answered. A test setup that permanently occupies a quarter of a gigabyte on a laptop is not a tool people use often — it is a tool people postpone. I wrote up how we got to one dependency-free process, and why 'no dependencies' is a policy rather than a preference.",
-      "cta": "Full architecture write-up on my site.",
-      "links": ["/blog/architecting-local-sandboxes-offline/"]
+      "format": "Architecture breakdown + directory-tree image",
+      "topic": "Business logic as data, on a host with no internet",
+      "hook": "Here is the layout of an air-gapped automation engine that runs enterprise workflows from JSON instead of controller code.",
+      "body": "The engine core is immutable and lives in its own module scope. Workflows are pure JSON, so a business rule changes by editing a file rather than by shipping a deploy. New integrations are *.plugin.ps1 files that get auto-discovered — the core is never edited to add one. Every step attempt, including retries, is written to SQLite so an auditor can trace a self-healed run. Zero external dependencies, no build step, no internet in the request path.",
+      "cta": "The full architecture write-up, with the layout and the design decisions, is on my site.",
+      "links": ["/products/automation-gateway/"],
+      "image": "/assets/img/social/automation-gateway-tree.png"
     },
     {
       "week": 4,
@@ -116,10 +118,11 @@
     "note": "Every channel points to every other channel. A visitor should be able to arrive from any one of them and reach the whole set within a single click.",
     "rules": [
       "LinkedIn featured section pins: portfolio → the evidence document → the highest-engagement article.",
+      "Long-form posts on LinkedIn are published as native articles and then pinned with 'Feature on top of profile', so the technical breakdown is the first thing a reader sees.",
       "X posts always link to the repository or the article, never to a bare 'read more'.",
-      "Every article ends with links to both repositories and back to the evidence hub.",
+      "Every article ends with links to the relevant repositories and back to the evidence hub.",
       "The evidence hub links out to every article, repository and profile.",
-      "The endorsement evidence map links every claim to the artefact that supports it, so a reviewer never has to ask.",
+      "The verification index links every claim to the artefact that supports it, so a reader never has to ask.",
       "The repository READMEs link to the articles that explain the design, and to the evidence documents."
     ]
   }

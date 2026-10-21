@@ -268,6 +268,143 @@
         { "label": "The footprint build gate", "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/scripts/footprint.js" },
         { "label": "Related article: Local Sandboxes for Interswitch and Paystack", "href": "/blog/architecting-local-sandboxes-offline/" }
       ]
+    },
+    {
+      "id": "automation-gateway",
+      "projectId": "automation-gateway",
+      "title": "Business logic as data, on a host with no internet",
+      "subtitle": "An air-gapped Windows Service that runs enterprise workflows from JSON blueprints — and records every attempt, including the ones it had to retry",
+      "order": 3,
+      "readingTime": "10 min read",
+      "role": "Architecture, implementation, security model",
+      "stack": ["PowerShell 7", "Windows Service", "SQLite", "Runspace Pools", "Pester", "DPAPI"],
+      "hero": {
+        "eyebrow": "Case study 03",
+        "headline": "The controller was the problem, not the automation.",
+        "body": "A platform that can only be extended by editing the thing that runs it will eventually be edited in a hurry, by someone who is not the person who designed it."
+      },
+      "problem": {
+        "headline": "Three couplings, each of which is a separate way to lose control",
+        "body": "Enterprise automation usually arrives as a controller application. A workflow is a method. Changing a workflow means changing code, which means a build, which means a deploy, which means the change is gated on a pipeline rather than on the person who understands the business rule.\n\nThat is the first coupling: **logic and orchestration are tangled together.** A step that shells out to Artifactory and a step that calls Jira live in the same method as the code that decides what runs and in what order, and there is no way to review the first without reading the second.\n\nThe second coupling is to the **network**. A controller that calls a cloud AI endpoint to classify an ambiguous request has a hard dependency on somebody else's uptime, and in an air-gapped environment it has none at all. When the endpoint is unreachable, the sensible thing — dropping the transaction, or guessing — are both bad, and the system has to know which one it did.\n\nThe third coupling is to the **engine**. Every new integration — Kubernetes, CyberArk, another Artifactory, a tracking system — arrives as an edit to a core module. Core modules accumulate edits. Eventually the core is the thing nobody dares touch, and every integration is a fork of it.\n\nNone of these are exotic failures. They are the ordinary, predictable consequence of the shape of the code, and they are all fixable by changing the shape rather than by adding more care.",
+        "pullQuote": "A workflow that can only be changed by editing the thing that runs it will eventually be edited in a hurry, by someone who is not the person who designed it.",
+        "symptoms": [
+          "Adding a step to a pipeline required a code change, a review and a deployment window",
+          "The engine module was edited for every new integration, and had stopped being safe to touch",
+          "Retry state lived in memory, so an interrupted run left no recoverable record of what had happened",
+          "An unreachable dependency left the platform with no defined behaviour — it either blocked the pipeline or guessed",
+          "The audit trail was reconstructed from log text after the fact rather than written as it happened"
+        ]
+      },
+      "approach": {
+        "headline": "Three separations, and a defined answer for every failure",
+        "body": "**Workflows are data.** A pipeline is a JSON blueprint: a list of steps, each with an identifier, a task, an optional retry count and an input map whose values may interpolate the outputs of earlier steps. It can be diffed, reviewed, approved and replayed without a build. A business rule changes by editing a file, which is the right tool for a business rule.\n\n**The engine core is immutable.** It lives in its own module scope with a composition root that dot-sources the internal components — the database engine, the rules engine, the orchestrator and the router. The engine does not know what any particular workflow does. It knows how to walk a blueprint, resolve an input, run a task, and record the outcome.\n\n**Extensions are discovered, not registered.** A new integration is a file named `*.plugin.ps1` dropped into the plugins directory. It is pure, it takes strict parameters, it does not mutate globals, and it returns dictionaries or hash tables. The engine finds it. The core is never edited.\n\nAnd for the failure case there is a defined answer rather than a hopeful one. Ambiguous intent is classified by a local model on the host, and if that model is unreachable the classifier falls back to a deterministic regular-expression matrix before dropping the transaction. Either way, the choice made is written to the audit trail — so the system can say not just that it degraded, but exactly which path it took."
+      },
+      "architecture": {
+        "headline": "The layout is the argument",
+        "steps": [
+          {
+            "title": "Immutable engine core",
+            "body": "Modules/PipelineEngine is a separate module scope with a manifest, a composition root and four internal components: the transactional SQLite database engine, the rules engine that validates and shields against command injection, the orchestrator that resolves variable interpolation and drives the pipeline loop, and the router that performs zero-trust header checks and matches routes by regular expression."
+          },
+          {
+            "title": "Declarative workflow blueprints",
+            "body": "The workflows directory holds pure JSON — no code, no PowerShell, no side effects at load time. A blueprint declares steps, tasks, inputs and an optional retry count. Because it is data, the same blueprint can be validated by the Pester harness offline, which is what the test suite does with every toggle line."
+          },
+          {
+            "title": "Plug-in auto-discovery",
+            "body": "The plugins directory is the extension surface. Storage, DevOps and tracking plugins ship as examples, and a new one needs nothing but a file with the right suffix. A plugin that breaks the rules — mutating globals, or returning the wrong shape — is rejected by the contract rather than by convention."
+          },
+          {
+            "title": "Thread-safe shared caches",
+            "body": "A synchronised hashtable is injected across the runspace pool. The plugin cache compiles script structures on first use and then serves them without touching the filesystem again inside the hot loop. A second, separate cache holds just-in-time secrets generated through the host's DPAPI, with a TTL so a rotated credential cannot outlive its rotation."
+          },
+          {
+            "title": "Transactional persistence and safe backup",
+            "body": "The database engine writes every step attempt — Retrying, Success or Failed — to SQLite inside a transaction. The backup script performs an online snapshot through SQLite's own backup mechanism, so a copy can be taken without dropping active workers or refusing an inbound webhook."
+          },
+          {
+            "title": "Local-first interface layer",
+            "body": "The router serves a control console straight out of a public directory on the same socket, with the Vue runtime cached locally rather than pulled from a CDN. There is no build step, no bundler and no node_modules in the deployment — upgrading the console is editing layout tags in a file."
+          }
+        ],
+        "diagram": [
+          "secure-api/",
+          "├── config.json           settings, feature toggles, RBAC tokens",
+          "├── server.ps1            async runspace-pool socket loop",
+          "├── register-service.ps1  service deployment",
+          "├── backup-database.ps1   transaction-aware online backup",
+          "├── workflows/            pure JSON blueprints (data, not code)",
+          "├── tests/                Pester harness — every toggle, offline",
+          "├── plugins/              auto-discovered *.plugin.ps1",
+          "├── Modules/PipelineEngine/   the immutable engine core",
+          "│   └── src/  database · rules · orchestrator · router",
+          "└── public/               the control console, served locally"
+        ]
+      },
+      "results": {
+        "headline": "What changed, structurally",
+        "before": [
+          { "metric": "Where a workflow lives", "value": "In controller code" },
+          { "metric": "To change a workflow", "value": "A build and a deployment" },
+          { "metric": "To add an integration", "value": "An edit to the engine core" },
+          { "metric": "Where retry state lives", "value": "In memory" },
+          { "metric": "Intent classification", "value": "Requires a cloud endpoint" }
+        ],
+        "after": [
+          { "metric": "Where a workflow lives", "value": "A JSON blueprint" },
+          { "metric": "To change a workflow", "value": "A reviewed file change" },
+          { "metric": "To add an integration", "value": "A plugin file" },
+          { "metric": "Where retry state lives", "value": "Transactional SQLite" },
+          { "metric": "Intent classification", "value": "A local model, with a deterministic fallback" }
+        ],
+        "notes": [
+          "No wall-clock benchmark is claimed for this platform, and none should be inferred from one. The claims here are architectural and are checkable by reading the layout: the engine core is a separate module scope, the workflows are data, and the plugins are discovered rather than registered.",
+          "The retry policy is explicit. A step declares an optional retryCount, and the delay escalates as 2^(attempt - 1) — two seconds, then four, then eight. Each of those attempts writes its own row, so the audit trail shows the transient failure, the recovery delay and the eventual outcome as three separate facts rather than one summary.",
+          "Every cross-cutting concern is a toggle on disk rather than a branch in code: MaintenanceMode returns 503 for executions while leaving the audit read endpoints live, EnableRBAC degrades to a single master token, EnableApprovalGates permits a hotfix to bypass an approval checkpoint, and EnableAIFallback drops an unstructured task rather than guessing. Flipping any of them does not require a restart.",
+          "The platform has no external dependencies and no build step. It is registered as a service and it runs — which is the entire point in an environment where the public internet is not available."
+        ]
+      },
+      "governance": {
+        "headline": "The air gap is only as strong as its weakest supply chain",
+        "body": "A platform that refuses network traffic is only meaningfully air-gapped if the artefacts it runs were verified before they arrived. That is the part of this design most likely to be got wrong, and it is worth being explicit about it.",
+        "items": [
+          {
+            "title": "A downloader that greps for a keyword is not a verifier",
+            "body": "The asset hydrator fetches the Vue runtime on a connected machine and writes it into the project for transfer to the air-gapped host. If the integrity check is a regular expression over the first line of the downloaded file, then it verifies nothing: it proves a string appears somewhere, not that the bytes are the expected bytes. The check has to be a hash of the whole file against a pinned expected digest, and the digest has to be pinned from a source that is not the same host that served the file."
+          },
+          {
+            "title": "Verify the archive, not just the payload",
+            "body": "The right order is: fetch the published artefact, verify the signature or digest of the archive, extract, then verify the extracted file's digest against the version manifest. Checking only the extracted file means the extraction step is trusted blindly."
+          },
+          {
+            "title": "Fail with the real reason",
+            "body": "When verification fails, the error must say that the digest did not match the pinned value. A generic 'possible network interception' sends the operator looking at the network, when the network was never the thing at fault."
+          }
+        ]
+      },
+      "lessons": [
+        {
+          "title": "Configuration is data, not code",
+          "body": "Every hour spent moving a business rule out of a controller and into a reviewable file is an hour of the reviewer's attention that used to go to reading code. It is the same lesson as the mock engine's zero-dependency rule, at a different scale: the cheapest thing to review is data, because there is nothing in it that can surprise you."
+        },
+        {
+          "title": "An extension point that requires editing the core is not an extension point",
+          "body": "The plugin directory only works because the engine never learns what a plugin does. The moment a plugin needs something from the core that the core does not already expose, the boundary leaks — and it leaks exactly once, in a hurry, with a deadline."
+        },
+        {
+          "title": "Define the degraded path before you need it",
+          "body": "The local model with a regular-expression fallback was designed as a pair, not as a fallback added later. When the primary path is unavailable, the system already knows what it will do and the audit trail already knows how to record it."
+        },
+        {
+          "title": "Audit the attempts, not the outcome",
+          "body": "Recording only the final state of a retried step erases the information an auditor most wants: that the system hit a transient fault and recovered on its own. Writing one row per attempt is barely more work and turns 'it worked eventually' into a legible sequence."
+        }
+      ],
+      "links": [
+        { "label": "Automation Gateway repository", "href": "https://github.com/omeiza-workspace/automation-gateway" },
+        { "label": "Related article: Deterministic Toolchains Don't Need a Backend", "href": "/blog/deterministic-toolchains-dont-need-a-backend/" },
+        { "label": "Open Source Impact", "href": "/evidence/" }
+      ]
     }
   ]
 }

@@ -30,7 +30,7 @@ import {
   renderMetrics,
   renderMediaKit,
   renderArchive,
-  renderEndorsement,
+  renderRecord,
   renderNotFound,
 } from './lib/pages.mjs';
 
@@ -71,8 +71,9 @@ function sitemapUrls() {
     { loc: '/blog/', priority: '0.9', changefreq: 'weekly' },
     { loc: '/archive/', priority: '0.6', changefreq: 'monthly' },
     { loc: '/evidence/', priority: '0.8', changefreq: 'weekly' },
-    { loc: '/endorsement/', priority: '0.7', changefreq: 'monthly' },
+    { loc: '/record/', priority: '0.7', changefreq: 'monthly' },
     { loc: '/media-kit/', priority: '0.6', changefreq: 'monthly' },
+    { loc: '/products/automation-gateway/', priority: '0.8', changefreq: 'monthly' },
   ];
 }
 
@@ -329,24 +330,24 @@ export async function build() {
     }),
   );
 
-  /* ---- endorsement evidence map ---- */
+  /* ---- verification index ---- */
   await page(
-    'endorsement/index.html',
+    'record/index.html',
     layout({
-      title: 'Endorsement evidence map',
+      title: 'Verification index',
       description:
-        'Every claim on this site, mapped to the artefact that supports it, with a stated document pack and an honest account of the gaps.',
-      path: '/endorsement/',
-      body: renderEndorsement({ evidence, profile, projects, posts, archive }),
+        'Every claim on this site, mapped to the artefact that supports it, with a stated document list and an honest account of the gaps.',
+      path: '/record/',
+      body: renderRecord({ evidence, profile, projects, posts, archive }),
       site,
       active: '/evidence/',
       schema: {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: 'Endorsement evidence map',
+        name: 'Verification index',
         description:
-          'Every claim mapped to the artefact that supports it, a stated document pack, and an honest account of the gaps.',
-        url: new URL('/endorsement/', site.url).toString(),
+          'Every claim mapped to the artefact that supports it, a stated document list, and an honest account of the gaps.',
+        url: new URL('/record/', site.url).toString(),
         author: { '@type': 'Person', name: profile.name, url: site.url },
       },
     }),

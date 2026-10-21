@@ -2,30 +2,30 @@
   "name": "Omeiza Okuta",
   "shortName": "Omeiza",
   "initials": "OO",
-  "role": "Open Source Architect & Developer Tooling Engineer",
-  "location": "Lagos, Nigeria — working remotely across EU / UK time zones",
-  "visa": {
-    "status": "Global Talent Visa — endorsement in progress",
-    "stream": "Global Talent (exceptional promise) — digital technology",
-    "endorsementBody": "Tech Nation / Home Office (UK)",
-    "selfAssessment": "/media-kit/"
+  "role": "Open Source Architect & Platform Engineer",
+  "location": "United Kingdom — working remotely across EU / UK time zones",
+  "avatar": "/assets/img/avatar.jpg",
+  "availability": {
+    "status": "Open to platform engineering and developer infrastructure work",
+    "detail": "Available for contract, fractional and permanent roles in platform engineering, developer experience and infrastructure tooling. Also available to speak and to review infrastructure work.",
+    "note": "Remote-first. Comfortable working with teams across UK and West Africa time zones."
   },
   "hero": {
     "eyebrow": "Open Source Architect",
     "headline": "Open Source Architect building light, sustainable developer infrastructure and local-first CI/CD automation.",
-    "sub": "I maintain CI Kit and api-mock-services — a local gate that runs your CI before you push, and one dependency-free process that stands in for the payment gateways, identity checks and messaging providers your product talks to. Both publish their measurements, and both publish the claims they do not make.",
+    "sub": "I maintain three open-source tools: a local gate that runs your CI before you push, a dependency-free process that stands in for third-party payment and identity APIs, and an air-gapped automation engine that runs enterprise workflows without a network. All three publish their measurements, and all three publish the claims they do not make.",
     "cta": [
       { "label": "Read the case studies", "href": "/products/", "primary": true },
-      { "label": "Open Source Impact", "href": "/evidence/", "primary": false }
+      { "label": "The public record", "href": "/record/", "primary": false }
     ],
     "scrollHint": "Case studies, writing and public evidence"
   },
   "positioning": {
-    "statement": "I build the unglamorous layer of developer infrastructure: the tools that decide whether a team waits forty seconds or forty minutes for a green build. My work is open source, benchmarked in public, and written up in full — including the measurements I threw away and the claims I do not make. Infrastructure claims are worth exactly what the evidence behind them is worth, so the evidence ships with the tool.",
+    "statement": "I build the unglamorous layer of developer infrastructure: the tools that decide whether a team waits forty seconds or forty minutes for a green build, and the services that keep an enterprise running when the network does not. My work is open source, benchmarked in public, and written up in full — including the measurements I threw away and the claims I do not make. Infrastructure claims are worth exactly what the evidence behind them is worth, so the evidence ships with the tool.",
     "supports": [
-      "Every product I ship is published as open source, with the benchmark harness included so the claims are reproducible — and with a documented section on what is not claimed.",
+      "Every product I ship is published as open source, with the harness that produced its measurements included, so the claims are reproducible — and with a documented section on what is not claimed.",
       "Case studies lead with the failure mode and the before/after numbers, not the feature list. Where a number is unflattering, it stays.",
-      "Long-form technical writing is the primary channel; social is where the work is discussed, not where the argument is made."
+      "The same discipline applies to the systems I build for enterprises: data-driven configuration, explicit audit trails, and a safe path out when a component is unreachable."
     ]
   },
   "pillars": [
@@ -33,12 +33,13 @@
       "id": "products",
       "title": "My Products",
       "href": "/products/",
-      "kicker": "Two tools, both open source",
-      "description": "CI Kit for a local CI gate that runs the same scripts your workflow runs. api-mock-services for zero-dependency, one-process stand-ins for third-party payment, identity and messaging APIs.",
+      "kicker": "Three tools, all open source",
+      "description": "CI Kit for a local CI gate that runs the same scripts your workflow runs. api-mock-services for zero-dependency, one-process stand-ins for third-party APIs. An air-gapped automation engine for enterprise workflow execution.",
       "proof": "Deep case studies with measured outcomes",
       "links": [
         { "label": "CI Kit", "href": "/products/ci-kit/" },
-        { "label": "api-mock-services", "href": "/products/api-mock-services/" }
+        { "label": "api-mock-services", "href": "/products/api-mock-services/" },
+        { "label": "Automation Gateway", "href": "/products/automation-gateway/" }
       ]
     },
     {
@@ -56,15 +57,15 @@
     },
     {
       "id": "evidence",
-      "title": "Visa Media Kit / Proof",
+      "title": "The public record",
       "href": "/evidence/",
       "kicker": "Open Source Impact",
-      "description": "A single consolidated view of GitHub metrics, community growth, external recognition and public writing — pre-packaged for an immigration evaluator or an engineering director.",
+      "description": "A single consolidated view of GitHub metrics, community growth, external recognition and public writing — every claim linked to the artefact that supports it.",
       "proof": "Live metrics snapshot, refreshed by CI",
       "links": [
         { "label": "Impact dashboard", "href": "/evidence/" },
-        { "label": "Endorsement evidence map", "href": "/endorsement/" },
-        { "label": "Printable one-pager", "href": "/media-kit/" }
+        { "label": "Verification index", "href": "/record/" },
+        { "label": "Printable media kit", "href": "/media-kit/" }
       ]
     }
   ],
@@ -74,16 +75,16 @@
       "body": "Removing the wall between an edit and the signal that says whether the edit was right. Most of it is determinism: the same script has to run on the laptop and on the runner, so there is one copy of the setup rather than two implementations that drift."
     },
     {
-      "title": "Local-First DevOps",
-      "body": "Pushing the feedback loop onto the machine in front of the developer, and keeping remote runners for what they are genuinely good at — the shared, expensive, hard-to-reproduce jobs. A local gate is a guarantee of feedback, not a replacement for CI."
+      "title": "Local-First & Air-Gapped Systems",
+      "body": "Systems that keep working when the network does not. Mocks that answer a payment API without a key, a local model that classifies intent without a cloud gateway, and an audit trail that stays queryable on the host it was written on."
+    },
+    {
+      "title": "Platform & Service Engineering",
+      "body": "Windows services, runspace pools, transactional persistence, plug-in extension points, RBAC and break-glass recovery. The unglamorous layer that decides whether a platform is operable by one person or by a rota."
     },
     {
       "title": "Green Container Tooling",
       "body": "Tooling that is light by default: small memory footprints, zero idle CPU, and a deliberate bias toward doing less work on the developer's machine rather than more work on someone's metered runner. The footprint is enforced as a build gate, not asserted in a README."
-    },
-    {
-      "title": "Offline-First Integrations",
-      "body": "Designing against fragmented third-party APIs — payment gateways, KYC and identity checks, SMS — so a team in Lagos, Nairobi or London can build the whole feature without a live key, a network, or a colleague's production traffic."
     }
   ],
   "principles": [
@@ -96,34 +97,34 @@
       "body": "Every evidence document I write has a section listing what is not claimed. A tool that overclaims about speed is a tool that has to be defended, and the defence is always weaker than the original claim would have been."
     },
     {
-      "title": "Offline is the default",
-      "body": "If a developer cannot build the feature with the network unplugged, the integration is untestable, and untestable code is unowned code."
+      "title": "Configuration is data, not code",
+      "body": "A workflow declared as a JSON blueprint can be reviewed, diffed, audited and replayed. A workflow expressed as a controller method can only be changed by a deploy — and a deploy is the wrong tool for a business rule."
     },
     {
-      "title": "Open source by default",
-      "body": "Everything I build for a company becomes public. It is the cheapest credibility instrument I have, and it is the same one I would want to be judged by."
+      "title": "Degrade, do not depend",
+      "body": "If a component is unreachable, the system has to have a defined fallback and a defined audit record of having used it. A local model with a deterministic fallback beats a cloud model with a timeout."
     }
   ],
   "stack": [
-    { "group": "Languages", "items": ["Shell", "JavaScript / Node.js", "TypeScript", "Python", "Go"] },
+    { "group": "Languages", "items": ["Shell", "PowerShell", "JavaScript / Node.js", "TypeScript", "Python", "Go"] },
     { "group": "CI / CD", "items": ["GitHub Actions", "act", "Docker", "gitleaks", "Renovate"] },
+    { "group": "Platform", "items": ["Windows Service", "PowerShell 7", "SQLite", "Pester", "DPAPI", "Runspace Pools"] },
     { "group": "Developer tooling", "items": ["Make", "Git hooks", "OpenAPI", "Prism", "Tilt"] },
-    { "group": "Platform", "items": ["Linux", "macOS", "WSL", "Nginx", "Terraform"] },
-    { "group": "Domains", "items": ["Payments", "Identity / KYC", "SMS & messaging", "Email & DNS", "Observability"] }
+    { "group": "Domains", "items": ["Payments", "Identity / KYC", "Enterprise automation", "Air-gapped infrastructure", "Observability"] }
   ],
   "timeline": [
     {
       "period": "2026 — present",
       "title": "Open Source Architect",
       "org": "Independent",
-      "body": "Maintaining CI Kit and api-mock-services; writing about CI/CD drift, local-first developer infrastructure and reproducible measurement; building the public evidence base for a Global Talent visa endorsement.",
-      "tags": ["CI Kit", "api-mock-services", "Writing"]
+      "body": "Maintaining CI Kit, api-mock-services and the air-gapped automation engine; writing about CI/CD drift, local-first infrastructure and reproducible measurement.",
+      "tags": ["CI Kit", "api-mock-services", "Automation", "Writing"]
     },
     {
       "period": "2024 — 2026",
       "title": "Platform / DevEx Engineering",
       "org": "FinTech & SaaS product engineering",
-      "body": "Owned the internal CI platform and developer onboarding for payment-product teams. The workspace these tools came from had 28 red runs in a row and nobody could tell that the jobs had never started — which is what turned a local gate from a convenience into the answer to 'did I break something?'.",
+      "body": "Owned the internal CI platform and developer onboarding for payment-product teams. The workspace these tools came from had 28 red runs in a row and nobody could tell that the jobs had never started — which is what turned a local gate from a convenience into the answer to 'did I break something?'",
       "tags": ["Platform", "DevEx", "Payments"]
     },
     {
@@ -143,7 +144,7 @@
   ],
   "contact": {
     "email": "okuta.omeiza@gmail.com",
-    "formNote": "Email is the fastest route. I respond to technical and endorsement-related enquiries within two working days.",
+    "formNote": "Email is the fastest route. I respond to technical and collaboration enquiries within two working days.",
     "channels": [
       { "label": "Email", "value": "okuta.omeiza@gmail.com", "href": "mailto:okuta.omeiza@gmail.com" },
       { "label": "GitHub", "value": "github.com/omeiza-workspace", "href": "https://github.com/omeiza-workspace" },

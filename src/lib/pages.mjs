@@ -7,7 +7,7 @@
  */
 
 import { esc, attr, join, formatDate, formatMonth, num } from './html.mjs';
-import { markdown } from './markdown.mjs';
+import { markdown, inlineMarkdown } from './markdown.mjs';
 
 /* ------------------------------------------------------------------ */
 /* shared pieces                                                       */
@@ -99,6 +99,13 @@ export function renderLanding({ site, profile, projects, caseStudies, posts, evi
       <p class="hero-scroll">${esc(profile.hero.scrollHint)}</p>
     </div>
     <aside class="hero-panel" aria-label="Key figures">
+      <div class="panel-id">
+        <img class="panel-avatar" src="/assets/img/avatar.jpg" alt="" width="52" height="52" decoding="async" />
+        <div>
+          <p class="panel-name">${esc(profile.name)}</p>
+          <p class="panel-role">${esc(profile.role)}</p>
+        </div>
+      </div>
       <div class="panel-label">Measured, not claimed</div>
       <ul class="hero-stats">${headlineStats
         .map(
@@ -182,8 +189,8 @@ export function renderLanding({ site, profile, projects, caseStudies, posts, evi
       </div>
       <div class="linkd-card">
         <p class="linkd-label">Currently</p>
-        <p class="linkd-text">${esc(profile.visa.status)}</p>
-        <p class="linkd-sub">${esc(profile.visa.stream)} · ${esc(profile.visa.endorsementBody)}</p>
+        <p class="linkd-text">${esc(profile.availability.status)}</p>
+        <p class="linkd-sub">${esc(profile.availability.note)}</p>
       </div>
     </div>
   </div>
@@ -321,7 +328,7 @@ export function renderProducts({ site, profile, projects, caseStudies }) {
       <ul class="outcomes">${p.keyOutcomes
         .map(
           (o) =>
-            `<li><h3>${esc(o.title)}</h3><p>${esc(o.body)}</p></li>`,
+            `<li><h3>${esc(o.title)}</h3><p>${inlineMarkdown(o.body)}</p></li>`,
         )
         .join('')}</ul>
       <div class="project-foot">
@@ -464,13 +471,10 @@ export function renderCaseStudy({ cs, project, next, site }) {
       <div class="cs-aside"><p class="cs-aside-label">${numbered('problem')}</p><p class="cs-aside-title">${esc(steps[0].label)}</p></div>
       <div class="cs-content">
         <h2>${esc(cs.problem.headline)}</h2>
-        ${cs.problem.body
-          .split('\n\n')
-          .map((p) => `<p>${esc(p)}</p>`)
-          .join('')}
+        ${markdown(cs.problem.body)}
         <blockquote class="pull-quote"><p>${esc(cs.problem.pullQuote)}</p></blockquote>
         <h3>What it looked like day to day</h3>
-        <ul class="symptom-list">${cs.problem.symptoms.map((s) => `<li>${esc(s)}</li>`).join('')}</ul>
+        <ul class="symptom-list">${cs.problem.symptoms.map((s) => `<li>${inlineMarkdown(s)}</li>`).join('')}</ul>
       </div>
     </div>
   </section>
@@ -480,10 +484,7 @@ export function renderCaseStudy({ cs, project, next, site }) {
       <div class="cs-aside"><p class="cs-aside-label">${numbered('approach')}</p><p class="cs-aside-title">${esc(steps[1].label)}</p></div>
       <div class="cs-content">
         <h2>${esc(cs.approach.headline)}</h2>
-        ${cs.approach.body
-          .split('\n\n')
-          .map((p) => `<p>${esc(p)}</p>`)
-          .join('')}
+        ${markdown(cs.approach.body)}
         ${
           cs.approach.pullQuote2
             ? `<blockquote class="pull-quote"><p>${esc(cs.approach.pullQuote2)}</p></blockquote>`
@@ -525,7 +526,7 @@ export function renderCaseStudy({ cs, project, next, site }) {
             <ul>${cs.results.after.map((r) => `<li><span>${esc(r.value)}</span><em>${esc(r.metric)}</em></li>`).join('')}</ul>
           </div>
         </div>
-        <ul class="note-list">${cs.results.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
+        <ul class="note-list">${cs.results.notes.map((n) => `<li>${inlineMarkdown(n)}</li>`).join('')}</ul>
       </div>
     </div>
   </section>
@@ -539,9 +540,9 @@ export function renderCaseStudy({ cs, project, next, site }) {
       )}</p></div>
       <div class="cs-content">
         <h2>${esc(cs.findings.headline)}</h2>
-        <p>${esc(cs.findings.body)}</p>
+        <p>${inlineMarkdown(cs.findings.body)}</p>
         <div class="lesson-grid">${cs.findings.items
-          .map((i) => `<article class="lesson"><h3>${esc(i.title)}</h3><p>${esc(i.body)}</p></article>`)
+          .map((i) => `<article class="lesson"><h3>${esc(i.title)}</h3><p>${inlineMarkdown(i.body)}</p></article>`)
           .join('')}</div>
       </div>
     </div>
@@ -558,9 +559,9 @@ export function renderCaseStudy({ cs, project, next, site }) {
       )}</p></div>
       <div class="cs-content">
         <h2>${esc(cs.governance.headline)}</h2>
-        <p>${esc(cs.governance.body)}</p>
+        <p>${inlineMarkdown(cs.governance.body)}</p>
         <div class="lesson-grid">${cs.governance.items
-          .map((i) => `<article class="lesson"><h3>${esc(i.title)}</h3><p>${esc(i.body)}</p></article>`)
+          .map((i) => `<article class="lesson"><h3>${esc(i.title)}</h3><p>${inlineMarkdown(i.body)}</p></article>`)
           .join('')}</div>
       </div>
     </div>
@@ -577,7 +578,7 @@ export function renderCaseStudy({ cs, project, next, site }) {
         <h2>What I would tell my past self</h2>
         <div class="lesson-grid">${cs.lessons
           .map(
-            (l) => `<article class="lesson"><h3>${esc(l.title)}</h3><p>${esc(l.body)}</p></article>`,
+            (l) => `<article class="lesson"><h3>${esc(l.title)}</h3><p>${inlineMarkdown(l.body)}</p></article>`,
           )
           .join('')}</div>
       </div>
@@ -603,6 +604,22 @@ export function renderCaseStudy({ cs, project, next, site }) {
             }>${esc(l.label)}<span class="ext" aria-hidden="true">↗</span></a></li>`,
         )
         .join('')}</ul>
+      ${
+        project.docs?.length
+          ? `<div class="doc-index">
+        <p class="doc-index-label">Documentation in the repository</p>
+        <ul class="doc-index-list">${project.docs
+          .map(
+            (d) =>
+              `<li><a href="${attr(d.href)}" target="_blank" rel="noopener noreferrer">${esc(d.label)}</a>${
+                d.note ? `<span>${esc(d.note)}</span>` : ''
+              }</li>`,
+          )
+          .join('')}</ul>
+        <p class="doc-index-foot">Indexed rather than copied, so the repository stays the single source of truth.</p>
+      </div>`
+          : ''
+      }
     </div>
   </section>
 </article>
@@ -790,7 +807,7 @@ export function renderEvidence({ evidence, projects, social }) {
   <div class="wrap page-hero-inner">
     <p class="section-eyebrow">Open Source Impact · Public Recognition</p>
     <h1 class="page-title">The evidence, in one page.</h1>
-    <p class="page-lede">${esc(evidence.visa.statement)}</p>
+    <p class="page-lede">${esc(evidence.record.statement)}</p>
     <div class="page-hero-actions">${arrowLink('Printable media kit', '/media-kit/')}${arrowLink(
       'Media kit as PDF (print)',
       '/media-kit/',
@@ -815,7 +832,7 @@ ${
     <div class="snapshot-controls">
       <p class="snapshot-stamp">As of <time datetime="${attr(evidence.snapshot.generatedAt)}">${esc(
         formatDate(evidence.snapshot.generatedAt),
-      )}</time> · source: ${esc(evidence.snapshot.source)}</p>
+      )}</time> · source: ${inlineMarkdown(evidence.snapshot.source)}</p>
       <button class="btn btn-ghost btn-sm" hx-get="/partials/metrics.html" hx-target="#metrics-grid" hx-swap="innerHTML" hx-indicator="#metrics-loading">Reload snapshot</button>
     </div>
   </div>
@@ -921,13 +938,13 @@ ${
     .join('')}</div>
 </section>
 
-<section class="wrap" aria-label="Endorsement criteria">
+<section class="wrap" aria-label="What this record covers">
   ${sectionHead({
-    eyebrow: 'Endorsement evidence',
-    title: 'Mapped to the Global Talent criteria',
-    lede: 'Where each part of the public record sits against the endorsement questions.',
+    eyebrow: 'What this record covers',
+    title: 'The four areas this work is assessed on',
+    lede: 'Where each part of the public record sits, and the artefacts that back it.',
   })}
-  <div class="criteria-grid">${evidence.visa.criteria
+  <div class="criteria-grid">${evidence.record.criteria
     .map(
       (c) => `<article class="criterion">
       <h3>${esc(c.label)}</h3>
@@ -984,7 +1001,7 @@ export function renderMetrics(evidence) {
         (c) => `<div class="metric${c.verified ? '' : ' metric-unverified'}">
       <p class="metric-label">${esc(c.label)}</p>
       <p class="metric-value">${esc(c.value)}</p>
-      <p class="metric-detail">${esc(c.detail)}</p>
+      <p class="metric-detail">${inlineMarkdown(c.detail)}</p>
       <p class="metric-source">${esc(c.source)}${c.verified ? '' : ' · unconfirmed'}</p>
     </div>`,
       )
@@ -1022,9 +1039,12 @@ export function renderMediaKit({ profile, social, projects, posts, evidence, sit
 <section class="wrap" aria-label="One-pager">
   <div class="onepager" id="onepager">
     <header class="op-head">
-      <div>
-        <h2 class="op-name">${esc(profile.name)}</h2>
-        <p class="op-role">${esc(profile.role)}</p>
+      <div class="op-id">
+        <img class="op-avatar" src="/assets/img/avatar.jpg" alt="" width="64" height="64" decoding="async" />
+        <div>
+          <h2 class="op-name">${esc(profile.name)}</h2>
+          <p class="op-role">${esc(profile.role)}</p>
+        </div>
       </div>
       <p class="op-contact">${esc(profile.contact.email)}<br />${esc(profile.location)}</p>
     </header>
@@ -1069,7 +1089,7 @@ export function renderMediaKit({ profile, social, projects, posts, evidence, sit
     </div>
 
     <footer class="op-foot">
-      <p>${esc(profile.visa.status)} · ${esc(profile.visa.stream)} · ${esc(profile.visa.endorsementBody)}</p>
+      <p>${esc(profile.availability.status)} — ${esc(profile.availability.detail)}</p>
       <p>Full evidence: <a href="${attr(site.url)}/evidence/">${esc(site.url)}/evidence/</a></p>
     </footer>
   </div>
@@ -1085,7 +1105,7 @@ export function renderMediaKit({ profile, social, projects, posts, evidence, sit
   ${copyBlock('bio-short', 'Short — 160 characters, LinkedIn headline or X', social.bios.short)}
   ${copyBlock('bio-linkedin', 'LinkedIn about section', social.bios.linkedin)}
   ${copyBlock('bio-x', 'X / short-form bio', social.bios.x)}
-  ${copyBlock('bio-long', 'Long — portfolio, conference bios, endorsements', social.bios.long)}
+  ${copyBlock('bio-long', 'Long — portfolio, conference bios and speaker profiles', social.bios.long)}
   ${copyBlock('headline', 'LinkedIn headline', social.headline)}
 </section>
 
@@ -1210,29 +1230,29 @@ export function renderArchive({ archive }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* endorsement evidence map                                            */
+/* verification index                                                   */
 /* ------------------------------------------------------------------ */
 
-export function renderEndorsement({ evidence, profile, projects, posts, archive }) {
+export function renderRecord({ evidence, profile, projects, posts, archive }) {
   const checks = evidence.verification.checks;
   const documents = evidence.verification.documents;
 
   const body = `
-<section class="page-hero page-hero-endorsement">
+<section class="page-hero page-hero-record">
   <div class="wrap page-hero-inner">
-    <p class="section-eyebrow">Endorsement evidence map</p>
-    <h1 class="page-title">Everything a reviewer needs, and how to check it.</h1>
-    <p class="page-lede">This page exists to make verification trivial. Each claim below links to the primary artefact that supports it, so a panel can confirm the work without asking for anything. Documents that are not public are listed as available on request, with the reason stated.</p>
+    <p class="section-eyebrow">Verification index</p>
+    <h1 class="page-title">Every claim here, and the artefact that supports it.</h1>
+    <p class="page-lede">This page exists to make verification trivial. Each claim below links to the primary artefact behind it, so a reader can confirm the work without asking for anything. Material that is not public is listed as available on request, with its status stated plainly.</p>
   </div>
 </section>
 
-<section class="wrap" aria-label="Criteria mapping">
+<section class="wrap" aria-label="What this record covers">
   ${sectionHead({
-    eyebrow: 'Mapped to the criteria',
+    eyebrow: 'What this record covers',
     title: 'Where the evidence sits',
-    lede: 'The four areas an exceptional-promise endorsement is assessed on, and the artefacts that address each.',
+    lede: 'The four areas this work is assessed on, and the artefacts that back each one.',
   })}
-  <div class="criteria-grid">${evidence.visa.criteria
+  <div class="criteria-grid">${evidence.record.criteria
     .map(
       (c) => `<article class="criterion">
       <h3>${esc(c.label)}</h3>
@@ -1287,7 +1307,7 @@ export function renderEndorsement({ evidence, profile, projects, posts, archive 
   ${sectionHead({
     eyebrow: 'Current position',
     title: 'Stated plainly, including the gaps',
-    lede: 'An endorsement panel will find the gaps anyway. Finding them on the applicant\u2019s own site is worth more than being asked.',
+    lede: 'A reviewer will find the gaps anyway. Finding them on the author\u2019s own site is worth more than being asked.',
   })}
   <div class="honest-grid">
     <article class="honest">
@@ -1316,8 +1336,8 @@ export function renderEndorsement({ evidence, profile, projects, posts, archive 
 <section class="wrap" aria-label="Contact">
   <div class="honest-cta">
     <div>
-      <h2>${esc(profile.visa.status)}</h2>
-      <p>${esc(profile.visa.stream)} · ${esc(profile.visa.endorsementBody)}. For anything not on this page, email is the fastest route — I respond to endorsement-related enquiries within two working days.</p>
+      <h2>${esc(profile.availability.status)}</h2>
+      <p>${esc(profile.availability.detail)} For anything not on this page, email is the fastest route — I respond to technical and collaboration enquiries within two working days.</p>
     </div>
     <div class="honest-cta-actions">
       <a class="btn btn-primary" href="mailto:${attr(profile.contact.email)}">${esc(profile.contact.email)}</a>

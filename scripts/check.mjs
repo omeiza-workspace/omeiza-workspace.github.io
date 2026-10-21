@@ -116,6 +116,20 @@ for (const file of htmlFiles) {
     }
   }
 
+  // Unrendered Markdown. A field that carries inline markup but is written
+  // through esc() instead of the Markdown renderer reaches the page with its
+  // asterisks and backticks intact.
+  const stripped = html.replace(/<code>[\s\S]*?<\/code>/g, '').replace(/<pre[\s\S]*?<\/pre>/g, '');
+  for (const [pattern, label] of [
+    [/\*\*[^*\n]{1,80}\*\*/, 'bold'],
+    [/`[^`\n]{1,80}`/, 'inline code'],
+  ]) {
+    const hit = stripped.match(pattern);
+    if (hit) {
+      problems.push(`${rel} renders unrendered Markdown (${label}): ${hit[0].slice(0, 50)}`);
+    }
+  }
+
   // Internal links.
   for (const match of html.matchAll(/href="(\/[^"#?]*)"/g)) {
     const href = match[1];

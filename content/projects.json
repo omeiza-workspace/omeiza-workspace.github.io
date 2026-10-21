@@ -13,6 +13,12 @@
       "docs": "/products/ci-kit/",
       "site": "https://omeiza-workspace.github.io/ci-kit/",
       "tags": ["CI/CD", "GitHub Actions", "Developer Experience", "Shell", "Local-First"],
+      "docs": [
+        { "label": "Project documentation", "href": "https://github.com/omeiza-workspace/ci-kit/tree/main/docs", "note": "the published docs site" },
+        { "label": "Evidence", "href": "https://github.com/omeiza-workspace/ci-kit/blob/main/docs/EVIDENCE.md", "note": "how every number was measured" },
+        { "label": "Architecture", "href": "https://github.com/omeiza-workspace/ci-kit/blob/main/docs/ARCHITECTURE.md", "note": "the shared-setup design" },
+        { "label": "README", "href": "https://github.com/omeiza-workspace/ci-kit", "note": "install and usage" }
+      ],
       "pillars": [
         "One copy of the setup",
         "Runs the workflow locally via act",
@@ -52,6 +58,14 @@
       "docs": "/products/api-mock-services/",
       "site": "https://omeiza-workspace.github.io/api-mock-services/",
       "tags": ["Mocking", "Offline", "Payments", "FinTech", "Testing", "Node.js", "Zero-Dependency"],
+      "docs": [
+        { "label": "Overview", "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/docs/introduction/overview.html", "note": "what the engine is" },
+        { "label": "Architecture", "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/docs/introduction/architecture.html", "note": "the layers" },
+        { "label": "CI gates", "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/docs/guides/ci-gates.html", "note": "using the mocks in a pipeline" },
+        { "label": "Offline testing", "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/docs/guides/offline-testing.html", "note": "the guide" },
+        { "label": "Community", "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/docs/community/impact.html", "note": "the public record" },
+        { "label": "README", "href": "https://github.com/omeiza-workspace/api-mock-services", "note": "the rules, and the numbers" }
+      ],
       "pillars": [
         "Zero dependencies",
         "One process for every mock",
@@ -74,6 +88,49 @@
         {
           "title": "The promise is a build gate, not a paragraph",
           "body": "The footprint test fails the build if the engine exceeds 100 MB, 5 seconds of startup or 1% idle CPU. A promise nobody checks erodes. This one is checked on every build, which is why the numbers on this page can be stated without hedging."
+        }
+      ]
+    },
+    {
+      "id": "automation-gateway",
+      "name": "Automation Gateway",
+      "tagline": "Air-gapped workflow execution as declarative JSON, with an audit trail that stays on the host.",
+      "shortDescription": "A Windows Service orchestration engine that runs enterprise workflows from JSON blueprints — no internet, no cloud dependencies, and a transactional SQLite record of every step attempt.",
+      "description": "An air-gapped, zero-dependency automation platform built to run as a continuous background Windows Service. It decouples orchestration from business logic completely: multi-stage pipelines are declared as data-driven JSON blueprints and executed inside non-blocking background memory sandboxes, while the engine core stays immutable and composable. Nothing in the request path needs the internet, a cloud AI gateway, or a package manager — the platform ships as a folder, is registered as a service, and runs.",
+      "status": "In development — repository to be published",
+      "license": "MIT",
+      "language": "PowerShell",
+      "repo": "https://github.com/omeiza-workspace/automation-gateway",
+      "docs": "/products/automation-gateway/",
+      "tags": ["PowerShell", "Windows Service", "Air-Gapped", "Orchestration", "SQLite", "RBAC"],
+      "docs": [
+        { "label": "Repository", "href": "https://github.com/omeiza-workspace/automation-gateway", "note": "the project" },
+        { "label": "The engine core", "href": "https://github.com/omeiza-workspace/automation-gateway", "note": "Modules/PipelineEngine" },
+        { "label": "Test harness", "href": "https://github.com/omeiza-workspace/automation-gateway", "note": "Pester, offline" }
+      ],
+      "pillars": [
+        "Data-driven blueprints",
+        "Plug-in auto-discovery",
+        "Transactional audit trail"
+      ],
+      "stats": [
+        { "label": "External dependencies", "value": "0", "detail": "ships as a folder — no package manager" },
+        { "label": "Workflow definition", "value": "JSON", "detail": "declarative blueprints, not controller code" },
+        { "label": "Extension point", "value": "*.plugin.ps1", "detail": "auto-discovered — the core is never edited" },
+        { "label": "Audit granularity", "value": "Per attempt", "detail": "Retrying, Success and Failed written to SQLite" }
+      ],
+      "keyOutcomes": [
+        {
+          "title": "Business logic became reviewable data",
+          "body": "A pipeline is a JSON blueprint that can be diffed, audited, replayed and approved. Adding a step no longer means a controller change and a deploy — which is the wrong tool for a business rule."
+        },
+        {
+          "title": "The engine core is never edited to add an integration",
+          "body": "Dropping a *.plugin.ps1 file into the plugins directory is the whole extension procedure. The engine core is a separate module scope with a composition root, so a plugin cannot reach into it."
+        },
+        {
+          "title": "Every attempt is recorded, including the retries",
+          "body": "A step that throws is retried with exponential backoff, and each attempt writes a distinct state row. An auditor can trace the transient failure, the recovery delay, and the final outcome without reconstructing anything from logs."
         }
       ]
     }

@@ -20,7 +20,9 @@
         "links": [
           { "label": "Products", "href": "/products/" },
           { "label": "Build in Public", "href": "/blog/" },
+          { "label": "Earlier archive", "href": "/archive/" },
           { "label": "Open Source Impact", "href": "/evidence/" },
+          { "label": "Verification index", "href": "/record/" },
           { "label": "Media Kit", "href": "/media-kit/" }
         ]
       },
@@ -29,7 +31,8 @@
         "links": [
           { "label": "GitHub", "href": "https://github.com/omeiza-workspace", "external": true },
           { "label": "CI Kit", "href": "https://github.com/omeiza-workspace/ci-kit", "external": true },
-          { "label": "api-mock-services", "href": "https://github.com/omeiza-workspace/api-mock-services", "external": true }
+          { "label": "api-mock-services", "href": "https://github.com/omeiza-workspace/api-mock-services", "external": true },
+          { "label": "Automation Gateway", "href": "https://github.com/omeiza-workspace/automation-gateway", "external": true }
         ]
       },
       {
@@ -43,8 +46,7 @@
         ]
       }
     ],
-    "legal": "© 2026 Omeiza Okuta. Content licensed CC BY 4.0, code samples MIT.",
-    "note": "Built as a static, JSON-driven site. No trackers, no cookies, no client-side framework."
+    "legal": "© 2026 Omeiza Okuta. Content licensed CC BY 4.0, code samples MIT."
   },
   "seo": {
     "defaultDescription": "Omeiza Okuta is an Open Source Architect building light, sustainable developer infrastructure and local-first CI/CD automation. Creator of CI Kit and api-mock-services.",

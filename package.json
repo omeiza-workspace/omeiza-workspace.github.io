@@ -11,6 +11,7 @@
     "watch": "node src/build.mjs --watch",
     "metrics": "node scripts/refresh-metrics.mjs",
     "archive": "node scripts/build-archive.mjs",
+    "social-image": "node scripts/render-social-image.mjs --all",
     "check": "node scripts/check.mjs",
     "predeploy": "npm run check && npm run build"
   },

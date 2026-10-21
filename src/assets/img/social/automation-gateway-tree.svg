@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e13"/>
+      <stop offset="100%" stop-color="#0d1620"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="10%" cy="6%" r="62%">
+      <stop offset="0%" stop-color="#5eead4" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#5eead4" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect x="0" y="0" width="1200" height="4" fill="#5eead4"/>
+
+  <text x="80" y="88" font-family="ui-monospace, Menlo, monospace" font-size="15" letter-spacing="2.4" fill="#5eead4">CASE STUDY 03</text>
+  <text x="80" y="140" font-family="ui-sans-serif, -apple-system, Helvetica, Arial, sans-serif" font-size="36" font-weight="700" fill="#f4f8fb" letter-spacing="-0.8">Automation Gateway</text>
+  <text x="80" y="172" font-family="ui-sans-serif, -apple-system, Helvetica, Arial, sans-serif" font-size="18" fill="#8b9cad">An air-gapped Windows Service that runs enterprise workflows from JSON blueprints — and …</text>
+
+  <g>
+    <text x="80" y="232" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">secure-api/<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="254" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">├── config.json           settings, feature toggles, RBAC tokens<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="276" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">├── server.ps1            async runspace-pool socket loop<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="298" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">├── register-service.ps1  service deployment<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="320" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">├── backup-database.ps1   transaction-aware online backup<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="342" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">├── workflows/            pure JSON blueprints (data, not code)<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="364" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">├── tests/                Pester harness — every toggle, offline<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="386" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">├── plugins/              auto-discovered *.plugin.ps1<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="408" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">├── Modules/PipelineEngine/   the immutable engine core<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="430" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">│   └── src/  database · rules · orchestrator · router<tspan fill="#4d5b6b"></tspan></text>
+    <text x="80" y="452" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#c8d6e2" xml:space="preserve">└── public/               the control console, served locally<tspan fill="#4d5b6b"></tspan></text>
+  </g>
+
+  <text x="80" y="596" font-family="ui-monospace, Menlo, monospace" font-size="15" fill="#4d5b6b">omeiza-workspace.github.io</text>
+</svg>
