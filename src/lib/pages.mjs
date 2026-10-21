@@ -840,7 +840,9 @@ ${
 }
 
 <section class="wrap" aria-label="Metrics">
-  <div class="evidence-toolbar">
+  <div class="evidence-toolbar" data-count-repos="${attr(
+    evidence.github.repos.map((r) => r.name).join(','),
+  )}">
     <div>
       <p class="section-eyebrow">Snapshot</p>
       <h2 class="section-title">Consolidated metrics</h2>
@@ -849,7 +851,7 @@ ${
       <p class="snapshot-stamp">As of <time datetime="${attr(evidence.snapshot.generatedAt)}">${esc(
         formatDate(evidence.snapshot.generatedAt),
       )}</time> · source: ${inlineMarkdown(evidence.snapshot.source)}</p>
-      <button class="btn btn-ghost btn-sm" hx-get="/partials/metrics.html" hx-target="#metrics-grid" hx-swap="innerHTML" hx-indicator="#metrics-loading">Reload snapshot</button>
+      <button class="btn btn-ghost btn-sm" type="button" data-live-refresh>Reload counters</button>
     </div>
   </div>
   <div id="metrics-loading" class="htmx-indicator">Loading…</div>
@@ -992,24 +994,24 @@ ${
 export function renderMetrics(evidence) {
   const g = evidence.github;
   return `<div class="metrics-grid">
-    <div class="metric metric-primary">
+    <div class="metric metric-primary" data-live="stars">
       <p class="metric-label">Open-source stars</p>
-      <p class="metric-value">${esc(num(g.totals.stars))}</p>
+      <p class="metric-value" data-live-value>${esc(num(g.totals.stars))}</p>
       <p class="metric-detail">Across ${g.repos.length} published repositories</p>
     </div>
-    <div class="metric metric-primary">
+    <div class="metric metric-primary" data-live="forks">
       <p class="metric-label">Forks</p>
-      <p class="metric-value">${esc(num(g.totals.forks))}</p>
+      <p class="metric-value" data-live-value>${esc(num(g.totals.forks))}</p>
       <p class="metric-detail">Independent reuse of the tools</p>
     </div>
-    <div class="metric">
+    <div class="metric" data-live="contributors">
       <p class="metric-label">External contributors</p>
-      <p class="metric-value">${esc(num(g.totals.contributors))}</p>
+      <p class="metric-value" data-live-value>${esc(num(g.totals.contributors))}</p>
       <p class="metric-detail">Distinct contributors other than the maintainer</p>
     </div>
-    <div class="metric">
+    <div class="metric" data-live="followers">
       <p class="metric-label">Followers</p>
-      <p class="metric-value">${esc(num(g.followers))}</p>
+      <p class="metric-value" data-live-value>${esc(num(g.followers))}</p>
       <p class="metric-detail">On the public GitHub profile</p>
     </div>
     ${evidence.community

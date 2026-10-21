@@ -391,7 +391,7 @@ export async function build() {
       body: renderEvidence({ evidence, projects, social }),
       site,
       active: '/evidence/',
-      scripts: ['/assets/vendor/htmx.min.js'],
+      scripts: ['/assets/vendor/htmx.min.js', '/assets/gh-metrics.js'],
       schema: {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
