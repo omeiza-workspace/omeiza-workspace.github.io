@@ -23,6 +23,9 @@ import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(here, '..');
 
+const site = JSON.parse(await readFile(path.join(ROOT, 'content', 'site.json'), 'utf8'));
+const OWN_HOST = new URL(site.url).hostname.replace(/^www\./, '');
+
 /** Hosts that answer bots with a challenge instead of the page. */
 const UNVERIFIABLE = [
   { host: 'linkedin.com', reason: 'answers automated requests with 999' },
@@ -85,6 +88,13 @@ const unverifiable = [];
 
 for (const [url, where] of urls) {
   const host = new URL(url).hostname.replace(/^www\./, '');
+
+  // The site's own domain is not an external link. Its paths are checked
+  // against dist/ by scripts/check.mjs, and a canonical URL pointing at
+  // the site itself would otherwise be reported as broken every time a
+  // new page is published.
+  if (host === OWN_HOST) continue;
+
   const unv = UNVERIFIABLE.find((u) => host === u.host || host.endsWith(`.${u.host}`));
   if (unv) {
     unverifiable.push([url, unv.reason]);
