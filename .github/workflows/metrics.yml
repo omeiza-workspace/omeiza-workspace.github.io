@@ -1,0 +1,42 @@
+name: Refresh public metrics
+
+on:
+  schedule:
+    # Every Monday at 06:17 UTC. Off the hour on purpose — the GitHub API
+    # rate limit for scheduled workflows is shared across the hour, and
+    # everybody picks :00.
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch the current public metrics
+        run: node scripts/refresh-metrics.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit the refreshed snapshot
+        run: |
+          if git diff --quiet -- content/evidence.json; then
+            echo "No change — nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/evidence.json
+          git commit -m "chore: refresh the public metrics snapshot"
+          git push
+
+      # The commit above triggers the Pages workflow, so the published site
+      # always shows the current numbers.

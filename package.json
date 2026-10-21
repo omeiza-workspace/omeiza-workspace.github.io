@@ -1,0 +1,27 @@
+{
+  "name": "omeiza-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "JSON-driven portfolio for Omeiza Okuta — Open Source Architect. Static, dependency-free, GitHub Pages ready.",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "dev": "node src/build.mjs --watch --serve",
+    "serve": "node src/build.mjs --serve",
+    "watch": "node src/build.mjs --watch",
+    "metrics": "node scripts/refresh-metrics.mjs",
+    "archive": "node scripts/build-archive.mjs",
+    "check": "node scripts/check.mjs",
+    "predeploy": "npm run check && npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "portfolio",
+    "static-site",
+    "json-driven",
+    "github-pages"
+  ],
+  "license": "MIT"
+}

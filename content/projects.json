@@ -1,0 +1,84 @@
+{
+  "projects": [
+    {
+      "id": "ci-kit",
+      "name": "CI Kit",
+      "tagline": "Run your CI on your laptop, before you push.",
+      "shortDescription": "A local gate that runs the same scripts your GitHub Actions workflow runs, so the answer to 'did I break something?' never depends on a runner being available.",
+      "description": "CI Kit gives a repository a local gate that mirrors what the GitHub Actions workflows do: the same installs, the same linters, the same type checks, the same tests. It also runs the workflow files themselves locally through act, so the YAML can be checked without waiting for a runner. The design principle is a single copy of the setup: the gate scripts live in the repository under scripts/ci/, and both the Makefile and the workflow call them. There is one copy of the setup, so it cannot disagree with itself. The tool works with any language — the gates are driven by what the repository actually contains — and it deliberately does not take over your pipeline. The workflows stay the source of truth; the kit makes them cheap to try.",
+      "status": "v1 released — MIT",
+      "license": "MIT",
+      "language": "Shell",
+      "repo": "https://github.com/omeiza-workspace/ci-kit",
+      "docs": "/products/ci-kit/",
+      "site": "https://omeiza-workspace.github.io/ci-kit/",
+      "tags": ["CI/CD", "GitHub Actions", "Developer Experience", "Shell", "Local-First"],
+      "pillars": [
+        "One copy of the setup",
+        "Runs the workflow locally via act",
+        "Language-agnostic gates"
+      ],
+      "stats": [
+        { "label": "Local gate, same work", "value": "99 s", "detail": "on a 2022 Intel laptop, against 43–48 s on a runner" },
+        { "label": "Same gate on a runner", "value": "43–48 s", "detail": "GitHub runner, measured on identical work" },
+        { "label": "Unverified commits", "value": "28 of 30", "detail": "runs that failed without ever starting a job" },
+        { "label": "Real defects found locally", "value": "3", "detail": "in under four minutes, zero runner minutes" }
+      ],
+      "keyOutcomes": [
+        {
+          "title": "A feedback guarantee that a billing decision cannot switch off",
+          "body": "On 21 October 2026 the largest repository in the workspace had 28 failing runs out of the last 30, none of which failed on code — GitHub had refused to start the jobs because of a spending limit. Every run failed in about six seconds. The local gate answers the same question in about a hundred seconds, and it says why."
+        },
+        {
+          "title": "Three real defects found in under four minutes, without a runner",
+          "body": "A stale secret-scan allowlist entry that was failing the CI scan on a tracked documentation file, ninety-three dependency advisories of which eight were critical, and build artefacts tripping a working-tree secret scan. The first two were masked because CI was red for a completely different reason, and nobody could tell the two apart."
+        },
+        {
+          "title": "The claim is deliberately narrower than the marketing would be",
+          "body": "The evidence document has a section titled 'What is not claimed'. It states plainly that the local gate is not faster than a runner, that no runner-minute savings are claimed, and that the numbers come from one machine and one workspace. The value of the tool is a guarantee of feedback, not a speedup — and the documentation says so before anyone asks."
+        }
+      ]
+    },
+    {
+      "id": "api-mock-services",
+      "name": "api-mock-services",
+      "tagline": "Stand-ins for the outside world.",
+      "shortDescription": "One process, zero dependencies, and eighteen mocks for the payment gateways, identity checks and messaging providers your product talks to — running in the test, not beside it.",
+      "description": "Every project that talks to a payment gateway, an email provider, an accounting service, a DNS provider, a messaging service or an identity check needs something to talk to in a test. This is that something: one implementation, shared, instead of a copy in every repository. There are no dependencies. The mocks are built on Node's own HTTP server, so they run in a test, in a container and on a laptop without being installed first. The rules that keep it light are not preferences — a contributor who breaks one of them breaks the promise in the first line of the README — and the footprint is enforced as a build gate, so the promise is checked on every build rather than asserted in a paragraph.",
+      "status": "v1 — MIT",
+      "license": "MIT",
+      "language": "JavaScript",
+      "repo": "https://github.com/omeiza-workspace/api-mock-services",
+      "docs": "/products/api-mock-services/",
+      "site": "https://omeiza-workspace.github.io/api-mock-services/",
+      "tags": ["Mocking", "Offline", "Payments", "FinTech", "Testing", "Node.js", "Zero-Dependency"],
+      "pillars": [
+        "Zero dependencies",
+        "One process for every mock",
+        "In the test, not beside it"
+      ],
+      "stats": [
+        { "label": "Memory", "value": "50 MB", "detail": "all mocks running, one process" },
+        { "label": "Memory, four containers", "value": "250 MB", "detail": "214 MB of it the OpenAPI proxy" },
+        { "label": "Idle CPU", "value": "0.0%", "detail": "against 7.9% for the four-container stack" },
+        { "label": "Time to first request", "value": "1.4 s", "detail": "against 20 s and rising for containers" }
+      ],      "keyOutcomes": [
+        {
+          "title": "A quarter of the memory and none of the idle CPU",
+          "body": "Measured on the same machine with every mock running: one process at 50 MB and 0.0% idle CPU, against four processes at 250 MB and 7.9% idle CPU — almost all of it an OpenAPI proxy that also never settles. The engine that answers the first request in 1.4 s replaces one that took 20 s and was still rising."
+        },
+        {
+          "title": "Eighteen providers, including the African payment and identity rails",
+          "body": "Stripe, Paystack, Interswitch, Flutterwave and Monnify for payments. YouVerify, Smile ID and IdentityPass for identity. Twilio, Termii, OneSignal, WhatsApp and FCM for messaging. Resend, Xero, Cloudflare, OpenAI and S3 for everything else. Every mock answers /health, so a container can be checked without knowing which mock it is."
+        },
+        {
+          "title": "The promise is a build gate, not a paragraph",
+          "body": "The footprint test fails the build if the engine exceeds 100 MB, 5 seconds of startup or 1% idle CPU. A promise nobody checks erodes. This one is checked on every build, which is why the numbers on this page can be stated without hedging."
+        }
+      ]
+    }
+  ],
+  "naming": {
+    "note": "The mock engine's repository, npm scope and package name are all api-mock-services. Earlier drafts referred to it as 'SaaS-LocalStack'. The site uses the real name so that every link resolves to a repository that exists — a reviewer who clicks through and finds a different project has been handed a reason to doubt the rest."
+  }
+}

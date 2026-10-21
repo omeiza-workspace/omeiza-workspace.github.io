@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Omeiza Okuta — Open Source Architect">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e13"/>
+      <stop offset="100%" stop-color="#0d1620"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="12%" cy="8%" r="70%">
+      <stop offset="0%" stop-color="#5eead4" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#5eead4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="92%" cy="6%" r="60%">
+      <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+
+  <g transform="translate(80, 78)">
+    <rect x="0" y="0" width="52" height="52" rx="13" fill="#5eead4" fill-opacity="0.12" stroke="#5eead4" stroke-opacity="0.35" stroke-width="1.5"/>
+    <text x="26" y="35" font-family="ui-monospace, Menlo, monospace" font-size="19" font-weight="700" fill="#5eead4" text-anchor="middle">OO</text>
+  </g>
+
+  <text x="152" y="112" font-family="ui-sans-serif, -apple-system, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" fill="#e4ecf3">Omeiza Okuta</text>
+
+  <text x="80" y="272" font-family="ui-sans-serif, -apple-system, Helvetica, Arial, sans-serif" font-size="58" font-weight="700" fill="#f4f8fb" letter-spacing="-1.6">
+    <tspan x="80" dy="0">Open Source Architect</tspan>
+    <tspan x="80" dy="66">building light, sustainable</tspan>
+    <tspan x="80" dy="66">developer infrastructure.</tspan>
+  </text>
+
+  <text x="80" y="486" font-family="ui-sans-serif, -apple-system, Helvetica, Arial, sans-serif" font-size="25" fill="#8b9cad">
+    <tspan x="80" dy="0">CI Kit  ·  api-mock-services  ·  local-first CI/CD automation</tspan>
+  </text>
+
+  <g transform="translate(80, 540)">
+    <rect x="0" y="0" width="248" height="46" rx="10" fill="#5eead4" fill-opacity="0.12" stroke="#5eead4" stroke-opacity="0.32"/>
+    <text x="124" y="30" font-family="ui-monospace, Menlo, monospace" font-size="18" fill="#5eead4" text-anchor="middle">Every number published</text>
+    <rect x="268" y="0" width="196" height="46" rx="10" fill="#5eead4" fill-opacity="0.12" stroke="#5eead4" stroke-opacity="0.32"/>
+    <text x="366" y="30" font-family="ui-monospace, Menlo, monospace" font-size="18" fill="#5eead4" text-anchor="middle">with how it was measured</text>
+  </g>
+</svg>

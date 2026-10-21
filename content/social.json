@@ -1,0 +1,126 @@
+{
+  "channels": [
+    {
+      "id": "github",
+      "label": "GitHub",
+      "handle": "@omeiza-workspace",
+      "url": "https://github.com/omeiza-workspace",
+      "role": "Primary — source code, releases, evidence documents and issue threads",
+      "cadence": "Weekly releases and continuous commits"
+    },
+    {
+      "id": "linkedin",
+      "label": "LinkedIn",
+      "handle": "Omeiza Okuta",
+      "url": "https://www.linkedin.com/in/omeiza-okuta",
+      "role": "Professional endorsement — managers, recruiters, endorsement panels",
+      "cadence": "One post per week"
+    },
+    {
+      "id": "x",
+      "label": "X",
+      "handle": "@omeiza",
+      "url": "https://x.com/omeiza",
+      "role": "Build in public — release notes, benchmarks, milestones",
+      "cadence": "2–3 posts per week"
+    },
+    {
+      "id": "substack",
+      "label": "Substack",
+      "handle": "omeiza",
+      "url": "https://omeiza.substack.com",
+      "role": "Long-form essays — the primary thought-leadership channel",
+      "cadence": "Fortnightly"
+    },
+    {
+      "id": "devto",
+      "label": "Dev.to",
+      "handle": "@omeiza",
+      "url": "https://dev.to/omeiza",
+      "role": "Cross-posted essays for practitioner discovery",
+      "cadence": "Fortnightly, mirroring Substack"
+    }
+  ],
+  "headline": "Creator of CI Kit & api-mock-services | Specializing in Developer Experience (DX), Local-First DevOps, and Green Container Tooling.",
+  "bios": {
+    "oneLine": "Open Source Architect building light, sustainable developer infrastructure and local-first CI/CD automation.",
+    "short": "Open Source Architect. Creator of CI Kit and api-mock-services — a local CI gate and a zero-dependency mock engine for payment, identity and messaging APIs. I publish how every number was measured, including the ones I threw away.",
+    "long": "I am an Open Source Architect and developer tooling engineer working between Lagos and European time zones.\n\nMy work is in the unglamorous layer of developer infrastructure: the tools that decide whether a team waits forty seconds or forty minutes for a green build. I maintain two open-source projects.\n\nCI Kit gives a repository a local gate that runs the same scripts its GitHub Actions workflow runs. It came out of an incident worth being honest about: 28 of the last 30 runs in a workspace had failed, and not one of them had failed on code — GitHub had been refusing to start the jobs over a spending limit, every run failing in about six seconds. Nobody could tell the difference between a red build and a build that never ran. The local gate answers the same question in about a hundred seconds, and it says why. I measured the honest version too: on identical work it takes 99 seconds on a laptop against 43–48 seconds on a GitHub runner. It is not faster. It is a guarantee of feedback, and the evidence document has a section on what is not claimed.\n\napi-mock-services is one dependency-free Node process that stands in for eighteen third-party providers — Stripe, Paystack, Interswitch, Flutterwave, Monnify, YouVerify, Smile ID, Twilio, Resend, Xero and the rest. It replaced four containers: 50 MB against 250 MB, 0.0% idle CPU against 7.9%, and 1.4 seconds to the first request against 20 and rising. The footprint is a build gate, not a README claim — the build fails above 100 MB.\n\nBoth are MIT licensed, both publish their evidence, and both ship the harness that produced the numbers. I write long-form essays on CI/CD drift, offline-first integration testing and reproducible measurement, cross-posted to Substack and Dev.to, and I keep a public archive of everything I have written since 2013.\n\nI am pursuing a Global Talent visa endorsement on the exceptional-promise stream, and this site — portfolio, writing, evidence and an endorsement evidence map in one place — is the artefact I would want assessed.",
+    "x": "Open Source Architect. CI Kit + api-mock-services. Deterministic CI gates, zero-dependency mocks for payment APIs, and every number published with how it was measured.",
+    "linkedin": "Open Source Architect building light, sustainable developer infrastructure and local-first CI/CD automation. Creator of CI Kit and api-mock-services. I write about DX, CI/CD drift, and reproducible measurement — and publish what I do not claim.",
+    "github": "Deterministic CI gates and zero-dependency mocks for payment APIs. Shell and Node. Every number published with how it was measured."
+  },
+  "linkedinFeatured": [
+    {
+      "title": "The master portfolio",
+      "detail": "Products, deep case studies, writing, public evidence and an endorsement evidence map in one place.",
+      "href": "/",
+      "type": "Portfolio site"
+    },
+    {
+      "title": "CI Kit — the evidence document",
+      "detail": "How every number was measured, the measurement that was discarded, and the section on what is not claimed.",
+      "href": "https://github.com/omeiza-workspace/ci-kit/blob/main/docs/EVIDENCE.md",
+      "type": "Evidence"
+    },
+    {
+      "title": "The Silent Bill",
+      "detail": "How a billing decision looked like 28 failed builds — and why a local gate is a guarantee, not a speedup.",
+      "href": "/blog/the-silent-bill-remote-ci-cd-drift/",
+      "type": "Article"
+    }
+  ],
+  "contentCalendar": [
+    {
+      "week": 1,
+      "channel": "LinkedIn",
+      "format": "Problem → evidence → CTA",
+      "topic": "A red build is not always a red build",
+      "hook": "Our pipeline was red for a week. Not one of those 28 failures was a code failure — the jobs never started.",
+      "body": "GitHub had refused to start the jobs because of a spending limit. Every run failed in about six seconds. At the pull request level a red build is a red build, so the week looked like ordinary breakage. What I built to find out what was actually happening is now open source, and I wrote up the incident — including the measurement I threw away.",
+      "cta": "The full write-up, with the numbers and the harness, is on my site. Link in the comments.",
+      "links": ["/blog/the-silent-bill-remote-ci-cd-drift/", "https://github.com/omeiza-workspace/ci-kit"]
+    },
+    {
+      "week": 2,
+      "channel": "X",
+      "format": "Terminal screenshot + one number",
+      "topic": "Benchmark release",
+      "hook": "Idle CPU, four mock containers vs one dependency-free process:",
+      "body": "7.9% → 0.0%. Memory 250 MB → 50 MB. First request 20 s and rising → 1.4 s. Same mocks, one process, no dependencies. The footprint is a build gate now — the build fails above 100 MB, so the number cannot quietly stop being true.",
+      "cta": "Open source: github.com/omeiza-workspace/api-mock-services",
+      "links": ["https://github.com/omeiza-workspace/api-mock-services"]
+    },
+    {
+      "week": 3,
+      "channel": "LinkedIn",
+      "format": "Post-mortem",
+      "topic": "Why the first mock arrangement was actively misleading",
+      "hook": "Our mock environment had 214 MB of memory dedicated to a proxy that never finished translating.",
+      "body": "Four containers, 250 MB, 7.9% idle CPU, and 20 seconds before the first request was answered. A test setup that permanently occupies a quarter of a gigabyte on a laptop is not a tool people use often — it is a tool people postpone. I wrote up how we got to one dependency-free process, and why 'no dependencies' is a policy rather than a preference.",
+      "cta": "Full architecture write-up on my site.",
+      "links": ["/blog/architecting-local-sandboxes-offline/"]
+    },
+    {
+      "week": 4,
+      "channel": "X",
+      "format": "Milestone + thanks",
+      "topic": "Repository milestone",
+      "hook": "CI Kit just crossed [N] stars.",
+      "body": "Started this because I watched a team fail 28 builds in a row without anyone noticing the jobs had never run. Thank you to everyone who has filed an issue — particularly the ones that told me the toolchain check was hiding a class of real failures. Open to issues and PRs.",
+      "cta": "github.com/omeiza-workspace/ci-kit",
+      "links": ["https://github.com/omeiza-workspace/ci-kit"]
+    }
+  ],
+  "crossPollination": {
+    "note": "Every channel points to every other channel. A visitor should be able to arrive from any one of them and reach the whole set within a single click.",
+    "rules": [
+      "LinkedIn featured section pins: portfolio → the evidence document → the highest-engagement article.",
+      "X posts always link to the repository or the article, never to a bare 'read more'.",
+      "Every article ends with links to both repositories and back to the evidence hub.",
+      "The evidence hub links out to every article, repository and profile.",
+      "The endorsement evidence map links every claim to the artefact that supports it, so a reviewer never has to ask.",
+      "The repository READMEs link to the articles that explain the design, and to the evidence documents."
+    ]
+  }
+}

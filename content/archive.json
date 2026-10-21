@@ -1,0 +1,368 @@
+{
+  "source": {
+    "name": "TechLiaison",
+    "site": "https://techliaison.netlify.app/",
+    "repo": "https://github.com/omeiza-workspace/TechLiaison",
+    "note": "Originally published on a Hugo site hosted on Netlify. Migrated here so that the whole body of published work sits on the same domain as the repositories and the evidence hub."
+  },
+  "eras": [
+    {
+      "id": "support",
+      "label": "Application support & the service desk",
+      "from": 2013,
+      "to": 2016,
+      "note": "The years of reading logs, reproducing faults and learning what an outage actually costs a business."
+    },
+    {
+      "id": "translation",
+      "label": "Translating between engineering and the business",
+      "from": 2017,
+      "to": 2021,
+      "note": "Requirements, migration, monitoring and the discipline of writing things other people can act on."
+    },
+    {
+      "id": "infrastructure",
+      "label": "Infrastructure, delivery and the move to DevOps",
+      "from": 2022,
+      "to": 2025,
+      "note": "Containers, infrastructure as code, observability and leading teams — the point where the tooling work started."
+    }
+  ],
+  "counts": {
+    "total": 30,
+    "from": "2013",
+    "to": "2026"
+  },
+  "posts": [
+    {
+      "slug": "first-post",
+      "title": "Welcome to My New Blog",
+      "date": "2026-02-04",
+      "year": 2026,
+      "readingTime": null,
+      "dek": "This blog is hosted on Netlify and powered by Hugo. It's my space to share thoughts, tutorials, and publications that I'll also be sharing on LinkedIn.",
+      "era": "infrastructure",
+      "sourceUrl": "https://techliaison.netlify.app/posts/first-post/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/first-post.md"
+    },
+    {
+      "slug": "requirements-refinement-guide",
+      "title": "Requirements Refinement: From Ideas to Actionable Specifications",
+      "date": "2025-05-01",
+      "year": 2025,
+      "readingTime": "6 min",
+      "dek": "It was May 2025 at Canaries Solutions. We were in a requirements gathering meeting for SupportLog enhancements.",
+      "era": "infrastructure",
+      "sourceUrl": "https://techliaison.netlify.app/posts/requirements-refinement-guide/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/requirements-refinement-guide.md"
+    },
+    {
+      "slug": "manual-to-digital-healthcare-record-keeping",
+      "title": "Manual to Digital: Transforming Healthcare Record-Keeping",
+      "date": "2025-02-01",
+      "year": 2025,
+      "readingTime": "7 min",
+      "dek": "It was February 2025 at Canaries Solutions. I was working as Applications Support Contributor on a healthcare digital transformation project.",
+      "era": "infrastructure",
+      "sourceUrl": "https://techliaison.netlify.app/posts/manual-to-digital-healthcare-record-keeping/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/manual-to-digital-healthcare-record-keeping.md"
+    },
+    {
+      "slug": "infrastructure-as-code-guide",
+      "title": "Infrastructure as Code: Why Your Infrastructure Should Be Code",
+      "date": "2024-05-01",
+      "year": 2024,
+      "readingTime": "7 min",
+      "dek": "It was May 2024. I had been working with a medium-sized business for months, helping them improve their infrastructure.",
+      "era": "infrastructure",
+      "sourceUrl": "https://techliaison.netlify.app/posts/infrastructure-as-code-guide/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/infrastructure-as-code-guide.md"
+    },
+    {
+      "slug": "docker-containerization-explained",
+      "title": "Docker: Containerization Explained for Non-Technical Leaders",
+      "date": "2024-03-01",
+      "year": 2024,
+      "readingTime": "6 min",
+      "dek": "It was March 2024. I was in the middle of implementing a new customer portal for a healthcare client.",
+      "era": "infrastructure",
+      "sourceUrl": "https://techliaison.netlify.app/posts/docker-containerization-explained/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/docker-containerization-explained.md"
+    },
+    {
+      "slug": "devops-journey-upskilling",
+      "title": "My DevOps Journey: Why I Invested in Upskilling",
+      "date": "2024-01-01",
+      "year": 2024,
+      "readingTime": "7 min",
+      "dek": "It was January 2024. I had 12 years of experience in application support and development. I had worked across healthcare, education, and commercial environments. I had supported, integrated, and impro",
+      "era": "infrastructure",
+      "sourceUrl": "https://techliaison.netlify.app/posts/devops-journey-upskilling/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/devops-journey-upskilling.md"
+    },
+    {
+      "slug": "data-security-integration-guide",
+      "title": "Data Security in Integration: What Business Leaders Should Know",
+      "date": "2023-09-01",
+      "year": 2023,
+      "readingTime": "7 min",
+      "dek": "It was September 2023 at Exclusive IT Solutions. We were designing a critical integration between a healthcare provider's patient system and an insurance company's claims system.",
+      "era": "infrastructure",
+      "sourceUrl": "https://techliaison.netlify.app/posts/data-security-integration-guide/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/data-security-integration-guide.md"
+    },
+    {
+      "slug": "technical-documentation-business-teams-use",
+      "title": "Technical Documentation That Business Teams Actually Use",
+      "date": "2023-04-01",
+      "year": 2023,
+      "readingTime": "7 min",
+      "dek": "It was April 2023 at Exclusive IT Solutions. We had just completed a major integration project with a logistics company.",
+      "era": "infrastructure",
+      "sourceUrl": "https://techliaison.netlify.app/posts/technical-documentation-business-teams-use/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/technical-documentation-business-teams-use.md"
+    },
+    {
+      "slug": "production-incidents-time-sensitive-resolution",
+      "title": "Production Incidents: What Time-Sensitive Resolution Really Means",
+      "date": "2023-01-01",
+      "year": 2023,
+      "readingTime": "7 min",
+      "dek": "It was 2:00 AM on a Wednesday in January 2023 at Exclusive IT Solutions. Our production environment for a major e-commerce client went dark.",
+      "era": "infrastructure",
+      "sourceUrl": "https://techliaison.netlify.app/posts/production-incidents-time-sensitive-resolution/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/production-incidents-time-sensitive-resolution.md"
+    },
+    {
+      "slug": "post-deployment-support-first-90-days",
+      "title": "Post-Deployment Support: The Critical First 90 Days",
+      "date": "2022-10-01",
+      "year": 2022,
+      "readingTime": "7 min",
+      "dek": "It was October 2022 at Exclusive IT Solutions. We had just deployed a new inventory management system for a retail client.",
+      "era": "infrastructure",
+      "sourceUrl": "https://techliaison.netlify.app/posts/post-deployment-support-first-90-days/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/post-deployment-support-first-90-days.md"
+    },
+    {
+      "slug": "training-users-missing-link",
+      "title": "Training Users: The Missing Link in System Adoption",
+      "date": "2022-06-01",
+      "year": 2022,
+      "readingTime": "7 min",
+      "dek": "It was June 2022 at Exclusive IT Solutions. We had just deployed a new customer management system for a retail client.",
+      "era": "infrastructure",
+      "sourceUrl": "https://techliaison.netlify.app/posts/training-users-missing-link/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/training-users-missing-link.md"
+    },
+    {
+      "slug": "restful-apis-simplicity-wins",
+      "title": "RESTful APIs: Why Simplicity Wins in Business Integrations",
+      "date": "2022-02-01",
+      "year": 2022,
+      "readingTime": "6 min",
+      "dek": "It was February 2022 at Exclusive IT Solutions. We were designing an API to integrate with a healthcare provider's systems.",
+      "era": "infrastructure",
+      "sourceUrl": "https://techliaison.netlify.app/posts/restful-apis-simplicity-wins/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/restful-apis-simplicity-wins.md"
+    },
+    {
+      "slug": "incident-management-improvements",
+      "title": "Incident Management: Turning Problems into Improvements",
+      "date": "2021-11-01",
+      "year": 2021,
+      "readingTime": "7 min",
+      "dek": "It was November 2021 at Exclusive IT Solutions. We had a recurring problem.",
+      "era": "translation",
+      "sourceUrl": "https://techliaison.netlify.app/posts/incident-management-improvements/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/incident-management-improvements.md"
+    },
+    {
+      "slug": "apis-language-integration",
+      "title": "APIs: The Language System Integration Speaks",
+      "date": "2021-08-01",
+      "year": 2021,
+      "readingTime": "6 min",
+      "dek": "It was August 2021 at Exclusive IT Solutions. I had started my new role focused on systems integration.",
+      "era": "translation",
+      "sourceUrl": "https://techliaison.netlify.app/posts/apis-language-integration/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/apis-language-integration.md"
+    },
+    {
+      "slug": "system-performance-business-metrics",
+      "title": "System Performance: Measuring What Matters to Business",
+      "date": "2021-03-01",
+      "year": 2021,
+      "readingTime": "7 min",
+      "dek": "It was 2021 at i4cus Nigeria Limited. We had received complaints that our student portal was slow.",
+      "era": "translation",
+      "sourceUrl": "https://techliaison.netlify.app/posts/system-performance-business-metrics/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/system-performance-business-metrics.md"
+    },
+    {
+      "slug": "simple-documentation-system",
+      "title": "The Simple Documentation System That Reduced Support Requests",
+      "date": "2020-07-01",
+      "year": 2020,
+      "readingTime": "6 min",
+      "dek": "It was 2020 at i4cus Nigeria Limited. We had just launched a new student management system.",
+      "era": "translation",
+      "sourceUrl": "https://techliaison.netlify.app/posts/simple-documentation-system/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/simple-documentation-system.md"
+    },
+    {
+      "slug": "from-developer-to-business-analyst",
+      "title": "From Developer to Business Analyst: The Bridge Role",
+      "date": "2020-01-01",
+      "year": 2020,
+      "readingTime": "7 min",
+      "dek": "It was 2020 at i4cus Nigeria Limited. My title had evolved from \"Software Engineer\" to \"Software Engineer / Business Analyst.\"",
+      "era": "translation",
+      "sourceUrl": "https://techliaison.netlify.app/posts/from-developer-to-business-analyst/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/from-developer-to-business-analyst.md"
+    },
+    {
+      "slug": "automated-backups-insurance",
+      "title": "Automated Backups: Your Insurance Against Data Loss",
+      "date": "2019-08-01",
+      "year": 2019,
+      "readingTime": "7 min",
+      "dek": "It was Friday, August 2019 at i4cus Nigeria Limited. We were wrapping up a productive week. The team was in good spirits.",
+      "era": "translation",
+      "sourceUrl": "https://techliaison.netlify.app/posts/automated-backups-insurance/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/automated-backups-insurance.md"
+    },
+    {
+      "slug": "uptime-monitoring-guide",
+      "title": "Uptime Monitoring: Your Early Warning System",
+      "date": "2019-02-01",
+      "year": 2019,
+      "readingTime": "6 min",
+      "dek": "It was 2:00 AM. I was at home, asleep. Our main application server crashed.",
+      "era": "translation",
+      "sourceUrl": "https://techliaison.netlify.app/posts/uptime-monitoring-guide/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/uptime-monitoring-guide.md"
+    },
+    {
+      "slug": "security-hardening-business-concern",
+      "title": "Security Hardening: Not Just an IT Concern",
+      "date": "2018-09-01",
+      "year": 2018,
+      "readingTime": "7 min",
+      "dek": "It was September 2018 at i4cus Nigeria Limited. We were working with a healthcare provider who needed to secure their patient management system.",
+      "era": "translation",
+      "sourceUrl": "https://techliaison.netlify.app/posts/security-hardening-business-concern/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/security-hardening-business-concern.md"
+    },
+    {
+      "slug": "legacy-systems-migration-guide",
+      "title": "Legacy Systems: When to Migrate vs When to Modernize",
+      "date": "2018-04-01",
+      "year": 2018,
+      "readingTime": "7 min",
+      "dek": "It was early 2018 at i4cus Nigeria Limited. We were working with a large educational institution that needed to modernize their student information system.",
+      "era": "translation",
+      "sourceUrl": "https://techliaison.netlify.app/posts/legacy-systems-migration-guide/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/legacy-systems-migration-guide.md"
+    },
+    {
+      "slug": "requirements-gathering-checklist",
+      "title": "Requirements Gathering: A Simple Checklist for Non-Technical Stakeholders",
+      "date": "2017-10-01",
+      "year": 2017,
+      "readingTime": "6 min",
+      "dek": "It was 2017. I was 6 months into my role at i4cus Nigeria Limited, working on a hospital management system project.",
+      "era": "translation",
+      "sourceUrl": "https://techliaison.netlify.app/posts/requirements-gathering-checklist/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/requirements-gathering-checklist.md"
+    },
+    {
+      "slug": "developer-who-listens",
+      "title": "The Developer Who Listens: Why Stakeholder Engagement Changes Everything",
+      "date": "2017-03-01",
+      "year": 2017,
+      "readingTime": "7 min",
+      "dek": "It was early 2017. I had just joined i4cus Nigeria Limited as a Software Engineer / Business Analyst. We had what seemed like a straightforward project: build a student information system for a local ",
+      "era": "translation",
+      "sourceUrl": "https://techliaison.netlify.app/posts/developer-who-listens/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/developer-who-listens.md"
+    },
+    {
+      "slug": "translating-it-issues-for-stakeholders",
+      "title": "From Technical to Non-Technical: Translating IT Issues for Business Stakeholders",
+      "date": "2016-06-01",
+      "year": 2016,
+      "readingTime": "6 min",
+      "dek": "It was 2:00 PM. The weekly leadership meeting. I was called in to explain why the customer relationship management (CRM) system was slow.",
+      "era": "support",
+      "sourceUrl": "https://techliaison.netlify.app/posts/translating-it-issues-for-stakeholders/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/translating-it-issues-for-stakeholders.md"
+    },
+    {
+      "slug": "regular-health-checks",
+      "title": "Why Regular System Health Checks Prevent Big Problems",
+      "date": "2015-09-01",
+      "year": 2015,
+      "readingTime": "5 min",
+      "dek": "It was 4:45 PM on a Friday. I was packing up, mentally already at home, when the monitoring system went dark.",
+      "era": "support",
+      "sourceUrl": "https://techliaison.netlify.app/posts/regular-health-checks/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/regular-health-checks.md"
+    },
+    {
+      "slug": "documentation-unsung-hero",
+      "title": "Documentation: The Unsung Hero of Business Continuity",
+      "date": "2015-03-01",
+      "year": 2015,
+      "readingTime": "6 min",
+      "dek": "I walked into the office at Auto360 on a Monday morning to find chaos. Our lead system engineer had resigned over the weekend—personal emergency, completely unexpected.",
+      "era": "support",
+      "sourceUrl": "https://techliaison.netlify.app/posts/documentation-unsung-hero/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/documentation-unsung-hero.md"
+    },
+    {
+      "slug": "support-triage-framework",
+      "title": "Support Ticket Triage: A Simple Framework Anyone Can Use",
+      "date": "2014-12-01",
+      "year": 2014,
+      "readingTime": "5 min",
+      "dek": "It was 2:30 PM on a Tuesday. Our phone started ringing. Then our email inbox started filling up. Then the chat notifications started piling up.",
+      "era": "support",
+      "sourceUrl": "https://techliaison.netlify.app/posts/support-triage-framework/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/support-triage-framework.md"
+    },
+    {
+      "slug": "hidden-cost-of-system-downtime",
+      "title": "The Hidden Cost of System Downtime: What Business Leaders Need to Know",
+      "date": "2014-08-01",
+      "year": 2014,
+      "readingTime": "7 min",
+      "dek": "I still remember that Tuesday morning at Auto360. The main customer management system went down at 9:03 AM.",
+      "era": "support",
+      "sourceUrl": "https://techliaison.netlify.app/posts/hidden-cost-of-system-downtime/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/hidden-cost-of-system-downtime.md"
+    },
+    {
+      "slug": "xml-vs-json-comparison",
+      "title": "XML vs JSON: A Practical Comparison for Business Applications",
+      "date": "2013-11-01",
+      "year": 2013,
+      "readingTime": "6 min",
+      "dek": "During a recent integration project at Imagination Tools, I faced a question that seems straightforward but has significant implications for business teams: Should we use XML or JSON for this integrat",
+      "era": "support",
+      "sourceUrl": "https://techliaison.netlify.app/posts/xml-vs-json-comparison/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/xml-vs-json-comparison.md"
+    },
+    {
+      "slug": "why-i-chose-application-support",
+      "title": "Why I Chose Application Support Over Pure Development",
+      "date": "2013-03-01",
+      "year": 2013,
+      "readingTime": "5 min",
+      "dek": "When I graduated and started my first job as a Software Developer at Imagination Tools, I thought I had it all figured out. I loved code. I loved building things. I loved the satisfaction of seeing a ",
+      "era": "support",
+      "sourceUrl": "https://techliaison.netlify.app/posts/why-i-chose-application-support/",
+      "repoUrl": "https://github.com/omeiza-workspace/TechLiaison/blob/main/content/posts/why-i-chose-application-support.md"
+    }
+  ]
+}

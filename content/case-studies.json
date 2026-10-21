@@ -1,0 +1,273 @@
+{
+  "caseStudies": [
+    {
+      "id": "ci-kit",
+      "projectId": "ci-kit",
+      "title": "The build that was never green because it never ran",
+      "subtitle": "How 28 red runs in a row turned out to be a billing decision, and what a local gate is actually for when the runner never starts",
+      "order": 1,
+      "readingTime": "9 min read",
+      "role": "Design, implementation, evidence",
+      "stack": ["Shell", "GitHub Actions", "act", "Make", "gitleaks"],
+      "hero": {
+        "eyebrow": "Case study 01",
+        "headline": "The pipeline was not flaky. The job never started.",
+        "body": "For a week, the largest repository in the workspace had been red. Twenty-eight of the last thirty runs had failed. Not one of them had failed on code."
+      },
+      "problem": {
+        "headline": "A red build is not always a red build",
+        "body": "On 21 October 2026, `bytesickle-web` had 28 failing runs out of the last 30. Every one of them failed in about six seconds.\n\nSix seconds is the tell. A test failure takes as long as the test takes. A compile error takes as long as the compile takes. Six seconds is the time it takes for a runner to allocate, start a job, decide it will not start it, and give up.\n\nThe annotation said exactly what had happened:\n\n> The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings\n\nGitHub had refused to start the jobs. The same annotation was on the failures in `bytesickle-core`.\n\nBut taken at face value a red build is a red build. The developer assumes their change broke something, and either fixes a problem that does not exist or pushes again and waits. What actually happened was that nothing was verified at all, and the reason was one line of text in a log nobody reads.\n\nSo the repository was not failing. It was unverified. And for a week, nobody could tell the difference.",
+        "pullQuote": "A red build is not always a red build. Sometimes it is a build that never ran, and the difference is six seconds and one line of a log nobody reads.",
+        "symptoms": [
+          "28 of the last 30 runs failed, none of them on code",
+          "Every failure arrived in about six seconds, far too fast for a test or a compile",
+          "Every commit since had gone unverified while the branch protection still read as satisfied by a red build",
+          "The CI had been red for the same reason the jobs were not starting — and nobody could tell the two apart",
+          "A stale secret-scan allowlist entry and 93 dependency advisories, 8 of them critical, were waiting behind the same wall"
+        ]
+      },
+      "approach": {
+        "headline": "Make the answer independent of the runner",
+        "body": "The fix is not to make the pipeline faster. It is to make the question 'did I break something?' answerable without a runner at all.\n\nCI Kit gives a repository a local gate that mirrors what the GitHub Actions workflow does: the same installs, the same linters, the same type checks, the same tests. The design principle is a single copy of the setup. The gate scripts live in the repository under `scripts/ci/`, and both the Makefile and the workflow call them. There is one copy of the setup, so it cannot disagree with itself.\n\nThat matters more than it sounds. The usual reason a local gate and a CI run disagree is that they are two implementations of the same intent that drift. Here they are the same files, so drift is not possible — only hardware differences remain.\n\nThe gates are driven by what the repository actually contains, so the tool works with any language rather than being one language's plugin. It also runs the workflow files themselves locally through `act`, so the YAML is checked before the push rather than after it."
+      },
+      "architecture": {
+        "headline": "Four parts",
+        "steps": [
+          {
+            "title": "The shared setup",
+            "body": "scripts/ci/*.sh holds every install and every gate. The Makefile calls them. The workflow calls them. There is no second implementation anywhere, so the local verdict and the CI verdict agree by construction rather than by luck."
+          },
+          {
+            "title": "The gate targets",
+            "body": "make ci runs the full gate, make ci-fast runs lint and type checks only. The targets are generated from the repository's contents, so a TypeScript repository gets vue-tsc and a Go repository gets go vet, without configuration."
+          },
+          {
+            "title": "make doctor",
+            "body": "A separate check for whether the local toolchain is the one CI pins. This is the diagnostic that tells you the two environments differ, before a failing test makes you guess."
+          },
+          {
+            "title": "make act",
+            "body": "Runs the GitHub Actions workflow files locally through act, so the YAML itself is validated on the laptop. A malformed workflow is caught before it is pushed, not after it is queued."
+          }
+        ],
+        "diagram": [
+          "   developer                repository                  runner",
+          "      |                        |                           |",
+          "      |   make ci              |                           |",
+          "      |----------------------->|                           |",
+          "      |                        |  scripts/ci/*.sh          |",
+          "      |                        |  the setup and the gates  |",
+          "      |                        |         |                 |",
+          "      |                        |         |                 |",
+          "      |                        |         +---------------->|",
+          "      |                        |            the same script|",
+          "      |                        |                           |",
+          "      |   the same script, so the local run and the runner",
+          "      |   cannot disagree about what the code needs        |"
+        ]
+      },
+      "results": {
+        "headline": "The honest measurement, including the part that is not a win",
+        "before": [
+          { "metric": "Feedback on a push that breaks the build", "value": "4–12 min, billed" },
+          { "metric": "Feedback when the runner never starts", "value": "6 s, if you read the log" },
+          { "metric": "Feedback when the runner never starts and you are not reading the log", "value": "Never" },
+          { "metric": "Commits verified during a billing block", "value": "None" }
+        ],
+        "after": [
+          { "metric": "Feedback on a push that breaks the build", "value": "~100 s, free" },
+          { "metric": "Feedback when the runner never starts", "value": "~100 s, and it says why" },
+          { "metric": "Feedback when the runner never starts and you are not reading the log", "value": "~100 s" },
+          { "metric": "Commits verified during a billing block", "value": "All of them" }
+        ],
+        "notes": [
+          "The local gate is not faster than a CI runner. On identical work — npm ci, two type checks, vitest, the build — it measured 99 s on a 2022 Intel laptop against 43–48 s on a GitHub runner. A modern runner has more cores and faster storage, and for work that is mostly npm ci and TypeScript, it wins. The local gate on that machine is roughly twice the wall clock.",
+          "The first attempt at that measurement was discarded: the machine had a load average of 212 from an unrelated build, and the same gate took 194 s under that load against 105 s without it. Both numbers are published because the first one is what a measurement looks like when nobody checks the load.",
+          "No runner-minute savings are claimed. Where CI does run, a local gate reduces the number of red builds, not the number of green ones. Green builds still belong on the runner. The value is a guarantee of feedback, not a speedup.",
+          "The tool is not a replacement for CI. It does not test the runner, the matrix, the scheduled jobs, or the deployment. It is a faster answer to 'did I break something?'",
+          "The numbers come from one machine and one workspace. They are a starting point for your own measurements, not a benchmark."
+        ]
+      },
+      "findings": {
+        "headline": "What the gate found that the CI could not",
+        "body": "Found by running the local gate against repositories whose CI was in the state described above. All three were found in under four minutes on a laptop, with no runner minutes spent.",
+        "items": [
+          {
+            "title": "A stale secret-scan allowlist",
+            "body": "`.gitleaksignore` named `LOCAL_DEVELOPMENT_GUIDE.md`, but the file had moved to `docs/product/LOCAL_DEVELOPMENT_GUIDE.md`. The fingerprint never matched, so a tracked documentation file — a curl sample containing the literal string `YOUR_TOKEN` — was failing the secret scan. The file is tracked, so the CI scan was failing on it too. The CI had been red for the same reason the jobs were not starting, and nobody could tell the two apart."
+          },
+          {
+            "title": "Ninety-three dependency advisories",
+            "body": "`npm audit --audit-level=high` is in the workflow. The local gate ran it and it failed: 93 advisories, 53 high, 8 critical. The same command CI runs."
+          },
+          {
+            "title": "Build artefacts tripping a working-tree scan",
+            "body": "Playwright traces under `test-results/` contain a token, and a working-tree secret scan reads them. They are build output and belong in the allowlist."
+          }
+        ]
+      },
+      "lessons": [
+        {
+          "title": "A red build is not always a red build",
+          "body": "The instinct on seeing red is to assume your change broke it. The cheapest diagnostic is the timing: six seconds is not a test failure. Six seconds is a job that never started. Reading the annotation instead of the code would have cost ten seconds and saved a week."
+        },
+        {
+          "title": "Publish the measurement you threw away",
+          "body": "The 194-second run under a load average of 212 is in the evidence document. Discarding it silently would have been the normal choice. Publishing it is the reason the 105-second number can be believed at all — a reader knows the spread, and knows the author looked for it."
+        },
+        {
+          "title": "Green builds still belong on the runner",
+          "body": "The honest framing of a local gate is a guarantee, not a replacement. Claiming the local gate is faster would have been false on this hardware, and a single person checking it would have made everything else in the document untrustworthy."
+        },
+        {
+          "title": "One copy of the setup is the whole trick",
+          "body": "Every drift problem I have seen in CI came from two implementations of the same intent. The fix was not a cleverer reconciliation layer. It was deleting one of the two copies and having the Makefile and the workflow call the same files."
+        }
+      ],
+      "links": [
+        { "label": "CI Kit repository", "href": "https://github.com/omeiza-workspace/ci-kit" },
+        { "label": "The full evidence document", "href": "https://github.com/omeiza-workspace/ci-kit/blob/main/docs/EVIDENCE.md" },
+        { "label": "Related article: The Silent Bill", "href": "/blog/the-silent-bill-remote-ci-cd-drift/" }
+      ]
+    },
+    {
+      "id": "api-mock-services",
+      "projectId": "api-mock-services",
+      "title": "250 MB, four processes and a proxy that never settles",
+      "subtitle": "How one dependency-free Node process replaced four mock containers — and turned the footprint into a build gate instead of a paragraph",
+      "order": 2,
+      "readingTime": "10 min read",
+      "role": "Architecture, implementation, provider behaviour",
+      "stack": ["Node.js", "JavaScript", "OpenAPI", "Prism", "Docker"],
+      "hero": {
+        "eyebrow": "Case study 02",
+        "headline": "Four containers, 250 MB, and a proxy that never settled.",
+        "body": "The mock environment was a docker compose file with four services. It was slow to start, it idled at nearly 8% CPU, and one of its containers existed to translate OpenAPI specs — and never finished doing it."
+      },
+      "problem": {
+        "headline": "The mock environment cost more than the code it was mocking",
+        "body": "Every project that talks to a payment gateway, an email provider, an accounting service, a DNS provider, a messaging service or an identity check needs something to talk to in a test. The arrangement in the workspace was four containers: the mock service, an OpenAPI proxy that served the provider specs, and two supporting services.\n\nMeasured on one machine with every mock running, that arrangement cost four processes, 250 MB of resident memory, 7.9% idle CPU, and 20 seconds and rising before the first request was answered. 214 MB of the memory and almost all of the CPU belonged to the OpenAPI proxy — the component whose job was translating a spec, and which did not settle.\n\nAnd the arithmetic was brutal. On a developer laptop, where memory is the scarcest resource, a test setup that permanently occupies a quarter of a gigabyte and never idles is not a tool that gets used often. It is a tool people queue for, postpone, and eventually bypass — which puts the test back to manual, and the manual version back to one senior person who knows how to run it.\n\nThe containers were not the problem. The container *count* was the problem, and the runtimes each one dragged in behind it.",
+        "pullQuote": "A mock environment that costs a quarter of a gigabyte and never idles is not a tool people use often. It is a tool people postpone.",
+        "symptoms": [
+          "Four processes to start, stop and clean up for every test run",
+          "250 MB resident with every mock running, of which 214 MB was the OpenAPI proxy alone",
+          "7.9% idle CPU while doing nothing, almost all of it in the proxy",
+          "20 seconds and rising before the first request was answered",
+          "The proxy never settled — it kept translating specs that were already translated"
+        ]
+      },
+      "approach": {
+        "headline": "Delete the runtimes until there is nothing left to delete",
+        "body": "The rewrite did not add features. It removed everything that could be removed, and then made the result a rule rather than a preference.\n\nThe rules are published at the top of the README, because a contributor who breaks one of them breaks the promise in the first line of the file:\n\n**No dependencies.** Not 'few' — none. The engine runs on Node's own HTTP server. A dependency is a package to install, audit and keep out of the advisories.\n\n**No runtime that costs memory to start.** A JVM, a compiled Go binary or a Python environment all add to the footprint before a single request is served. Node is already on the machine, because the project under test runs on it.\n\n**One process for every mock.** Nine mocks in one process cost 50 MB. Nine containers cost nine runtimes.\n\n**In the test, not beside it.** A test that needs a mock starts it in the test process, with `startMock()`. Nothing listens on a port, no container starts, and the mock stops when the test ends. This is the cheapest way to mock anything, and it is why the engine is a library first and a service second.\n\n**Idle means idle.** A mock answers a request and then stops computing. Polling, watching and retrying are how a mock turns into a battery drain.\n\nThe last rule is the one most engines get wrong, and it is the reason this one measures 0.0% idle CPU while the stack it replaces sits at 7.9%.",
+        "pullQuote2": "The last rule is the one most engines get wrong: a mock answers a request and then stops computing."
+      },
+      "architecture": {
+        "headline": "Five layers, zero dependencies",
+        "steps": [
+          {
+            "title": "The HTTP core",
+            "body": "Node's own http module, no framework. Every mock is a route table and a handler, mounted onto one server. This is where the memory floor comes from: there is nothing to load."
+          },
+          {
+            "title": "The provider mocks",
+            "body": "Eighteen providers — Stripe, Paystack, Interswitch, Flutterwave and Monnify for payments; YouVerify, Smile ID and IdentityPass for identity; Twilio, Termii, OneSignal, WhatsApp and FCM for messaging; Resend, Xero, Cloudflare, OpenAI and S3 for everything else. Every mock answers /health, so a container can be checked without knowing which mock it is."
+          },
+          {
+            "title": "The spec layer",
+            "body": "Provider contracts are held as OpenAPI documents, with a download script that keeps them current. The spec is the source of truth for a mock's shape, so the mock and the published contract cannot quietly diverge."
+          },
+          {
+            "title": "The control surface",
+            "body": "A control endpoint and a panel for listing and driving the mocks, so a run can be inspected and reset without restarting the process. This is what makes the engine usable as a service as well as a library."
+          },
+          {
+            "title": "The test integration",
+            "body": "startMock() runs the mock inside the test process, so nothing listens on a port and nothing needs cleaning up afterwards. The engine is a library first and a service second — that ordering is what makes the footprint claim true in a test run, which is where it matters most."
+          }
+        ],
+        "diagram": [
+          "   test process                      one process, 50 MB",
+          "  ┌──────────────┐                 ┌──────────────────────┐",
+          "  │ startMock()  │                 │  Node http server    │",
+          "  │              │────────────────▶│  no dependencies     │",
+          "  │  no ports    │                 │                      │",
+          "  │  no cleanup  │                 │  /stripe  /paystack  │",
+          "  └──────────────┘                 │  /interswitch        │",
+          "         │                          │  /flutterwave        │",
+          "         │ nothing to stop          │  /monnify            │",
+          "         ▼                          │  /smileid  /twilio   │",
+          "    test ends                       │  /resend  /xero  ... │",
+          "                                    └──────────┬───────────┘",
+          "                                               │",
+          "                                     OpenAPI spec contracts"
+        ]
+      },
+      "results": {
+        "headline": "The same work, one fifth of the memory and no idle CPU",
+        "before": [
+          { "metric": "Processes", "value": "4" },
+          { "metric": "Memory", "value": "250 MB" },
+          { "metric": "Of which the OpenAPI proxy", "value": "214 MB, and it does not settle" },
+          { "metric": "Idle CPU", "value": "7.9%, almost all of it the proxy" },
+          { "metric": "Time to first request answered", "value": "20 s and rising" },
+          { "metric": "Things to start, stop and clean up", "value": "4" }
+        ],
+        "after": [
+          { "metric": "Processes", "value": "1" },
+          { "metric": "Memory", "value": "50 MB" },
+          { "metric": "Of which the OpenAPI proxy", "value": "— the specs are loaded in-process" },
+          { "metric": "Idle CPU", "value": "0.0%" },
+          { "metric": "Time to first request answered", "value": "1.4 s" },
+          { "metric": "Things to start, stop and clean up", "value": "1" }
+        ],
+        "notes": [
+          "The measurement was taken on one machine with all mocks running, sampled with ps for resident size and two ps -o time= samples five seconds apart for CPU. The containers were sampled with docker stats --no-stream, once immediately and once after they had settled.",
+          "The footprint figures are now a build gate. The footprint test fails the build if the engine exceeds 100 MB, 5 seconds of startup, or 1% idle CPU. A promise nobody checks erodes; this one is checked on every build.",
+          "This is a lighter mock, not a faithful sandbox. It answers the calls a test makes. It does not model a provider's business rules, and it is not a staging environment. The documentation says so, in a section of its own.",
+          "The footprint was measured when the engine carried nine mocks. It now carries eighteen, and the gate is what keeps the figure honest as that number grows."
+        ]
+      },
+      "governance": {
+        "headline": "The public record is designed so it cannot be inflated",
+        "body": "The project publishes a community page with a rule that is unusual and worth stating plainly: the adopter list is a file in the repository, and it grows by pull request. It is public, reviewable, and cannot be inflated — because adding a name requires a commit that anyone can see and revert.\n\nThe same page invites press mentions to be submitted as an issue, and states that the list is optional for people who would rather not be named. That is a more credible structure than a testimonials widget, and it is one a reviewer can audit in a minute.",
+        "items": [
+          {
+            "title": "Adopters live in ADOPTERS.md",
+            "body": "A row is added by pull request. The file is the list. There is no form, no email, no account, and nothing that can be quietly edited."
+          },
+          {
+            "title": "Mentions are links, not logos",
+            "body": "Press and mentions are submitted as an issue with a URL. A link can be checked in one click; a logo cannot."
+          },
+          {
+            "title": "Listing is optional",
+            "body": "The documentation says outright that being listed is not required, and that the list exists for people who want to be found. Honesty about the absence of a number is worth more than a number nobody can verify."
+          }
+        ]
+      },
+      "lessons": [
+        {
+          "title": "Footprint decides adoption, not features",
+          "body": "The feature set barely moved between the two versions. The footprint moved from 250 MB to 50 MB, and the number of teams that could run it at all moved with it. If the tool will not fit on a laptop, it will not be in the inner loop, and it will not change anyone's behaviour."
+        },
+        {
+          "title": "'No dependencies' is a policy, not a preference",
+          "body": "Every dependency is a package to install, audit and keep out of the advisories — and this project was already reporting 93 advisories in a different repository. Choosing zero is not asceticism; it is a way of not adding to a problem you are publicly documenting elsewhere."
+        },
+        {
+          "title": "The rules belong in the README, at the top",
+          "body": "The rules are published before the feature list, because the first line of the README is a promise about weight and the rules are what keep it true. A contributor who breaks a rule breaks the promise, and they can see that before they start."
+        },
+        {
+          "title": "Make the claim a gate",
+          "body": "The footprint test fails the build at 100 MB. A number in a README is a claim; a number in a test is a constraint. The difference between the two is the difference between a promise and an enforced property, and it is the same reason the mock engine's 0.0% idle CPU is believable when a competitor's 7.9% is not."
+        }
+      ],
+      "links": [
+        { "label": "api-mock-services repository", "href": "https://github.com/omeiza-workspace/api-mock-services" },
+        { "label": "The footprint build gate", "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/scripts/footprint.js" },
+        { "label": "Related article: Local Sandboxes for Interswitch and Paystack", "href": "/blog/architecting-local-sandboxes-offline/" }
+      ]
+    }
+  ]
+}

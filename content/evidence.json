@@ -1,0 +1,326 @@
+{
+  "snapshot": {
+    "generatedAt": "2026-10-21T08:00:00Z",
+    "source": "manual — run `npm run metrics` to refresh the GitHub section from the public API",
+    "live": false
+  },
+  "github": {
+    "username": "omeiza-workspace",
+    "profileUrl": "https://github.com/omeiza-workspace",
+    "followers": 0,
+    "publicRepos": 0,
+    "totals": {
+      "stars": 0,
+      "forks": 0,
+      "watchers": 0,
+      "contributors": 0,
+      "commits12m": 0
+    },
+    "repos": [
+      {
+        "name": "ci-kit",
+        "description": "Run your CI on your laptop, before you push. A local gate that mirrors what the GitHub Actions workflow does, and runs the workflow itself locally through act.",
+        "url": "https://github.com/omeiza-workspace/ci-kit",
+        "stars": 0,
+        "forks": 0,
+        "watchers": 0,
+        "openIssues": 0,
+        "license": "MIT",
+        "language": "Shell",
+        "topics": ["ci-cd", "github-actions", "developer-experience", "shell", "local-first", "act"],
+        "lastPush": "2026-10-21",
+        "evidence": "https://github.com/omeiza-workspace/ci-kit/blob/main/docs/EVIDENCE.md",
+        "site": "https://omeiza-workspace.github.io/ci-kit/"
+      },
+      {
+        "name": "api-mock-services",
+        "description": "Stand-ins for the outside world: the payment gateways, the identity checks, the email provider, the accounting service, the DNS provider, the messaging, the AI and storage services. One implementation, used by every project.",
+        "url": "https://github.com/omeiza-workspace/api-mock-services",
+        "stars": 0,
+        "forks": 0,
+        "watchers": 0,
+        "openIssues": 0,
+        "license": "MIT",
+        "language": "JavaScript",
+        "topics": ["mocking", "offline", "payments", "fintech", "testing", "zero-dependency", "nodejs"],
+        "lastPush": "2026-10-21",
+        "evidence": "https://github.com/omeiza-workspace/api-mock-services/blob/main/ARCHITECTURE.md",
+        "site": "https://omeiza-workspace.github.io/api-mock-services/"
+      }
+    ]
+  },
+  "community": [
+    {
+      "label": "Open-source tools published",
+      "value": "2",
+      "detail": "CI Kit and api-mock-services, both MIT licensed",
+      "source": "GitHub",
+      "href": "https://github.com/omeiza-workspace",
+      "verified": true
+    },
+    {
+      "label": "Published measurement documents",
+      "value": "1",
+      "detail": "An evidence document that states how every number was taken — and what is not claimed",
+      "source": "ci-kit/docs/EVIDENCE.md",
+      "href": "https://github.com/omeiza-workspace/ci-kit/blob/main/docs/EVIDENCE.md",
+      "verified": true
+    },
+    {
+      "label": "Footprint enforced as a build gate",
+      "value": "100 MB",
+      "detail": "The build fails above 100 MB, 5 s startup or 1% idle CPU",
+      "source": "api-mock-services",
+      "href": "https://github.com/omeiza-workspace/api-mock-services/blob/main/scripts/footprint.js",
+      "verified": true
+    },
+    {
+      "label": "Third-party providers mocked",
+      "value": "18",
+      "detail": "Payments, identity, messaging, email, DNS, accounting, AI and storage",
+      "source": "api-mock-services",
+      "href": "https://github.com/omeiza-workspace/api-mock-services",
+      "verified": true
+    },
+    {
+      "label": "Technical essays, 2026",
+      "value": "4",
+      "detail": "Long-form writing on CI/CD drift, offline sandboxes and reproducible measurement",
+      "source": "This site",
+      "href": "/blog/",
+      "verified": true
+    },
+    {
+      "label": "Articles in the earlier archive",
+      "value": "30+",
+      "detail": "Published between 2013 and 2025, covering support, delivery, infrastructure and data",
+      "source": "TechLiaison",
+      "href": "/archive/",
+      "verified": true
+    },
+    {
+      "label": "GitHub stars",
+      "value": "0",
+      "detail": "Not yet earned. The repositories are published; the adoption is not. Listed here rather than hidden.",
+      "source": "GitHub",
+      "href": "https://github.com/omeiza-workspace",
+      "verified": true
+    },
+    {
+      "label": "External contributors",
+      "value": "0",
+      "detail": "No outside contributors yet. Both projects publish contribution guides and a public adopter list.",
+      "source": "GitHub",
+      "href": "https://github.com/omeiza-workspace",
+      "verified": true
+    }
+  ],
+  "recognition": [
+    {
+      "type": "Open Source",
+      "title": "CI Kit — run your CI on your laptop, before you push",
+      "issuer": "GitHub",
+      "date": "2026",
+      "url": "https://github.com/omeiza-workspace/ci-kit",
+      "note": "MIT licensed. Ships with the evidence document and the measurement harness."
+    },
+    {
+      "type": "Open Source",
+      "title": "api-mock-services — stand-ins for the outside world",
+      "issuer": "GitHub",
+      "date": "2026",
+      "url": "https://github.com/omeiza-workspace/api-mock-services",
+      "note": "MIT licensed, zero dependencies, published to npm as @bytesickle/api-mock-services."
+    },
+    {
+      "type": "Documentation",
+      "title": "Published documentation sites for both projects",
+      "issuer": "GitHub Pages",
+      "date": "2026",
+      "url": "https://omeiza-workspace.github.io/api-mock-services/",
+      "note": "Architecture, CI gates, offline testing and a community page whose adopter list is a file in the repository."
+    },
+    {
+      "type": "Publication",
+      "title": "The Silent Bill: How Remote CI/CD Drift Destroys Startup Engineering Momentum",
+      "issuer": "Substack / Dev.to",
+      "date": "2026-09-18",
+      "url": "/blog/the-silent-bill-remote-ci-cd-drift/",
+      "note": "Published technical essay on CI/CD reproducibility"
+    },
+    {
+      "type": "Publication",
+      "title": "Architecting Local Sandboxes for Interswitch and Paystack Integrations, Completely Offline",
+      "issuer": "Substack / Dev.to",
+      "date": "2026-08-27",
+      "url": "/blog/architecting-local-sandboxes-offline/",
+      "note": "Architecture essay on offline payment integration testing"
+    },
+    {
+      "type": "Archive",
+      "title": "The earlier body of published work, 2013–2025",
+      "issuer": "TechLiaison",
+      "date": "2013–2025",
+      "url": "/archive/",
+      "note": "Thirty or more articles on support, delivery, infrastructure and data, kept public and dated."
+    }
+  ],
+  "testimonials": {
+    "policy": "This page publishes no testimonials, because there are none I can attribute honestly yet. The projects handle this structurally instead: the adopter list is a file in the repository and it grows by pull request, so it is public, reviewable, and cannot be inflated. A reader can check the whole list in one click, and it is empty because nobody has claimed to be an adopter yet.",
+    "mechanisms": [
+      {
+        "title": "The adopter list is a file in the repository",
+        "body": "Adding yourself is a pull request that adds a row to ADOPTERS.md. No form, no email, no account, and nothing that can be quietly edited. A name on that list is a commit anyone can see and revert."
+      },
+      {
+        "title": "Mentions are links, not logos",
+        "body": "Press, talks and posts about the projects are submitted as an issue with a URL. A link can be checked in one click. A testimonial cannot be checked at all, which is why there are none here."
+      },
+      {
+        "title": "Listing is optional and the documentation says so",
+        "body": "The project documentation states outright that being listed is not required and that the list exists for people who want to be found. Reporting an empty list honestly is worth more than a full one that cannot be checked."
+      }
+    ]
+  },
+  "milestones": [
+    {
+      "date": "2024–2025",
+      "label": "The earlier archive published",
+      "detail": "Thirty or more articles on support, delivery, infrastructure as code and Docker, written for working teams rather than for a portfolio.",
+      "href": "/archive/"
+    },
+    {
+      "date": "2026-07",
+      "label": "Deterministic toolchain essay",
+      "detail": "Wrote up why most build-cache architectures solve the wrong problem, and what a lockfile plus a local resolver actually needs.",
+      "href": "/blog/deterministic-toolchains-dont-need-a-backend/"
+    },
+    {
+      "date": "2026-08",
+      "label": "api-mock-services published",
+      "detail": "One dependency-free process standing in for eighteen third-party providers, with the footprint enforced as a build gate.",
+      "href": "https://github.com/omeiza-workspace/api-mock-services"
+    },
+    {
+      "date": "2026-09",
+      "label": "The Silent Bill published",
+      "detail": "Essay on the hidden cost of slow and unverified pipelines, cross-posted to Substack and Dev.to.",
+      "href": "/blog/the-silent-bill-remote-ci-cd-drift/"
+    },
+    {
+      "date": "2026-10",
+      "label": "CI Kit v1, with its evidence document",
+      "detail": "The local gate released, and the document that says how every number in it was measured — and what is not claimed.",
+      "href": "https://github.com/omeiza-workspace/ci-kit/blob/main/docs/EVIDENCE.md"
+    }
+  ],
+  "activity": [
+    { "date": "2026-10-21", "label": "Shipped", "detail": "ci-kit: v1 released with the evidence document" },
+    { "date": "2026-10-21", "label": "Shipped", "detail": "api-mock-services: v1 published, footprint gate in place" },
+    { "date": "2026-10-12", "label": "Published", "detail": "Evidence hub — this page, and the endorsement evidence map" },
+    { "date": "2026-09-18", "label": "Published", "detail": "The Silent Bill — CI/CD drift essay" },
+    { "date": "2026-08-27", "label": "Published", "detail": "Architecting Local Sandboxes for Interswitch and Paystack" }
+  ],
+  "verification": {
+    "checks": [
+      {
+        "claim": "CI Kit is published, open source, and MIT licensed",
+        "verify": "https://github.com/omeiza-workspace/ci-kit",
+        "how": "The repository, the licence file and the release history are public."
+      },
+      {
+        "claim": "The performance numbers are reproducible, not asserted",
+        "verify": "https://github.com/omeiza-workspace/ci-kit/blob/main/docs/EVIDENCE.md",
+        "how": "The evidence document states how each measurement was taken, publishes the one that was discarded, and has a section listing what is not claimed."
+      },
+      {
+        "claim": "The mock engine footprint is enforced, not promised",
+        "verify": "https://github.com/omeiza-workspace/api-mock-services/blob/main/scripts/footprint.js",
+        "how": "The footprint test fails the build above 100 MB, 5 s of startup or 1% idle CPU."
+      },
+      {
+        "claim": "Eighteen third-party providers are covered",
+        "verify": "https://github.com/omeiza-workspace/api-mock-services",
+        "how": "The provider list is in the README, and each contract is an OpenAPI document in the repository."
+      },
+      {
+        "claim": "The body of published writing is dated and public",
+        "verify": "/archive/",
+        "how": "Thirty articles between 2013 and 2026, with their original dates and source markdown."
+      },
+      {
+        "claim": "Recent technical writing exists and is cross-posted",
+        "verify": "/blog/",
+        "how": "Long-form essays published here, on Substack and on Dev.to, with RSS."
+      },
+      {
+        "claim": "The project documentation is live and public",
+        "verify": "https://omeiza-workspace.github.io/api-mock-services/",
+        "how": "Each project publishes its own documentation site from the repository."
+      },
+      {
+        "claim": "The adopter list cannot be inflated",
+        "verify": "https://github.com/omeiza-workspace/api-mock-services/blob/main/ADOPTERS.md",
+        "how": "The list is a file in the repository and grows by pull request."
+      }
+    ],
+    "documents": [
+      {
+        "item": "Global Talent visa endorsement application",
+        "state": "In progress",
+        "availability": "Available to the endorsing body on request"
+      },
+      {
+        "item": "English proficiency certificate (IELTS / TOEFL)",
+        "state": "Held",
+        "availability": "Available to the endorsing body on request"
+      },
+      {
+        "item": "CV and employment history",
+        "state": "Held",
+        "availability": "Available to the endorsing body on request"
+      },
+      {
+        "item": "Published repositories and their commit history",
+        "state": "Public",
+        "availability": "https://github.com/omeiza-workspace"
+      },
+      {
+        "item": "Evidence document with the measurements",
+        "state": "Public",
+        "availability": "ci-kit/docs/EVIDENCE.md"
+      },
+      {
+        "item": "Published writing, 2013–2026",
+        "state": "Public",
+        "availability": "/archive/ and /blog/"
+      },
+      {
+        "item": "Project documentation sites",
+        "state": "Public",
+        "availability": "github.io pages for both projects"
+      }
+    ]
+  },
+  "visa": {
+    "statement": "This page exists to be handed to an immigration evaluator. It collects, in one place, the public record of my work: published software with measured outcomes, a published account of how those measurements were taken, and long-form writing on a specific technical subject.",
+    "criteria": [
+      {
+        "label": "Original published work",
+        "body": "Two open-source tools released under MIT, each published with the harness that produced its measurements so the performance claims can be independently reproduced."
+      },
+      {
+        "label": "Evidence of professional and technical competence",
+        "body": "A published evidence document that shows how each number was taken, discloses the measurement that was discarded, and has a dedicated section listing the claims that are not made."
+      },
+      {
+        "label": "Recognition beyond the employer",
+        "body": "A dated body of published writing spanning 2013 to 2026, addressed to working engineers rather than to an employer, plus two live documentation sites and two public repositories."
+      },
+      {
+        "label": "Ongoing public activity",
+        "body": "A continuous record of shipping and publishing, evidenced by the activity log and the repository commit history."
+      }
+    ]
+  }
+}
