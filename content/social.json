@@ -22,7 +22,7 @@
       "id": "x",
       "label": "X",
       "handle": "@omeiza",
-      "url": "https://x.com/omeiza",
+      "url": "https://x.com/",
       "role": "Build in public — release notes, benchmarks, milestones",
       "cadence": "2–3 posts per week",
       "visible": false,
@@ -32,7 +32,7 @@
       "id": "substack",
       "label": "Substack",
       "handle": "omeiza",
-      "url": "https://omeiza.substack.com",
+      "url": "https://omeiza.io",
       "role": "Long-form essays — the primary thought-leadership channel",
       "cadence": "Fortnightly",
       "visible": false,
@@ -42,7 +42,7 @@
       "id": "devto",
       "label": "Dev.to",
       "handle": "@omeiza",
-      "url": "https://dev.to/omeiza",
+      "url": "https://dev.to/",
       "role": "Cross-posted essays for practitioner discovery",
       "cadence": "Fortnightly, mirroring Substack",
       "visible": false,
@@ -178,13 +178,13 @@
       "visible": false
     },
     {
-      "url": "https://dev.to/omeiza",
+      "url": "https://dev.to/",
       "mustContain": "Omeiza",
       "channel": "Dev.to",
       "visible": false
     },
     {
-      "url": "https://x.com/omeiza",
+      "url": "https://x.com/",
       "mustContain": "Omeiza",
       "channel": "X",
       "visible": false
