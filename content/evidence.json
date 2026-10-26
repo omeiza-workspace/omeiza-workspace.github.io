@@ -1,29 +1,29 @@
 {
   "snapshot": {
-    "generatedAt": "2026-10-21T08:00:00Z",
-    "source": "manual — run `npm run metrics` to refresh the GitHub section from the public API",
-    "live": false
+    "generatedAt": "2026-10-26T12:56:54.295Z",
+    "source": "GitHub API",
+    "live": true
   },
   "github": {
     "username": "omeiza-workspace",
     "profileUrl": "https://github.com/omeiza-workspace",
-    "followers": 0,
-    "publicRepos": 0,
+    "followers": 3,
+    "publicRepos": 25,
     "totals": {
-      "stars": 0,
-      "forks": 0,
-      "watchers": 0,
+      "stars": 2,
+      "forks": 2,
+      "watchers": 2,
       "contributors": 0,
       "commits12m": 0
     },
     "repos": [
       {
         "name": "ci-kit",
-        "description": "Run your CI on your laptop, before you push. A local gate that mirrors what the GitHub Actions workflow does, and runs the workflow itself locally through act.",
+        "description": "Run your CI on your laptop, before you push. A local gate that mirrors your GitHub Actions workflows, plus act for running the workflows themselves.",
         "url": "https://github.com/omeiza-workspace/ci-kit",
-        "stars": 0,
-        "forks": 0,
-        "watchers": 0,
+        "stars": 1,
+        "forks": 1,
+        "watchers": 1,
         "openIssues": 0,
         "license": "MIT",
         "language": "Shell",
@@ -35,17 +35,17 @@
           "local-first",
           "act"
         ],
-        "lastPush": "2026-10-21",
+        "lastPush": "2026-10-23",
         "evidence": "https://github.com/omeiza-workspace/ci-kit/blob/main/docs/EVIDENCE.md",
         "site": "https://omeiza-workspace.github.io/ci-kit/"
       },
       {
         "name": "api-mock-services",
-        "description": "Stand-ins for the outside world: the payment gateways, the identity checks, the email provider, the accounting service, the DNS provider, the messaging, the AI and storage services. One implementation, used by every project.",
+        "description": "Stand-ins for the outside world: the payment gateways, the email provider, the accounting service, the DNS provider, the messaging and the identity checks.",
         "url": "https://github.com/omeiza-workspace/api-mock-services",
-        "stars": 0,
-        "forks": 0,
-        "watchers": 0,
+        "stars": 1,
+        "forks": 1,
+        "watchers": 1,
         "openIssues": 0,
         "license": "MIT",
         "language": "JavaScript",
@@ -58,7 +58,7 @@
           "zero-dependency",
           "nodejs"
         ],
-        "lastPush": "2026-10-21",
+        "lastPush": "2026-10-24",
         "evidence": "https://github.com/omeiza-workspace/api-mock-services/blob/main/ARCHITECTURE.md",
         "site": "https://omeiza-workspace.github.io/api-mock-services/"
       }
